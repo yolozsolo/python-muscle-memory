@@ -1,0 +1,324 @@
+[
+  {
+    "id": "assignment_generic",
+    "topic": "python.assignment",
+    "description": "Assign value to result.",
+    "pattern_focus": "name = value",
+    "starter_context": "",
+    "expected": "result = value",
+    "acceptable_answers": [
+      "result = value"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "list_comprehension_transform",
+    "topic": "python.list_comprehension",
+    "description": "Build result by applying func to each item in items.",
+    "pattern_focus": "[expression for item in iterable]",
+    "starter_context": "",
+    "expected": "result = [func(item) for item in items]",
+    "acceptable_answers": [
+      "result = [func(item) for item in items]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "dict_comprehension_key_value",
+    "topic": "python.dict_comprehension",
+    "description": "Build result by mapping each item to func(item).",
+    "pattern_focus": "{key: value for item in iterable}",
+    "starter_context": "",
+    "expected": "result = {item: func(item) for item in items}",
+    "acceptable_answers": [
+      "result = {item: func(item) for item in items}"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "set_comprehension_unique_values",
+    "topic": "python.set_comprehension",
+    "description": "Build result as the unique func(item) values from items.",
+    "pattern_focus": "{expression for item in iterable}",
+    "starter_context": "",
+    "expected": "result = {func(item) for item in items}",
+    "acceptable_answers": [
+      "result = {func(item) for item in items}"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "sum_generator_expression",
+    "topic": "python.generator_expression",
+    "description": "Sum func(item) for every item in items.",
+    "pattern_focus": "sum(expression for item in iterable)",
+    "starter_context": "",
+    "expected": "result = sum(func(item) for item in items)",
+    "acceptable_answers": [
+      "result = sum(func(item) for item in items)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "any_condition",
+    "topic": "python.any",
+    "description": "Check whether any item matches condition.",
+    "pattern_focus": "any(condition for item in iterable)",
+    "starter_context": "",
+    "expected": "result = any(condition(item) for item in items)",
+    "acceptable_answers": [
+      "result = any(condition(item) for item in items)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "all_condition",
+    "topic": "python.all",
+    "description": "Check whether every item matches condition.",
+    "pattern_focus": "all(condition for item in iterable)",
+    "starter_context": "",
+    "expected": "result = all(condition(item) for item in items)",
+    "acceptable_answers": [
+      "result = all(condition(item) for item in items)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "sorted_with_key",
+    "topic": "python.sorted",
+    "description": "Sort items using func as the key function.",
+    "pattern_focus": "sorted(iterable, key=function)",
+    "starter_context": "",
+    "expected": "result = sorted(items, key=func)",
+    "acceptable_answers": [
+      "result = sorted(items, key=func)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "enumerate_items",
+    "topic": "python.enumerate",
+    "description": "Convert enumerate(items) into a list assigned to result.",
+    "pattern_focus": "list(enumerate(iterable))",
+    "starter_context": "",
+    "expected": "result = list(enumerate(items))",
+    "acceptable_answers": [
+      "result = list(enumerate(items))"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "zip_keys_values",
+    "topic": "python.zip",
+    "description": "Zip keys and values into a list assigned to result.",
+    "pattern_focus": "list(zip(iterable, iterable))",
+    "starter_context": "",
+    "expected": "result = list(zip(keys, values))",
+    "acceptable_answers": [
+      "result = list(zip(keys, values))"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "dictionary_get_default",
+    "topic": "python.dict_get",
+    "description": "Get key from data with default as the fallback.",
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "expected": "result = data.get(key, default)",
+    "acceptable_answers": [
+      "result = data.get(key, default)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "f_string_value",
+    "topic": "python.f_string",
+    "description": "Create an f-string that includes value after a label.",
+    "pattern_focus": "f\"label {value}\"",
+    "starter_context": "",
+    "expected": "result = f\"value: {value}\"",
+    "acceptable_answers": [
+      "result = f\"value: {value}\""
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ternary_expression",
+    "topic": "python.ternary",
+    "description": "Choose value if condition is true, otherwise default.",
+    "pattern_focus": "value_if_true if condition else value_if_false",
+    "starter_context": "",
+    "expected": "result = value if condition else default",
+    "acceptable_answers": [
+      "result = value if condition else default"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "keyword_arguments_generic",
+    "topic": "python.function_call",
+    "description": "Call a function named func with keyword arguments name and active.",
+    "pattern_focus": "function(keyword=value, keyword=value)",
+    "starter_context": "",
+    "expected": "result = func(name=name, active=active)",
+    "acceptable_answers": [
+      "result = func(name=name, active=active)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "pathlib_path_creation",
+    "topic": "python.pathlib",
+    "description": "Create a Path from path_text and assign it to result.",
+    "pattern_focus": "Path(value)",
+    "starter_context": "from pathlib import Path",
+    "expected": "result = Path(path_text)",
+    "acceptable_answers": [
+      "result = Path(path_text)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "datetime_parse_iso",
+    "topic": "python.datetime",
+    "description": "Parse text into a datetime using fromisoformat.",
+    "pattern_focus": "datetime.fromisoformat(value)",
+    "starter_context": "from datetime import datetime",
+    "expected": "result = datetime.fromisoformat(text)",
+    "acceptable_answers": [
+      "result = datetime.fromisoformat(text)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "function_definition_return",
+    "topic": "python.function_definition",
+    "description": "Define func with one parameter item and return item.",
+    "pattern_focus": "def function(argument): return value",
+    "starter_context": "",
+    "expected": "def func(item):\n    return item",
+    "acceptable_answers": [
+      "def func(item):\n    return item"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "for_loop_build_list",
+    "topic": "python.for_loop",
+    "description": "Build result by appending func(item) for each item in items.",
+    "pattern_focus": "initialize list, loop, append",
+    "starter_context": "",
+    "expected": "result = []\nfor item in items:\n    result.append(func(item))",
+    "acceptable_answers": [
+      "result = []\nfor item in items:\n    result.append(func(item))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "dictionary_counting_pattern",
+    "topic": "python.dict_counting",
+    "description": "Count how many times each item appears in items.",
+    "pattern_focus": "dictionary counting with get",
+    "starter_context": "",
+    "expected": "counts = {}\nfor item in items:\n    counts[item] = counts.get(item, 0) + 1",
+    "acceptable_answers": [
+      "counts = {}\nfor item in items:\n    counts[item] = counts.get(item, 0) + 1"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "try_except_value_error",
+    "topic": "python.try_except",
+    "description": "Try to parse text with func and use default when ValueError is raised.",
+    "pattern_focus": "try/except ValueError",
+    "starter_context": "",
+    "expected": "try:\n    result = func(text)\nexcept ValueError:\n    result = default",
+    "acceptable_answers": [
+      "try:\n    result = func(text)\nexcept ValueError:\n    result = default"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "list_filtering_with_if",
+    "topic": "python.list_filtering",
+    "description": "Build result with only items that match condition.",
+    "pattern_focus": "for loop with if and append",
+    "starter_context": "",
+    "expected": "result = []\nfor item in items:\n    if condition(item):\n        result.append(item)",
+    "acceptable_answers": [
+      "result = []\nfor item in items:\n    if condition(item):\n        result.append(item)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "group_records_by_key",
+    "topic": "python.grouping",
+    "description": "Group records into result by each record's key value.",
+    "pattern_focus": "setdefault for grouping",
+    "starter_context": "",
+    "expected": "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)",
+    "acceptable_answers": [
+      "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "deduplicate_latest_by_key",
+    "topic": "python.deduplicate",
+    "description": "Keep the latest record for each key in result.",
+    "pattern_focus": "dictionary overwrite by key",
+    "starter_context": "records are already ordered from oldest to latest",
+    "expected": "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result[key] = record",
+    "acceptable_answers": [
+      "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result[key] = record"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  }
+]

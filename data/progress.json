@@ -1,0 +1,117 @@
+{
+  "all_condition": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "any_condition": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "assignment_generic": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "datetime_parse_iso": {
+    "completed_count": 5,
+    "last_wrong": "result = datetime.fromisofrormat(text)",
+    "wrong_attempts": 1
+  },
+  "deduplicate_latest_by_key": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "dict_comprehension_key_value": {
+    "completed_count": 5,
+    "last_wrong": "result = {item: func(item) for item in items",
+    "wrong_attempts": 1
+  },
+  "dictionary_counting_pattern": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "dictionary_get_default": {
+    "completed_count": 5,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "enumerate_items": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "f_string_value": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "for_loop_build_list": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "function_definition_return": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "group_records_by_key": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "keyword_arguments_generic": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "list_comprehension_transform": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "list_filtering_with_if": {
+    "completed_count": 5,
+    "last_wrong": "result = []\nfor item in items:\n    if condition(item):\n\tresult.append(item)",
+    "wrong_attempts": 3
+  },
+  "pathlib_path_creation": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "set_comprehension_unique_values": {
+    "completed_count": 5,
+    "last_wrong": "result = {func(item) for item in items",
+    "wrong_attempts": 2
+  },
+  "sorted_with_key": {
+    "completed_count": 5,
+    "last_wrong": "result = sort(items, key=func)",
+    "wrong_attempts": 3
+  },
+  "sum_generator_expression": {
+    "completed_count": 5,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "ternary_expression": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "try_except_value_error": {
+    "completed_count": 5,
+    "last_wrong": "try:\n    result = func(item)\nexcept ValueError:\n    result = default",
+    "wrong_attempts": 3
+  },
+  "zip_keys_values": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  }
+}
