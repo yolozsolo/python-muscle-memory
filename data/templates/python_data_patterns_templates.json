@@ -1,0 +1,30 @@
+[
+  {
+    "template_id": "extract_record_field",
+    "topic": "python.record_extraction",
+    "difficulty": "beginner",
+    "times_required": 5,
+    "lines_allowed": 1,
+    "description_template": "Extract {key} from every {record} in {records}.",
+    "pattern_focus": "[record[key] for record in records]",
+    "starter_context_template": "",
+    "expected_template": "{result} = [{record}[{key}] for {record} in {records}]",
+    "variables": {
+      "result": [
+        "result",
+        "values"
+      ],
+      "record": [
+        "record",
+        "item"
+      ],
+      "records": [
+        "records",
+        "items"
+      ],
+      "key": [
+        "key"
+      ]
+    }
+  }
+]

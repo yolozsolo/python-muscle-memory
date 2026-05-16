@@ -1,0 +1,72 @@
+[
+  {
+    "id": "select_column",
+    "topic": "pandas.select_column",
+    "description": "Select column from df and assign it to result.",
+    "pattern_focus": "df[column]",
+    "starter_context": "",
+    "expected": "result = df[column]",
+    "acceptable_answers": [
+      "result = df[column]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "filter_rows",
+    "topic": "pandas.filter_rows",
+    "description": "Filter df to rows where column is greater than value.",
+    "pattern_focus": "df[df[column] > value]",
+    "starter_context": "",
+    "expected": "result = df[df[column] > value]",
+    "acceptable_answers": [
+      "result = df[df[column] > value]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "assign_normalized_column",
+    "topic": "pandas.assign",
+    "description": "Assign a normalized column using strip and lower.",
+    "pattern_focus": "df.assign(column=df[column].str.strip().str.lower())",
+    "starter_context": "",
+    "expected": "result = df.assign(value=df[value].str.strip().str.lower())",
+    "acceptable_answers": [
+      "result = df.assign(value=df[value].str.strip().str.lower())"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "groupby_aggregation",
+    "topic": "pandas.groupby",
+    "description": "Group df by key and sum value.",
+    "pattern_focus": "df.groupby(key)[value].sum()",
+    "starter_context": "",
+    "expected": "result = df.groupby(key)[value].sum()",
+    "acceptable_answers": [
+      "result = df.groupby(key)[value].sum()"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "drop_duplicates_latest",
+    "topic": "pandas.drop_duplicates",
+    "description": "Keep the last row for each key.",
+    "pattern_focus": "df.drop_duplicates(subset=key, keep=\"last\")",
+    "starter_context": "df is already sorted from oldest to latest",
+    "expected": "result = df.drop_duplicates(subset=key, keep=\"last\")",
+    "acceptable_answers": [
+      "result = df.drop_duplicates(subset=key, keep=\"last\")"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  }
+]

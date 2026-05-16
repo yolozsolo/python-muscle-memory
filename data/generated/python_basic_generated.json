@@ -1,0 +1,282 @@
+[
+  {
+    "acceptable_answers": [
+      "value = record.get(key, None)"
+    ],
+    "description": "Get key from record with None as the fallback.",
+    "difficulty": "beginner",
+    "expected": "value = record.get(key, None)",
+    "id": "dict_get_default_8",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "filtered = [item for item in values if condition(item)]"
+    ],
+    "description": "Create a list named filtered containing items from values where condition(item) is true.",
+    "difficulty": "beginner",
+    "expected": "filtered = [item for item in values if condition(item)]",
+    "id": "list_comprehension_filter_6",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "values already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "result = record.get(key, default)"
+    ],
+    "description": "Get key from record with default as the fallback.",
+    "difficulty": "beginner",
+    "expected": "result = record.get(key, default)",
+    "id": "dict_get_default_3",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "filtered = [item for item in items if condition(item)]"
+    ],
+    "description": "Create a list named filtered containing items from items where condition(item) is true.",
+    "difficulty": "beginner",
+    "expected": "filtered = [item for item in items if condition(item)]",
+    "id": "list_comprehension_filter_5",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "items already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "valid_items = [item for item in values if condition(item)]"
+    ],
+    "description": "Create a list named valid_items containing items from values where condition(item) is true.",
+    "difficulty": "beginner",
+    "expected": "valid_items = [item for item in values if condition(item)]",
+    "id": "list_comprehension_filter_10",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "values already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "result = data.get(key, None)"
+    ],
+    "description": "Get key from data with None as the fallback.",
+    "difficulty": "beginner",
+    "expected": "result = data.get(key, None)",
+    "id": "dict_get_default_2",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "result = record.get(key, None)"
+    ],
+    "description": "Get key from record with None as the fallback.",
+    "difficulty": "beginner",
+    "expected": "result = record.get(key, None)",
+    "id": "dict_get_default_4",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "value = record.get(key, default)"
+    ],
+    "description": "Get key from record with default as the fallback.",
+    "difficulty": "beginner",
+    "expected": "value = record.get(key, default)",
+    "id": "dict_get_default_7",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "filtered = [value for value in items if condition(value)]"
+    ],
+    "description": "Create a list named filtered containing values from items where condition(value) is true.",
+    "difficulty": "beginner",
+    "expected": "filtered = [value for value in items if condition(value)]",
+    "id": "list_comprehension_filter_7",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "items already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "result = data.get(key, default)"
+    ],
+    "description": "Get key from data with default as the fallback.",
+    "difficulty": "beginner",
+    "expected": "result = data.get(key, default)",
+    "id": "dict_get_default_1",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "value = data.get(key, None)"
+    ],
+    "description": "Get key from data with None as the fallback.",
+    "difficulty": "beginner",
+    "expected": "value = data.get(key, None)",
+    "id": "dict_get_default_6",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "valid_items = [value for value in items if condition(value)]"
+    ],
+    "description": "Create a list named valid_items containing values from items where condition(value) is true.",
+    "difficulty": "beginner",
+    "expected": "valid_items = [value for value in items if condition(value)]",
+    "id": "list_comprehension_filter_11",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "items already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "result = [item for item in values if condition(item)]"
+    ],
+    "description": "Create a list named result containing items from values where condition(item) is true.",
+    "difficulty": "beginner",
+    "expected": "result = [item for item in values if condition(item)]",
+    "id": "list_comprehension_filter_2",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "values already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "valid_items = [value for value in values if condition(value)]"
+    ],
+    "description": "Create a list named valid_items containing values from values where condition(value) is true.",
+    "difficulty": "beginner",
+    "expected": "valid_items = [value for value in values if condition(value)]",
+    "id": "list_comprehension_filter_12",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "values already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "result = [value for value in items if condition(value)]"
+    ],
+    "description": "Create a list named result containing values from items where condition(value) is true.",
+    "difficulty": "beginner",
+    "expected": "result = [value for value in items if condition(value)]",
+    "id": "list_comprehension_filter_3",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "items already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "value = data.get(key, default)"
+    ],
+    "description": "Get key from data with default as the fallback.",
+    "difficulty": "beginner",
+    "expected": "value = data.get(key, default)",
+    "id": "dict_get_default_5",
+    "lines_allowed": 1,
+    "pattern_focus": "dictionary.get(key, default)",
+    "starter_context": "",
+    "times_required": 5,
+    "topic": "python.dict_get"
+  },
+  {
+    "acceptable_answers": [
+      "filtered = [value for value in values if condition(value)]"
+    ],
+    "description": "Create a list named filtered containing values from values where condition(value) is true.",
+    "difficulty": "beginner",
+    "expected": "filtered = [value for value in values if condition(value)]",
+    "id": "list_comprehension_filter_8",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "values already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "valid_items = [item for item in items if condition(item)]"
+    ],
+    "description": "Create a list named valid_items containing items from items where condition(item) is true.",
+    "difficulty": "beginner",
+    "expected": "valid_items = [item for item in items if condition(item)]",
+    "id": "list_comprehension_filter_9",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "items already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "result = [item for item in items if condition(item)]"
+    ],
+    "description": "Create a list named result containing items from items where condition(item) is true.",
+    "difficulty": "beginner",
+    "expected": "result = [item for item in items if condition(item)]",
+    "id": "list_comprehension_filter_1",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "items already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  },
+  {
+    "acceptable_answers": [
+      "result = [value for value in values if condition(value)]"
+    ],
+    "description": "Create a list named result containing values from values where condition(value) is true.",
+    "difficulty": "beginner",
+    "expected": "result = [value for value in values if condition(value)]",
+    "id": "list_comprehension_filter_4",
+    "lines_allowed": 1,
+    "pattern_focus": "[item for item in items if condition]",
+    "starter_context": "values already exists.",
+    "times_required": 5,
+    "topic": "python.list_comprehension"
+  }
+]

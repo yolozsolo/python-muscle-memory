@@ -79,7 +79,277 @@
     "last_wrong": "result = []\nfor item in items:\n    if condition(item):\n\tresult.append(item)",
     "wrong_attempts": 3
   },
+  "pandas_basic:assign_normalized_column": {
+    "completed_count": 5,
+    "last_wrong": "result = df.assign(value=df[value}.str.strip().str.lower())",
+    "wrong_attempts": 1
+  },
+  "pandas_basic:drop_duplicates_latest": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pandas_basic:filter_rows": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pandas_basic:groupby_aggregation": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pandas_basic:select_column": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
   "pathlib_path_creation": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pyspark_basic:filter_rows": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pyspark_basic:groupby_agg": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pyspark_basic:join_on_key": {
+    "completed_count": 5,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pyspark_basic:select_columns": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pyspark_basic:when_otherwise": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "pyspark_basic:with_column": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:all_condition": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:any_condition": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:assignment_generic": {
+    "completed_count": 5,
+    "last_wrong": "name = value",
+    "wrong_attempts": 1
+  },
+  "python_basic:dict_comprehension_key_value": {
+    "completed_count": 5,
+    "last_wrong": "result = {item: func(item) for item in items",
+    "wrong_attempts": 1
+  },
+  "python_basic:dict_get_default_1": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dict_get_default_2": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dict_get_default_3": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dict_get_default_4": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dict_get_default_5": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dict_get_default_6": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dict_get_default_7": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dict_get_default_8": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:dictionary_get_default": {
+    "completed_count": 5,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:enumerate_items": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:f_string_value": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:for_loop_build_list": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:function_definition_return": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:group_records_by_key": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:keyword_arguments_generic": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_1": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_10": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_11": {
+    "completed_count": 5,
+    "last_wrong": "valid_items = [value for value in items if condition(true)]",
+    "wrong_attempts": 3
+  },
+  "python_basic:list_comprehension_filter_12": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_2": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_3": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_4": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_5": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_6": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_7": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_8": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_filter_9": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:list_comprehension_transform": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:set_comprehension_unique_values": {
+    "completed_count": 5,
+    "last_wrong": "result = {func(item) for item in items",
+    "wrong_attempts": 2
+  },
+  "python_basic:sorted_with_key": {
+    "completed_count": 5,
+    "last_wrong": "result = sort(items, key=func)",
+    "wrong_attempts": 3
+  },
+  "python_basic:sum_generator_expression": {
+    "completed_count": 5,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:ternary_expression": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_basic:try_except_value_error": {
+    "completed_count": 5,
+    "last_wrong": "try:\n    result = func(item)\nexcept ValueError:\n    result = default",
+    "wrong_attempts": 3
+  },
+  "python_basic:zip_keys_values": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_data_patterns:deduplicate_latest_by_key": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_data_patterns:extract_field_from_records": {
+    "completed_count": 5,
+    "last_wrong": "result = [record[key] for recrd in records]",
+    "wrong_attempts": 3
+  },
+  "python_data_patterns:filter_invalid_records": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_data_patterns:group_records_by_key": {
+    "completed_count": 0,
+    "last_wrong": "",
+    "wrong_attempts": 0
+  },
+  "python_data_patterns:normalize_string_strip_lower": {
     "completed_count": 0,
     "last_wrong": "",
     "wrong_attempts": 0

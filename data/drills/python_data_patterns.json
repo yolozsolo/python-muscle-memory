@@ -1,0 +1,72 @@
+[
+  {
+    "id": "normalize_string_strip_lower",
+    "topic": "python.data_normalization",
+    "description": "Normalize text by stripping whitespace and converting to lowercase.",
+    "pattern_focus": "value.strip().lower()",
+    "starter_context": "",
+    "expected": "result = text.strip().lower()",
+    "acceptable_answers": [
+      "result = text.strip().lower()"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "filter_invalid_records",
+    "topic": "python.record_filtering",
+    "description": "Keep records where condition(record) is true.",
+    "pattern_focus": "[record for record in records if condition(record)]",
+    "starter_context": "",
+    "expected": "result = [record for record in records if condition(record)]",
+    "acceptable_answers": [
+      "result = [record for record in records if condition(record)]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "extract_field_from_records",
+    "topic": "python.record_extraction",
+    "description": "Extract key from every record into result.",
+    "pattern_focus": "[record[key] for record in records]",
+    "starter_context": "",
+    "expected": "result = [record[key] for record in records]",
+    "acceptable_answers": [
+      "result = [record[key] for record in records]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "group_records_by_key",
+    "topic": "python.dict_grouping",
+    "description": "Group records into result by each record's key value.",
+    "pattern_focus": "setdefault for grouping",
+    "starter_context": "",
+    "expected": "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)",
+    "acceptable_answers": [
+      "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "deduplicate_latest_by_key",
+    "topic": "python.deduplicate",
+    "description": "Keep the latest record for each key in result.",
+    "pattern_focus": "dictionary overwrite by key",
+    "starter_context": "records are already ordered from oldest to latest",
+    "expected": "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result[key] = record",
+    "acceptable_answers": [
+      "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result[key] = record"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  }
+]

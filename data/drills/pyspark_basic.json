@@ -1,0 +1,86 @@
+[
+  {
+    "id": "select_columns",
+    "topic": "pyspark.select",
+    "description": "Select key and value columns from df.",
+    "pattern_focus": "df.select(column, column)",
+    "starter_context": "",
+    "expected": "result = df.select(key, value)",
+    "acceptable_answers": [
+      "result = df.select(key, value)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "filter_rows",
+    "topic": "pyspark.filter",
+    "description": "Filter df to rows where condition is true.",
+    "pattern_focus": "df.filter(condition)",
+    "starter_context": "",
+    "expected": "result = df.filter(condition)",
+    "acceptable_answers": [
+      "result = df.filter(condition)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "with_column",
+    "topic": "pyspark.withColumn",
+    "description": "Create value column by applying func to col(value).",
+    "pattern_focus": "df.withColumn(name, expression)",
+    "starter_context": "from pyspark.sql.functions import col",
+    "expected": "result = df.withColumn(\"value\", func(col(\"value\")))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"value\", func(col(\"value\")))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "groupby_agg",
+    "topic": "pyspark.groupBy",
+    "description": "Group df by key and aggregate value with func.",
+    "pattern_focus": "df.groupBy(column).agg(expression)",
+    "starter_context": "",
+    "expected": "result = df.groupBy(key).agg(func(value))",
+    "acceptable_answers": [
+      "result = df.groupBy(key).agg(func(value))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "join_on_key",
+    "topic": "pyspark.join",
+    "description": "Join left and right on key.",
+    "pattern_focus": "left.join(right, on=key, how=how)",
+    "starter_context": "",
+    "expected": "result = left.join(right, on=key, how=how)",
+    "acceptable_answers": [
+      "result = left.join(right, on=key, how=how)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "when_otherwise",
+    "topic": "pyspark.when",
+    "description": "Build a conditional column expression with when and otherwise.",
+    "pattern_focus": "when(condition, value).otherwise(default)",
+    "starter_context": "from pyspark.sql.functions import when",
+    "expected": "result = when(condition, value).otherwise(default)",
+    "acceptable_answers": [
+      "result = when(condition, value).otherwise(default)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  }
+]
