@@ -1,0 +1,86 @@
+[
+  {
+    "id": "parse_strict_datetime",
+    "topic": "online_retail.datetime",
+    "description": "Parse text as a strict online retail timestamp.",
+    "pattern_focus": "datetime.strptime(value, format)",
+    "starter_context": "from datetime import datetime\ntext uses the format %Y-%m-%d %H:%M:%S.",
+    "expected": "parsed_at = datetime.strptime(text, \"%Y-%m-%d %H:%M:%S\")",
+    "acceptable_answers": [
+      "parsed_at = datetime.strptime(text, \"%Y-%m-%d %H:%M:%S\")"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "parse_decimal_or_reject",
+    "topic": "online_retail.money",
+    "description": "Parse row amount as Decimal and reject invalid money values.",
+    "pattern_focus": "try Decimal(value) except InvalidOperation",
+    "starter_context": "from decimal import Decimal, InvalidOperation\nrow and rejected already exist.",
+    "expected": "try:\n    amount = Decimal(row[\"amount\"])\nexcept InvalidOperation:\n    rejected.append(\"invalid_amount\")",
+    "acceptable_answers": [
+      "try:\n    amount = Decimal(row[\"amount\"])\nexcept InvalidOperation:\n    rejected.append(\"invalid_amount\")"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "group_by_composite_key",
+    "topic": "online_retail.grouping",
+    "description": "Group the current record by country and sku.",
+    "pattern_focus": "setdefault with tuple composite key",
+    "starter_context": "groups and record already exist.",
+    "expected": "key = (record[\"country\"], record[\"sku\"])\ngroups.setdefault(key, []).append(record)",
+    "acceptable_answers": [
+      "key = (record[\"country\"], record[\"sku\"])\ngroups.setdefault(key, []).append(record)"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "deduplicate_with_tie_breaker",
+    "topic": "online_retail.deduplicate",
+    "description": "Keep the best record per order using updated_at and line_id as the tie-breaker.",
+    "pattern_focus": "dictionary overwrite with deterministic tuple comparison",
+    "starter_context": "latest and record already exist.",
+    "expected": "key = record[\"order_id\"]\ncurrent = latest.get(key)\nif current is None or (record[\"updated_at\"], record[\"line_id\"]) > (current[\"updated_at\"], current[\"line_id\"]):\n    latest[key] = record",
+    "acceptable_answers": [
+      "key = record[\"order_id\"]\ncurrent = latest.get(key)\nif current is None or (record[\"updated_at\"], record[\"line_id\"]) > (current[\"updated_at\"], current[\"line_id\"]):\n    latest[key] = record"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "aggregate_signed_amounts",
+    "topic": "online_retail.aggregation",
+    "description": "Update gross, returns, cancellations, and net using the signed amount and reason.",
+    "pattern_focus": "conditional signed amount aggregation",
+    "starter_context": "from decimal import Decimal\namount, reason, gross, returns, cancellations, and net already exist.",
+    "expected": "gross += amount if amount > 0 else Decimal(\"0\")\nreturns += -amount if reason == \"return\" else Decimal(\"0\")\ncancellations += -amount if reason == \"cancellation\" else Decimal(\"0\")\nnet += amount",
+    "acceptable_answers": [
+      "gross += amount if amount > 0 else Decimal(\"0\")\nreturns += -amount if reason == \"return\" else Decimal(\"0\")\ncancellations += -amount if reason == \"cancellation\" else Decimal(\"0\")\nnet += amount"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "assert_rejected_reasons",
+    "topic": "online_retail.pytest",
+    "description": "Assert rejected rows contain the expected reasons.",
+    "pattern_focus": "pytest-style assert equality",
+    "starter_context": "rejected contains rejected row dictionaries in order.",
+    "expected": "assert rejected[0][\"reason\"] == \"invalid_amount\"\nassert rejected[1][\"reason\"] == \"invalid_datetime\"",
+    "acceptable_answers": [
+      "assert rejected[0][\"reason\"] == \"invalid_amount\"\nassert rejected[1][\"reason\"] == \"invalid_datetime\""
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  }
+]

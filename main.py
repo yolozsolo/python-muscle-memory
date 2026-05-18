@@ -10,25 +10,42 @@ BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"
 OLD_DRILLS_PATH = DATA_DIR / "drills.json"
 DRILLS_DIR = DATA_DIR / "drills"
+CUSTOM_SETS_DIR = DATA_DIR / "sets"
 TEMPLATES_DIR = DATA_DIR / "templates"
 GENERATED_DIR = DATA_DIR / "generated"
 PROGRESS_PATH = BASE_DIR / "data" / "progress.json"
 DEFAULT_PACK = "python_basic"
 MAX_PATTERN_STREAK = 2
-KNOWN_PACKS = [
-    "python_basic",
-    "python_data_patterns",
-    "pandas_basic",
-    "pyspark_basic",
+REQUIRED_DRILL_FIELDS = [
+    "id",
+    "topic",
+    "description",
+    "pattern_focus",
+    "starter_context",
+    "expected",
+    "acceptable_answers",
+    "times_required",
+    "difficulty",
+    "lines_allowed",
 ]
 EXIT_SESSION = "__EXIT_SESSION__"
+
+
+class DrillLoadError(Exception):
+    pass
 
 
 def load_json(path, default):
     if not path.exists():
         return default
-    with path.open("r", encoding="utf-8") as file:
-        return json.load(file)
+    try:
+        with path.open("r", encoding="utf-8") as file:
+            return json.load(file)
+    except json.JSONDecodeError as error:
+        raise DrillLoadError(
+            f"Malformed JSON in {path}: {error.msg} "
+            f"at line {error.lineno}, column {error.colno}"
+        ) from error
 
 
 def save_json(path, data):
@@ -42,13 +59,83 @@ def progress_key(pack, drill_id):
     return f"{pack}:{drill_id}"
 
 
+def available_builtin_packs():
+    packs = sorted(path.stem for path in DRILLS_DIR.glob("*.json"))
+    if OLD_DRILLS_PATH.exists() and DEFAULT_PACK not in packs:
+        packs.append(DEFAULT_PACK)
+        packs.sort()
+    return packs
+
+
+def available_custom_sets():
+    if not CUSTOM_SETS_DIR.exists():
+        return []
+    return sorted(path.stem for path in CUSTOM_SETS_DIR.glob("*.json"))
+
+
+def validate_no_name_conflicts():
+    builtins = set(available_builtin_packs())
+    custom_sets = set(available_custom_sets())
+    conflicts = sorted(builtins & custom_sets)
+    if conflicts:
+        names = ", ".join(conflicts)
+        raise DrillLoadError(
+            f"Custom set name conflicts with a built-in pack: {names}. "
+            "Rename the custom set file."
+        )
+
+
+def format_available_sets():
+    sets = available_custom_sets()
+    if not sets:
+        return "none"
+    return ", ".join(sets)
+
+
 def with_pack(drill, pack):
     item = dict(drill)
     item["_pack"] = pack
     return item
 
 
+def validate_drills(drills, collection_name, path):
+    if not isinstance(drills, list):
+        raise DrillLoadError(
+            f"{path} must contain a JSON list of drill records."
+        )
+
+    seen_ids = set()
+    for index, drill in enumerate(drills, start=1):
+        if not isinstance(drill, dict):
+            raise DrillLoadError(
+                f"{path} item {index} must be a JSON object."
+            )
+
+        missing = [
+            field for field in REQUIRED_DRILL_FIELDS if field not in drill
+        ]
+        if missing:
+            fields = ", ".join(missing)
+            raise DrillLoadError(
+                f"{path} item {index} is missing required fields: {fields}"
+            )
+
+        drill_id = drill["id"]
+        if drill_id in seen_ids:
+            raise DrillLoadError(
+                f"{path} has duplicate drill id in {collection_name}: "
+                f"{drill_id}"
+            )
+        seen_ids.add(drill_id)
+
+
 def load_pack(pack):
+    if pack not in available_builtin_packs():
+        available = ", ".join(available_builtin_packs()) or "none"
+        raise DrillLoadError(
+            f"Unknown built-in pack: {pack}. Available packs: {available}"
+        )
+
     static_path = DRILLS_DIR / f"{pack}.json"
     if pack == DEFAULT_PACK and not static_path.exists():
         static_drills = load_json(OLD_DRILLS_PATH, [])
@@ -57,6 +144,7 @@ def load_pack(pack):
 
     generated_path = GENERATED_DIR / f"{pack}_generated.json"
     generated_drills = load_json(generated_path, [])
+    validate_drills(static_drills + generated_drills, pack, static_path)
 
     drills = []
     seen_ids = set()
@@ -68,11 +156,31 @@ def load_pack(pack):
     return drills
 
 
-def load_drills(packs=None):
-    selected_packs = packs or [DEFAULT_PACK]
+def load_custom_set(name):
+    validate_no_name_conflicts()
+    if name not in available_custom_sets():
+        raise DrillLoadError(
+            f"Unknown custom set: {name}. "
+            f"Available sets: {format_available_sets()}"
+        )
+
+    path = CUSTOM_SETS_DIR / f"{name}.json"
+    drills = load_json(path, [])
+    validate_drills(drills, name, path)
+    return [with_pack(drill, name) for drill in drills]
+
+
+def load_collection(name):
+    if name in available_builtin_packs():
+        return load_pack(name)
+    return load_custom_set(name)
+
+
+def load_drills(collections=None):
+    selected_collections = collections or [DEFAULT_PACK]
     drills = []
-    for pack in selected_packs:
-        drills.extend(load_pack(pack))
+    for collection in selected_collections:
+        drills.extend(load_collection(collection))
     return drills
 
 
@@ -145,16 +253,27 @@ def check_answer(answer, acceptable_answers, lines_allowed):
     return "correct"
 
 
-class RequiredIdentifierCollector(ast.NodeVisitor):
+class RequiredPromptCollector(ast.NodeVisitor):
     def __init__(self):
         self.identifiers = []
-        self.seen = set()
+        self.seen_identifiers = set()
+        self.literals = []
+        self.seen_literals = set()
 
     def add_identifier(self, name):
-        if name is None or name in self.seen:
+        if name is None or name in self.seen_identifiers:
             return
-        self.seen.add(name)
+        self.seen_identifiers.add(name)
         self.identifiers.append(name)
+
+    def add_literal(self, value):
+        if not isinstance(value, (str, int, float, bool, type(None))):
+            return
+        key = (type(value), value)
+        if key in self.seen_literals:
+            return
+        self.seen_literals.add(key)
+        self.literals.append(value)
 
     def visit_Name(self, node):
         self.add_identifier(node.id)
@@ -163,22 +282,44 @@ class RequiredIdentifierCollector(ast.NodeVisitor):
         self.add_identifier(node.arg)
         self.visit(node.value)
 
+    def visit_Constant(self, node):
+        self.add_literal(node.value)
 
-def required_identifiers(drill):
+
+def required_prompt_values(drill):
     try:
         tree = ast.parse(drill["expected"])
     except SyntaxError:
-        return []
+        return [], []
 
-    collector = RequiredIdentifierCollector()
+    collector = RequiredPromptCollector()
     collector.visit(tree)
-    return collector.identifiers
+    return collector.identifiers, collector.literals
 
 
-def print_required_identifiers(drill):
-    identifiers = required_identifiers(drill)
+def required_identifiers(drill):
+    identifiers, _ = required_prompt_values(drill)
+    return identifiers
+
+
+def required_literals(drill):
+    _, literals = required_prompt_values(drill)
+    return literals
+
+
+def format_literal(value):
+    if isinstance(value, str):
+        return json.dumps(value)
+    return repr(value)
+
+
+def print_required_prompt_values(drill):
+    identifiers, literals = required_prompt_values(drill)
     if identifiers:
         print(f"Required identifiers: {', '.join(identifiers)}")
+    if literals:
+        formatted = ", ".join(format_literal(value) for value in literals)
+        print(f"Required literals: {formatted}")
 
 
 def current_pattern_streak(pattern_history):
@@ -299,7 +440,7 @@ def print_context(drill, show_answer):
         print("Starter context:")
         print(drill["starter_context"])
 
-    print_required_identifiers(drill)
+    print_required_prompt_values(drill)
 
     if show_answer:
         print("Expected:")
@@ -474,7 +615,7 @@ def run_recall(packs=None):
         if drill["starter_context"]:
             print("Starter context:")
             print(drill["starter_context"])
-        print_required_identifiers(drill)
+        print_required_prompt_values(drill)
 
         answer = read_answer(drill["lines_allowed"])
         if answer == EXIT_SESSION:
@@ -510,29 +651,66 @@ def run_list(packs=None):
         )
 
 
-def resolve_packs(args):
+def default_drill_collections():
+    return [DEFAULT_PACK] + available_custom_sets()
+
+
+def all_practice_collections():
+    return available_builtin_packs() + available_custom_sets()
+
+
+def resolve_set(name):
+    validate_no_name_conflicts()
+    if name not in available_custom_sets():
+        raise DrillLoadError(
+            f"Unknown custom set: {name}. "
+            f"Available sets: {format_available_sets()}"
+        )
+    return [name]
+
+
+def resolve_drill_collections(args):
+    if getattr(args, "set", None):
+        return resolve_set(args.set)
     if getattr(args, "all_packs", False):
-        return KNOWN_PACKS
-    return [getattr(args, "pack", None) or DEFAULT_PACK]
-
-
-def resolve_recall_packs(args):
+        return all_practice_collections()
     if getattr(args, "pack", None):
         return [args.pack]
-    return KNOWN_PACKS
+    return default_drill_collections()
+
+
+def resolve_recall_collections(args):
+    if getattr(args, "set", None):
+        return resolve_set(args.set)
+    if getattr(args, "pack", None):
+        return [args.pack]
+    return all_practice_collections()
+
+
+def resolve_focused_collections(args):
+    if getattr(args, "set", None):
+        return resolve_set(args.set)
+    if getattr(args, "all_packs", False):
+        return all_practice_collections()
+    return [getattr(args, "pack", None) or DEFAULT_PACK]
 
 
 def add_pack_arguments(parser):
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         "--pack",
-        choices=KNOWN_PACKS,
+        choices=available_builtin_packs(),
         help="choose one drill pack",
+    )
+    group.add_argument(
+        "--set",
+        metavar="NAME",
+        help="choose one custom drill set",
     )
     group.add_argument(
         "--all-packs",
         action="store_true",
-        help="include every known drill pack",
+        help="include every known drill pack and custom set",
     )
 
 
@@ -656,7 +834,7 @@ def parse_args():
     generate_parser = subparsers.add_parser("generate")
     generate_parser.add_argument(
         "--pack",
-        choices=KNOWN_PACKS,
+        choices=available_builtin_packs(),
         required=True,
         help="generate drills for this pack",
     )
@@ -676,26 +854,30 @@ def parse_args():
 def main():
     args = parse_args()
 
-    if args.command == "drill":
-        run_drill(
-            show_answer=not args.hide,
-            level=args.level,
-            topic=args.topic,
-            packs=resolve_packs(args),
-        )
-    elif args.command == "weak":
-        run_weak(
-            show_answer=not args.hide,
-            level=args.level,
-            topic=args.topic,
-            packs=resolve_packs(args),
-        )
-    elif args.command == "recall":
-        run_recall(packs=resolve_recall_packs(args))
-    elif args.command == "list":
-        run_list(packs=resolve_packs(args))
-    elif args.command == "generate":
-        run_generate(pack=args.pack, limit=args.limit, seed=args.seed)
+    try:
+        if args.command == "drill":
+            run_drill(
+                show_answer=not args.hide,
+                level=args.level,
+                topic=args.topic,
+                packs=resolve_drill_collections(args),
+            )
+        elif args.command == "weak":
+            run_weak(
+                show_answer=not args.hide,
+                level=args.level,
+                topic=args.topic,
+                packs=resolve_focused_collections(args),
+            )
+        elif args.command == "recall":
+            run_recall(packs=resolve_recall_collections(args))
+        elif args.command == "list":
+            run_list(packs=resolve_focused_collections(args))
+        elif args.command == "generate":
+            run_generate(pack=args.pack, limit=args.limit, seed=args.seed)
+    except DrillLoadError as error:
+        print(f"Error: {error}")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

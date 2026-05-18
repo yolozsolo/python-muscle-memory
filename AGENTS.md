@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository is intentionally small. The CLI lives in `main.py`, static drill packs live in `data/drills/`, templates live in `data/templates/`, generated drills live in `data/generated/`, and local user progress lives in `data/progress.json`. Project metadata is in `pyproject.toml`, usage notes are in `README.md`, and AI handoff context lives in `docs/AI.md`.
+This repository is intentionally small. The CLI lives in `main.py`, static drill packs live in `data/drills/`, custom drill sets live in `data/sets/`, templates live in `data/templates/`, generated drills live in `data/generated/`, and local user progress lives in `data/progress.json`. Project metadata is in `pyproject.toml`, usage notes are in `README.md`, and AI handoff context lives in `docs/AI.md`.
 
 There is no package directory yet. Keep new functionality in `main.py` unless the file becomes genuinely hard to navigate. Avoid adding frameworks, databases, web UI, or generated assets.
 
