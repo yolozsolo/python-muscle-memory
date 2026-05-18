@@ -14,6 +14,7 @@ TEMPLATES_DIR = DATA_DIR / "templates"
 GENERATED_DIR = DATA_DIR / "generated"
 PROGRESS_PATH = BASE_DIR / "data" / "progress.json"
 DEFAULT_PACK = "python_basic"
+MAX_PATTERN_STREAK = 2
 KNOWN_PACKS = [
     "python_basic",
     "python_data_patterns",
@@ -144,11 +145,75 @@ def check_answer(answer, acceptable_answers, lines_allowed):
     return "correct"
 
 
-def choose_incomplete_drill(drills, progress):
+class RequiredIdentifierCollector(ast.NodeVisitor):
+    def __init__(self):
+        self.identifiers = []
+        self.seen = set()
+
+    def add_identifier(self, name):
+        if name is None or name in self.seen:
+            return
+        self.seen.add(name)
+        self.identifiers.append(name)
+
+    def visit_Name(self, node):
+        self.add_identifier(node.id)
+
+    def visit_keyword(self, node):
+        self.add_identifier(node.arg)
+        self.visit(node.value)
+
+
+def required_identifiers(drill):
+    try:
+        tree = ast.parse(drill["expected"])
+    except SyntaxError:
+        return []
+
+    collector = RequiredIdentifierCollector()
+    collector.visit(tree)
+    return collector.identifiers
+
+
+def print_required_identifiers(drill):
+    identifiers = required_identifiers(drill)
+    if identifiers:
+        print(f"Required identifiers: {', '.join(identifiers)}")
+
+
+def current_pattern_streak(pattern_history):
+    if not pattern_history:
+        return 0
+
+    current_pattern = pattern_history[-1]
+    streak = 0
+    for pattern in reversed(pattern_history):
+        if pattern != current_pattern:
+            break
+        streak += 1
+    return streak
+
+
+def choose_incomplete_drill(drills, progress, pattern_history=None):
     incomplete = [drill for drill in drills if not is_completed(progress, drill)]
     if not incomplete:
         return None
-    return random.choice(incomplete)
+
+    candidates = incomplete
+    if (
+        pattern_history
+        and current_pattern_streak(pattern_history) >= MAX_PATTERN_STREAK
+    ):
+        repeated_pattern = pattern_history[-1]
+        varied_candidates = [
+            drill
+            for drill in incomplete
+            if drill["pattern_focus"] != repeated_pattern
+        ]
+        if varied_candidates:
+            candidates = varied_candidates
+
+    return random.choice(candidates)
 
 
 def filter_drills(drills, level=None, topic=None):
@@ -170,7 +235,6 @@ def choose_weak_drill(drills, progress):
         drill
         for drill in drills
         if wrong_attempts(progress, drill) > 0
-        and not is_completed(progress, drill)
     ]
     if not weak_drills:
         return None
@@ -193,6 +257,37 @@ def choose_completed_drill(drills, progress):
     return random.choice(completed)
 
 
+def completed_drills_by_pack(drills, progress):
+    by_pack = {}
+    for drill in drills:
+        if is_completed(progress, drill):
+            by_pack.setdefault(drill["_pack"], []).append(drill)
+    return by_pack
+
+
+def choose_recall_drill(drills, progress, pack_queue, drill_queues):
+    by_pack = completed_drills_by_pack(drills, progress)
+    eligible_packs = set(by_pack)
+    if not eligible_packs:
+        return None
+
+    pack_queue[:] = [pack for pack in pack_queue if pack in eligible_packs]
+    if not pack_queue:
+        pack_queue.extend(eligible_packs)
+        random.shuffle(pack_queue)
+
+    pack = pack_queue.pop()
+    pack_drills = by_pack[pack]
+    queue = drill_queues.setdefault(pack, [])
+    completed_ids = {drill["id"] for drill in pack_drills}
+    queue[:] = [drill for drill in queue if drill["id"] in completed_ids]
+    if not queue:
+        queue.extend(pack_drills)
+        random.shuffle(queue)
+
+    return queue.pop()
+
+
 def print_context(drill, show_answer):
     print(f"Pack: {drill['_pack']}")
     print(f"Topic: {drill['topic']}")
@@ -203,6 +298,8 @@ def print_context(drill, show_answer):
     if drill["starter_context"]:
         print("Starter context:")
         print(drill["starter_context"])
+
+    print_required_identifiers(drill)
 
     if show_answer:
         print("Expected:")
@@ -282,20 +379,54 @@ def run_practice_session(drill, progress, show_answer):
     return True
 
 
+def run_single_attempt_session(drill, progress, show_answer):
+    record = get_progress_record(progress, drill["id"], drill["_pack"])
+
+    print_context(drill, show_answer)
+    print(f"Wrong attempts: {record['wrong_attempts']}")
+    if record["last_wrong"]:
+        print("Last wrong:")
+        print(record["last_wrong"])
+    print()
+
+    answer = read_answer(drill["lines_allowed"])
+    if answer == EXIT_SESSION:
+        return False
+
+    result = check_answer(
+        answer,
+        drill["acceptable_answers"],
+        drill["lines_allowed"],
+    )
+
+    print_result(result)
+    if result != "correct":
+        record_wrong(progress, drill, answer)
+        save_progress(progress)
+        return True
+
+    if record["completed_count"] < drill["times_required"]:
+        record["completed_count"] += 1
+    save_progress(progress)
+    return True
+
+
 def run_drill(show_answer=True, level=None, topic=None, packs=None):
     drills = filter_drills(load_drills(packs), level=level, topic=topic)
     progress = load_progress()
+    pattern_history = []
 
     while True:
         if not should_continue_session():
             return
 
-        drill = choose_incomplete_drill(drills, progress)
+        drill = choose_incomplete_drill(drills, progress, pattern_history)
 
         if drill is None:
             print("No matching incomplete drill found.")
             return
 
+        pattern_history.append(drill["pattern_focus"])
         if not run_practice_session(drill, progress, show_answer):
             return
 
@@ -314,19 +445,26 @@ def run_weak(show_answer=True, level=None, topic=None, packs=None):
             print("No matching weak drill found.")
             return
 
-        if not run_practice_session(drill, progress, show_answer):
+        if not run_single_attempt_session(drill, progress, show_answer):
             return
 
 
 def run_recall(packs=None):
     drills = load_drills(packs)
     progress = load_progress()
+    pack_queue = []
+    drill_queues = {}
 
     while True:
         if not should_continue_session():
             return
 
-        drill = choose_completed_drill(drills, progress)
+        drill = choose_recall_drill(
+            drills,
+            progress,
+            pack_queue,
+            drill_queues,
+        )
 
         if drill is None:
             print("No completed drills yet. Use drill first.")
@@ -336,6 +474,7 @@ def run_recall(packs=None):
         if drill["starter_context"]:
             print("Starter context:")
             print(drill["starter_context"])
+        print_required_identifiers(drill)
 
         answer = read_answer(drill["lines_allowed"])
         if answer == EXIT_SESSION:
@@ -375,6 +514,12 @@ def resolve_packs(args):
     if getattr(args, "all_packs", False):
         return KNOWN_PACKS
     return [getattr(args, "pack", None) or DEFAULT_PACK]
+
+
+def resolve_recall_packs(args):
+    if getattr(args, "pack", None):
+        return [args.pack]
+    return KNOWN_PACKS
 
 
 def add_pack_arguments(parser):
@@ -546,7 +691,7 @@ def main():
             packs=resolve_packs(args),
         )
     elif args.command == "recall":
-        run_recall(packs=resolve_packs(args))
+        run_recall(packs=resolve_recall_packs(args))
     elif args.command == "list":
         run_list(packs=resolve_packs(args))
     elif args.command == "generate":

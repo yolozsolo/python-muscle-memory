@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository is intentionally small. The CLI lives in `main.py`, drill content lives in `data/drills.json`, and local user progress lives in `data/progress.json`. Project metadata is in `pyproject.toml`, and usage notes are in `README.md`.
+This repository is intentionally small. The CLI lives in `main.py`, static drill packs live in `data/drills/`, templates live in `data/templates/`, generated drills live in `data/generated/`, and local user progress lives in `data/progress.json`. Project metadata is in `pyproject.toml`, usage notes are in `README.md`, and AI handoff context lives in `docs/AI.md`.
 
 There is no package directory yet. Keep new functionality in `main.py` unless the file becomes genuinely hard to navigate. Avoid adding frameworks, databases, web UI, or generated assets.
 
@@ -24,7 +24,7 @@ Check syntax before finishing changes:
 uv run python -m py_compile main.py
 ```
 
-Validate drill data manually when editing `data/drills.json` by running `list` and trying one filtered drill, for example:
+Validate drill data manually when editing drill JSON by running `list` and trying one filtered drill, for example:
 
 ```bash
 uv run python main.py drill --topic python.list_comprehension
@@ -51,3 +51,5 @@ Pull requests should describe the behavior change, list the commands run for ver
 ## Agent-Specific Instructions
 
 Keep changes small and learning-oriented. Explain key design decisions, preserve simple JSON storage, and avoid adding dependencies unless explicitly requested.
+
+Keep `docs/AI.md` current. Whenever you change code behavior, commands, drill selection, prompt display, data layout, project structure, or important development guidance, update `docs/AI.md` in the same change so future GPT/project discussions have accurate context.
