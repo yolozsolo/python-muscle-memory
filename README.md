@@ -108,6 +108,8 @@ uv run python main.py recall
 uv run python main.py recall --pack pyspark_basic
 ```
 
+Recall prompts show the source pack or set before each drill description.
+
 List progress:
 
 ```bash

@@ -654,6 +654,7 @@ def run_recall(packs=None):
             print("No completed drills yet. Use drill first.")
             return
 
+        print(f"Pack: {drill['_pack']}")
         print(f"Description: {drill['description']}")
         if drill["starter_context"]:
             print("Starter context:")

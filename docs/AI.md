@@ -58,7 +58,7 @@ uv run python -m py_compile main.py
 - `drill --topic` filters by exact topic.
 - `drill` avoids serving the same `pattern_focus` more than two times in a row when another incomplete pattern is available.
 - `weak` chooses completed drills that were missed during `recall` and runs one attempt at a time. Generic wrong attempts from `drill` do not make a drill weak. Three correct weak-mode attempts clear the recall miss and remove the drill from weak mode; a weak-mode wrong answer resets that correct streak.
-- `recall` chooses from completed drills. By default it recalls across built-in packs and standard custom sets. `recall --pack ...` restricts it to one built-in pack, and `recall --set ...` restricts it to one custom set.
+- `recall` chooses from completed drills and prints the source pack or set for each prompt. By default it recalls across built-in packs and standard custom sets. `recall --pack ...` restricts it to one built-in pack, and `recall --set ...` restricts it to one custom set.
 - `recall` uses shuffled pack and drill queues so one pack or a few tasks do not dominate a session while other completed options exist.
 - `list` prints pack, ID, topic, difficulty, progress, general wrong attempts, recall wrong attempts, and line count.
 - `generate` expands templates into generated drill JSON and can shuffle deterministically with `--seed`.
