@@ -1,0 +1,576 @@
+[
+  {
+    "id": "create_item_request_model",
+    "topic": "fastapi.pydantic_model",
+    "description": "Create a Pydantic model named ItemRequest with sku and quantity fields.",
+    "pattern_focus": "class Model(BaseModel) with typed fields",
+    "starter_context": "from pydantic import BaseModel",
+    "expected": "class ItemRequest(BaseModel):\n    sku: str\n    quantity: int",
+    "acceptable_answers": [
+      "class ItemRequest(BaseModel):\n    sku: str\n    quantity: int"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "create_item_response_model",
+    "topic": "fastapi.pydantic_model",
+    "description": "Create a Pydantic model named ItemResponse with id and sku fields.",
+    "pattern_focus": "class Model(BaseModel) with response fields",
+    "starter_context": "from pydantic import BaseModel",
+    "expected": "class ItemResponse(BaseModel):\n    id: int\n    sku: str",
+    "acceptable_answers": [
+      "class ItemResponse(BaseModel):\n    id: int\n    sku: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "field_min_length_sku",
+    "topic": "fastapi.pydantic_field",
+    "description": "Create ItemRequest with sku: str using Field(min_length=1).",
+    "pattern_focus": "Field(min_length=1)",
+    "starter_context": "from pydantic import BaseModel, Field",
+    "expected": "class ItemRequest(BaseModel):\n    sku: str = Field(min_length=1)",
+    "acceptable_answers": [
+      "class ItemRequest(BaseModel):\n    sku: str = Field(min_length=1)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "field_gt_zero_price",
+    "topic": "fastapi.pydantic_field",
+    "description": "Create PriceRequest with price: float greater than zero.",
+    "pattern_focus": "Field(gt=0)",
+    "starter_context": "from pydantic import BaseModel, Field",
+    "expected": "class PriceRequest(BaseModel):\n    price: float = Field(gt=0)",
+    "acceptable_answers": [
+      "class PriceRequest(BaseModel):\n    price: float = Field(gt=0)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "field_ge_zero_quantity",
+    "topic": "fastapi.pydantic_field",
+    "description": "Create StockRequest with quantity: int greater than or equal to zero.",
+    "pattern_focus": "Field(ge=0)",
+    "starter_context": "from pydantic import BaseModel, Field",
+    "expected": "class StockRequest(BaseModel):\n    quantity: int = Field(ge=0)",
+    "acceptable_answers": [
+      "class StockRequest(BaseModel):\n    quantity: int = Field(ge=0)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "optional_owner_id_field",
+    "topic": "fastapi.type_annotations",
+    "description": "Create ItemFilter with optional owner_id defaulting to None.",
+    "pattern_focus": "int | None = None",
+    "starter_context": "from pydantic import BaseModel",
+    "expected": "class ItemFilter(BaseModel):\n    owner_id: int | None = None",
+    "acceptable_answers": [
+      "class ItemFilter(BaseModel):\n    owner_id: int | None = None"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "literal_status_alias",
+    "topic": "fastapi.type_annotations",
+    "description": "Create a type alias named Status for the allowed values active and archived.",
+    "pattern_focus": "Literal type alias",
+    "starter_context": "from typing import Literal",
+    "expected": "Status = Literal[\"active\", \"archived\"]",
+    "acceptable_answers": [
+      "Status = Literal[\"active\", \"archived\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "literal_role_alias",
+    "topic": "fastapi.type_annotations",
+    "description": "Create a type alias named Role for admin and user.",
+    "pattern_focus": "Literal type alias",
+    "starter_context": "from typing import Literal",
+    "expected": "Role = Literal[\"admin\", \"user\"]",
+    "acceptable_answers": [
+      "Role = Literal[\"admin\", \"user\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "inventory_key_alias",
+    "topic": "fastapi.type_annotations",
+    "description": "Create a type alias named InventoryKey for a tuple of warehouse and sku strings.",
+    "pattern_focus": "tuple[str, str] type alias",
+    "starter_context": "",
+    "expected": "InventoryKey = tuple[str, str]",
+    "acceptable_answers": [
+      "InventoryKey = tuple[str, str]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "helper_tuple_return_type",
+    "topic": "fastapi.type_annotations",
+    "description": "Create a helper named split_sku that returns a tuple of two strings.",
+    "pattern_focus": "function return type tuple[str, str]",
+    "starter_context": "",
+    "expected": "def split_sku(value: str) -> tuple[str, str]:\n    return tuple(value.split(\":\", 1))",
+    "acceptable_answers": [
+      "def split_sku(value: str) -> tuple[str, str]:\n    return tuple(value.split(\":\", 1))"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "helper_dict_object_return_type",
+    "topic": "fastapi.type_annotations",
+    "description": "Create a helper named to_payload that returns a dict[str, object].",
+    "pattern_focus": "function return type dict[str, object]",
+    "starter_context": "item already exists.",
+    "expected": "def to_payload(item: Item) -> dict[str, object]:\n    return {\"sku\": item.sku, \"quantity\": item.quantity}",
+    "acceptable_answers": [
+      "def to_payload(item: Item) -> dict[str, object]:\n    return {\"sku\": item.sku, \"quantity\": item.quantity}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "create_fastapi_app",
+    "topic": "fastapi.app",
+    "description": "Create a FastAPI app named app.",
+    "pattern_focus": "FastAPI()",
+    "starter_context": "from fastapi import FastAPI",
+    "expected": "app = FastAPI()",
+    "acceptable_answers": [
+      "app = FastAPI()"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "post_route_response_model",
+    "topic": "fastapi.route_signature",
+    "description": "Add a POST route for /items using ItemResponse as the response model.",
+    "pattern_focus": "@app.post(..., response_model=Model)",
+    "starter_context": "app and ItemResponse already exist.",
+    "expected": "@app.post(\"/items\", response_model=ItemResponse)\ndef create_item():\n    return ItemResponse(id=1, sku=\"ABC\")",
+    "acceptable_answers": [
+      "@app.post(\"/items\", response_model=ItemResponse)\ndef create_item():\n    return ItemResponse(id=1, sku=\"ABC\")"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "get_route_path_parameter",
+    "topic": "fastapi.route_signature",
+    "description": "Add a GET route for /items/{item_id}.",
+    "pattern_focus": "@app.get path parameter",
+    "starter_context": "app already exists.",
+    "expected": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+    "acceptable_answers": [
+      "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "route_typed_request_body",
+    "topic": "fastapi.route_signature",
+    "description": "Create a route function that accepts an ItemRequest request body.",
+    "pattern_focus": "typed Pydantic request body parameter",
+    "starter_context": "ItemRequest already exists.",
+    "expected": "def create_item(item: ItemRequest):\n    return item",
+    "acceptable_answers": [
+      "def create_item(item: ItemRequest):\n    return item"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "route_typed_return_model",
+    "topic": "fastapi.route_signature",
+    "description": "Create a route function that returns ItemResponse.",
+    "pattern_focus": "typed return model",
+    "starter_context": "ItemResponse already exists.",
+    "expected": "def read_item(item_id: int) -> ItemResponse:\n    return ItemResponse(id=item_id, sku=\"ABC\")",
+    "acceptable_answers": [
+      "def read_item(item_id: int) -> ItemResponse:\n    return ItemResponse(id=item_id, sku=\"ABC\")"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "post_route_body_and_response",
+    "topic": "fastapi.route_signature",
+    "description": "Create a POST route that accepts ItemRequest and returns ItemResponse.",
+    "pattern_focus": "decorator plus typed body and return",
+    "starter_context": "app, ItemRequest, and ItemResponse already exist.",
+    "expected": "@app.post(\"/items\", response_model=ItemResponse)\ndef create_item(item: ItemRequest) -> ItemResponse:\n    return ItemResponse.model_validate(item)",
+    "acceptable_answers": [
+      "@app.post(\"/items\", response_model=ItemResponse)\ndef create_item(item: ItemRequest) -> ItemResponse:\n    return ItemResponse.model_validate(item)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "raise_http_404",
+    "topic": "fastapi.http_exception",
+    "description": "Raise a 404 HTTPException with detail item not found.",
+    "pattern_focus": "HTTPException(status_code=404, detail=...)",
+    "starter_context": "from fastapi import HTTPException",
+    "expected": "raise HTTPException(status_code=404, detail=\"item not found\")",
+    "acceptable_answers": [
+      "raise HTTPException(status_code=404, detail=\"item not found\")"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "raise_http_404_if_missing",
+    "topic": "fastapi.http_exception",
+    "description": "Raise a 404 HTTPException when item is None.",
+    "pattern_focus": "if missing raise HTTPException",
+    "starter_context": "from fastapi import HTTPException\nitem already exists.",
+    "expected": "if item is None:\n    raise HTTPException(status_code=404, detail=\"item not found\")",
+    "acceptable_answers": [
+      "if item is None:\n    raise HTTPException(status_code=404, detail=\"item not found\")"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "return_model_validate_data",
+    "topic": "fastapi.pydantic_model",
+    "description": "Return an ItemResponse created by validating data.",
+    "pattern_focus": "Model.model_validate(data)",
+    "starter_context": "ItemResponse and data already exist.",
+    "expected": "return ItemResponse.model_validate(data)",
+    "acceptable_answers": [
+      "return ItemResponse.model_validate(data)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "assign_model_validate_data",
+    "topic": "fastapi.pydantic_model",
+    "description": "Assign result to ItemResponse.model_validate(data).",
+    "pattern_focus": "Model.model_validate(data)",
+    "starter_context": "ItemResponse and data already exist.",
+    "expected": "result = ItemResponse.model_validate(data)",
+    "acceptable_answers": [
+      "result = ItemResponse.model_validate(data)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "create_test_client",
+    "topic": "fastapi.testclient",
+    "description": "Create a TestClient named client for app.",
+    "pattern_focus": "TestClient(app)",
+    "starter_context": "from fastapi.testclient import TestClient\napp already exists.",
+    "expected": "client = TestClient(app)",
+    "acceptable_answers": [
+      "client = TestClient(app)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "client_post_json",
+    "topic": "fastapi.testclient",
+    "description": "POST to /items with sku ABC and quantity 2 as JSON.",
+    "pattern_focus": "client.post(..., json={...})",
+    "starter_context": "client already exists.",
+    "expected": "response = client.post(\"/items\", json={\"sku\": \"ABC\", \"quantity\": 2})",
+    "acceptable_answers": [
+      "response = client.post(\"/items\", json={\"sku\": \"ABC\", \"quantity\": 2})"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "client_get_path",
+    "topic": "fastapi.testclient",
+    "description": "GET /items/123 with TestClient.",
+    "pattern_focus": "client.get(path)",
+    "starter_context": "client already exists.",
+    "expected": "response = client.get(\"/items/123\")",
+    "acceptable_answers": [
+      "response = client.get(\"/items/123\")"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "assert_status_200",
+    "topic": "fastapi.testclient",
+    "description": "Assert response status code is 200.",
+    "pattern_focus": "assert response.status_code == 200",
+    "starter_context": "response already exists.",
+    "expected": "assert response.status_code == 200",
+    "acceptable_answers": [
+      "assert response.status_code == 200"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "assert_json_field_value",
+    "topic": "fastapi.testclient",
+    "description": "Assert response JSON field sku equals ABC.",
+    "pattern_focus": "response.json()[field]",
+    "starter_context": "response already exists.",
+    "expected": "assert response.json()[\"sku\"] == \"ABC\"",
+    "acceptable_answers": [
+      "assert response.json()[\"sku\"] == \"ABC\""
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "assert_json_id_value",
+    "topic": "fastapi.testclient",
+    "description": "Assert response JSON field id equals 123.",
+    "pattern_focus": "response.json()[field]",
+    "starter_context": "response already exists.",
+    "expected": "assert response.json()[\"id\"] == 123",
+    "acceptable_answers": [
+      "assert response.json()[\"id\"] == 123"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "field_validator_strip_name",
+    "topic": "fastapi.pydantic_validator",
+    "description": "Create a classmethod field validator that strips name.",
+    "pattern_focus": "@field_validator plus @classmethod",
+    "starter_context": "from pydantic import field_validator",
+    "expected": "@field_validator(\"name\")\n@classmethod\ndef strip_name(cls, value: str) -> str:\n    return value.strip()",
+    "acceptable_answers": [
+      "@field_validator(\"name\")\n@classmethod\ndef strip_name(cls, value: str) -> str:\n    return value.strip()"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "field_validator_reject_blank",
+    "topic": "fastapi.pydantic_validator",
+    "description": "Create a classmethod field validator that rejects blank names after stripping.",
+    "pattern_focus": "strip and validate blank string",
+    "starter_context": "from pydantic import field_validator",
+    "expected": "@field_validator(\"name\")\n@classmethod\ndef reject_blank_name(cls, value: str) -> str:\n    value = value.strip()\n    if not value:\n        raise ValueError(\"name is required\")\n    return value",
+    "acceptable_answers": [
+      "@field_validator(\"name\")\n@classmethod\ndef reject_blank_name(cls, value: str) -> str:\n    value = value.strip()\n    if not value:\n        raise ValueError(\"name is required\")\n    return value"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 7
+  },
+  {
+    "id": "model_with_validator",
+    "topic": "fastapi.pydantic_validator",
+    "description": "Create ItemRequest with name and a validator that strips name.",
+    "pattern_focus": "Pydantic model field validator",
+    "starter_context": "from pydantic import BaseModel, field_validator",
+    "expected": "class ItemRequest(BaseModel):\n    name: str\n\n    @field_validator(\"name\")\n    @classmethod\n    def strip_name(cls, value: str) -> str:\n        return value.strip()",
+    "acceptable_answers": [
+      "class ItemRequest(BaseModel):\n    name: str\n\n    @field_validator(\"name\")\n    @classmethod\n    def strip_name(cls, value: str) -> str:\n        return value.strip()"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 7
+  },
+  {
+    "id": "model_status_literal_field",
+    "topic": "fastapi.type_annotations",
+    "description": "Create ItemState with a status field using the Status alias.",
+    "pattern_focus": "Literal alias as model field type",
+    "starter_context": "from pydantic import BaseModel\nStatus already exists.",
+    "expected": "class ItemState(BaseModel):\n    status: Status",
+    "acceptable_answers": [
+      "class ItemState(BaseModel):\n    status: Status"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "path_param_and_response_model",
+    "topic": "fastapi.route_signature",
+    "description": "Create a GET route for /items/{item_id} that returns ItemResponse.",
+    "pattern_focus": "path parameter with typed return model",
+    "starter_context": "app and ItemResponse already exist.",
+    "expected": "@app.get(\"/items/{item_id}\", response_model=ItemResponse)\ndef read_item(item_id: int) -> ItemResponse:\n    return ItemResponse(id=item_id, sku=\"ABC\")",
+    "acceptable_answers": [
+      "@app.get(\"/items/{item_id}\", response_model=ItemResponse)\ndef read_item(item_id: int) -> ItemResponse:\n    return ItemResponse(id=item_id, sku=\"ABC\")"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "route_calls_core_logic",
+    "topic": "fastapi.core_logic",
+    "description": "Create a route handler that delegates ItemRequest handling to create_item_record.",
+    "pattern_focus": "separate route handler from core logic",
+    "starter_context": "ItemRequest, ItemResponse, and create_item_record already exist.",
+    "expected": "def create_item(item: ItemRequest) -> ItemResponse:\n    return create_item_record(item)",
+    "acceptable_answers": [
+      "def create_item(item: ItemRequest) -> ItemResponse:\n    return create_item_record(item)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "core_logic_function",
+    "topic": "fastapi.core_logic",
+    "description": "Create core logic that converts ItemRequest to ItemResponse.",
+    "pattern_focus": "plain helper separate from route",
+    "starter_context": "ItemRequest and ItemResponse already exist.",
+    "expected": "def create_item_record(item: ItemRequest) -> ItemResponse:\n    return ItemResponse(sku=item.sku, quantity=item.quantity)",
+    "acceptable_answers": [
+      "def create_item_record(item: ItemRequest) -> ItemResponse:\n    return ItemResponse(sku=item.sku, quantity=item.quantity)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "lookup_item_or_404",
+    "topic": "fastapi.http_exception",
+    "description": "Return item if present, otherwise raise a 404 HTTPException.",
+    "pattern_focus": "guard clause with HTTPException",
+    "starter_context": "from fastapi import HTTPException\nitem already exists.",
+    "expected": "if item is None:\n    raise HTTPException(status_code=404, detail=\"item not found\")\nreturn item",
+    "acceptable_answers": [
+      "if item is None:\n    raise HTTPException(status_code=404, detail=\"item not found\")\nreturn item"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "query_param_optional_limit",
+    "topic": "fastapi.route_signature",
+    "description": "Create a route function with an optional integer limit query parameter.",
+    "pattern_focus": "optional query parameter annotation",
+    "starter_context": "",
+    "expected": "def list_items(limit: int | None = None):\n    return {\"limit\": limit}",
+    "acceptable_answers": [
+      "def list_items(limit: int | None = None):\n    return {\"limit\": limit}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "model_field_default_none",
+    "topic": "fastapi.pydantic_model",
+    "description": "Create ItemPatch with optional quantity defaulting to None.",
+    "pattern_focus": "optional Pydantic field",
+    "starter_context": "from pydantic import BaseModel",
+    "expected": "class ItemPatch(BaseModel):\n    quantity: int | None = None",
+    "acceptable_answers": [
+      "class ItemPatch(BaseModel):\n    quantity: int | None = None"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "model_dump_response_payload",
+    "topic": "fastapi.pydantic_model",
+    "description": "Return an ItemResponse by validating item.model_dump().",
+    "pattern_focus": "model_dump into model_validate",
+    "starter_context": "ItemResponse and item already exist.",
+    "expected": "return ItemResponse.model_validate(item.model_dump())",
+    "acceptable_answers": [
+      "return ItemResponse.model_validate(item.model_dump())"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "post_test_status_and_json",
+    "topic": "fastapi.testclient",
+    "description": "Assert a POST response succeeded and returned sku ABC.",
+    "pattern_focus": "TestClient response assertions",
+    "starter_context": "response already exists.",
+    "expected": "assert response.status_code == 200\nassert response.json()[\"sku\"] == \"ABC\"",
+    "acceptable_answers": [
+      "assert response.status_code == 200\nassert response.json()[\"sku\"] == \"ABC\""
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "get_test_status_and_id",
+    "topic": "fastapi.testclient",
+    "description": "Assert a GET response succeeded and returned id 123.",
+    "pattern_focus": "TestClient GET response assertions",
+    "starter_context": "response already exists.",
+    "expected": "assert response.status_code == 200\nassert response.json()[\"id\"] == 123",
+    "acceptable_answers": [
+      "assert response.status_code == 200\nassert response.json()[\"id\"] == 123"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  },
+  {
+    "id": "typed_route_returns_dict",
+    "topic": "fastapi.route_signature",
+    "description": "Create a route function that returns dict[str, object].",
+    "pattern_focus": "route return annotation dict[str, object]",
+    "starter_context": "",
+    "expected": "def healthcheck() -> dict[str, object]:\n    return {\"ok\": True}",
+    "acceptable_answers": [
+      "def healthcheck() -> dict[str, object]:\n    return {\"ok\": True}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 2
+  }
+]

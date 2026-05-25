@@ -1,0 +1,1402 @@
+[
+  {
+    "id": "ai_tooling_core_literal_provider_name",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named ProviderName for providers \"openai\", \"anthropic\", and \"local\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "ProviderName = Literal[\"openai\", \"anthropic\", \"local\"]",
+    "acceptable_answers": [
+      "ProviderName = Literal[\"openai\", \"anthropic\", \"local\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_generation_mode",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named GenerationMode for modes \"chat\", \"json\", and \"tool\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "GenerationMode = Literal[\"chat\", \"json\", \"tool\"]",
+    "acceptable_answers": [
+      "GenerationMode = Literal[\"chat\", \"json\", \"tool\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_retrieval_strategy",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named RetrievalStrategy for strategies \"keyword\", \"vector\", and \"hybrid\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "RetrievalStrategy = Literal[\"keyword\", \"vector\", \"hybrid\"]",
+    "acceptable_answers": [
+      "RetrievalStrategy = Literal[\"keyword\", \"vector\", \"hybrid\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_tool_status",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named ToolStatus for statuses \"ok\", \"error\", and \"skipped\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "ToolStatus = Literal[\"ok\", \"error\", \"skipped\"]",
+    "acceptable_answers": [
+      "ToolStatus = Literal[\"ok\", \"error\", \"skipped\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_prompt_role",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named PromptRole for roles \"system\", \"user\", and \"assistant\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "PromptRole = Literal[\"system\", \"user\", \"assistant\"]",
+    "acceptable_answers": [
+      "PromptRole = Literal[\"system\", \"user\", \"assistant\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_chunk_source",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named ChunkSource for sources \"document\", \"web\", and \"memory\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "ChunkSource = Literal[\"document\", \"web\", \"memory\"]",
+    "acceptable_answers": [
+      "ChunkSource = Literal[\"document\", \"web\", \"memory\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_metric_name",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named MetricName for metrics \"faithfulness\", \"relevance\", and \"latency\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "MetricName = Literal[\"faithfulness\", \"relevance\", \"latency\"]",
+    "acceptable_answers": [
+      "MetricName = Literal[\"faithfulness\", \"relevance\", \"latency\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_cache_policy",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named CachePolicy for policies \"off\", \"read\", and \"write\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "CachePolicy = Literal[\"off\", \"read\", \"write\"]",
+    "acceptable_answers": [
+      "CachePolicy = Literal[\"off\", \"read\", \"write\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_rerank_mode",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named RerankMode for modes \"none\", \"cross_encoder\", and \"llm\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "RerankMode = Literal[\"none\", \"cross_encoder\", \"llm\"]",
+    "acceptable_answers": [
+      "RerankMode = Literal[\"none\", \"cross_encoder\", \"llm\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_literal_safety_level",
+    "topic": "ai.typing.literal",
+    "description": "Create a Literal type alias named SafetyLevel for levels \"low\", \"medium\", and \"high\".",
+    "pattern_focus": "literal_alias",
+    "starter_context": "from typing import Literal",
+    "expected": "SafetyLevel = Literal[\"low\", \"medium\", \"high\"]",
+    "acceptable_answers": [
+      "SafetyLevel = Literal[\"low\", \"medium\", \"high\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_typeddict_tool_input",
+    "topic": "ai.typing.typeddict",
+    "description": "Create a TypedDict named ToolInput with fields query: str and top_k: int.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class ToolInput(TypedDict):\n    query: str\n    top_k: int",
+    "acceptable_answers": [
+      "class ToolInput(TypedDict):\n    query: str\n    top_k: int"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_tool_result",
+    "topic": "ai.typing.typeddict",
+    "description": "Create a TypedDict named ToolResult with fields ok: bool and content: str.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class ToolResult(TypedDict):\n    ok: bool\n    content: str",
+    "acceptable_answers": [
+      "class ToolResult(TypedDict):\n    ok: bool\n    content: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_error_result",
+    "topic": "ai.typing.typeddict",
+    "description": "Create a TypedDict named ErrorResult with fields ok: bool and error: str.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class ErrorResult(TypedDict):\n    ok: bool\n    error: str",
+    "acceptable_answers": [
+      "class ErrorResult(TypedDict):\n    ok: bool\n    error: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_prompt_message",
+    "topic": "ai.typing.typeddict",
+    "description": "Create a TypedDict named PromptMessage with fields role: str and content: str.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class PromptMessage(TypedDict):\n    role: str\n    content: str",
+    "acceptable_answers": [
+      "class PromptMessage(TypedDict):\n    role: str\n    content: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_chunk",
+    "topic": "ai.rag.chunk_shape",
+    "description": "Create a TypedDict named Chunk with fields id: str and text: str.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class Chunk(TypedDict):\n    id: str\n    text: str",
+    "acceptable_answers": [
+      "class Chunk(TypedDict):\n    id: str\n    text: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_scored_chunk",
+    "topic": "ai.rag.retrieved_chunk",
+    "description": "Create a TypedDict named ScoredChunk with fields text: str and score: float.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class ScoredChunk(TypedDict):\n    text: str\n    score: float",
+    "acceptable_answers": [
+      "class ScoredChunk(TypedDict):\n    text: str\n    score: float"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_embedding_request",
+    "topic": "ai.tools.payload_shape",
+    "description": "Create a TypedDict named EmbeddingRequest with fields input: str and model: str.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class EmbeddingRequest(TypedDict):\n    input: str\n    model: str",
+    "acceptable_answers": [
+      "class EmbeddingRequest(TypedDict):\n    input: str\n    model: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_eval_record",
+    "topic": "ai.evaluation.record_shape",
+    "description": "Create a TypedDict named EvalRecord with fields question: str and answer: str.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class EvalRecord(TypedDict):\n    question: str\n    answer: str",
+    "acceptable_answers": [
+      "class EvalRecord(TypedDict):\n    question: str\n    answer: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_tool_call",
+    "topic": "ai.tools.payload_shape",
+    "description": "Create a TypedDict named ToolCall with fields name: str and arguments: dict[str, object].",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class ToolCall(TypedDict):\n    name: str\n    arguments: dict[str, object]",
+    "acceptable_answers": [
+      "class ToolCall(TypedDict):\n    name: str\n    arguments: dict[str, object]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_typeddict_usage",
+    "topic": "ai.result.shape",
+    "description": "Create a TypedDict named Usage with fields prompt_tokens: int and completion_tokens: int.",
+    "pattern_focus": "typeddict_payload",
+    "starter_context": "from typing import TypedDict",
+    "expected": "class Usage(TypedDict):\n    prompt_tokens: int\n    completion_tokens: int",
+    "acceptable_answers": [
+      "class Usage(TypedDict):\n    prompt_tokens: int\n    completion_tokens: int"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_callable_embed_annotation",
+    "topic": "ai.typing.callable",
+    "description": "Annotate variable embed as a Callable that takes str and returns list[float].",
+    "pattern_focus": "callable_annotation",
+    "starter_context": "from typing import Callable",
+    "expected": "embed: Callable[[str], list[float]]",
+    "acceptable_answers": [
+      "embed: Callable[[str], list[float]]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_callable_score_annotation",
+    "topic": "ai.typing.callable",
+    "description": "Annotate variable score as a Callable that takes str and str and returns float.",
+    "pattern_focus": "callable_annotation",
+    "starter_context": "from typing import Callable",
+    "expected": "score: Callable[[str, str], float]",
+    "acceptable_answers": [
+      "score: Callable[[str, str], float]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_callable_parse_annotation",
+    "topic": "ai.typing.callable",
+    "description": "Annotate variable parse as a Callable that takes str and returns dict[str, object].",
+    "pattern_focus": "callable_annotation",
+    "starter_context": "from typing import Callable",
+    "expected": "parse: Callable[[str], dict[str, object]]",
+    "acceptable_answers": [
+      "parse: Callable[[str], dict[str, object]]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_sequence_messages",
+    "topic": "ai.typing.sequence",
+    "description": "Annotate variable messages as a Sequence of PromptMessage values.",
+    "pattern_focus": "collection_annotation",
+    "starter_context": "from typing import Sequence\n\nclass PromptMessage(TypedDict):\n    role: str\n    content: str",
+    "expected": "messages: Sequence[PromptMessage]",
+    "acceptable_answers": [
+      "messages: Sequence[PromptMessage]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_sequence_chunks",
+    "topic": "ai.typing.sequence",
+    "description": "Annotate variable chunks as a Sequence of Chunk values.",
+    "pattern_focus": "collection_annotation",
+    "starter_context": "from typing import Sequence\n\nclass Chunk(TypedDict):\n    id: str\n    text: str",
+    "expected": "chunks: Sequence[Chunk]",
+    "acceptable_answers": [
+      "chunks: Sequence[Chunk]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_mapping_metadata",
+    "topic": "ai.typing.mapping",
+    "description": "Annotate variable metadata as a Mapping from str to str.",
+    "pattern_focus": "collection_annotation",
+    "starter_context": "from typing import Mapping",
+    "expected": "metadata: Mapping[str, str]",
+    "acceptable_answers": [
+      "metadata: Mapping[str, str]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_dataclass_chunking_config",
+    "topic": "ai.dataclass.config",
+    "description": "Create a dataclass named ChunkingConfig with int fields chunk_size and overlap.",
+    "pattern_focus": "dataclass_config",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass\nclass ChunkingConfig:\n    chunk_size: int\n    overlap: int",
+    "acceptable_answers": [
+      "@dataclass\nclass ChunkingConfig:\n    chunk_size: int\n    overlap: int"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "ai_tooling_core_dataclass_rag_config",
+    "topic": "ai.dataclass.config",
+    "description": "Create a dataclass named RagConfig with int fields top_k and max_context_chars.",
+    "pattern_focus": "dataclass_config",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass\nclass RagConfig:\n    top_k: int\n    max_context_chars: int",
+    "acceptable_answers": [
+      "@dataclass\nclass RagConfig:\n    top_k: int\n    max_context_chars: int"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "ai_tooling_core_dataclass_model_config",
+    "topic": "ai.dataclass.config",
+    "description": "Create a dataclass named ModelConfig with str fields provider and model.",
+    "pattern_focus": "dataclass_config",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass\nclass ModelConfig:\n    provider: str\n    model: str",
+    "acceptable_answers": [
+      "@dataclass\nclass ModelConfig:\n    provider: str\n    model: str"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "ai_tooling_core_dataclass_retry_config",
+    "topic": "ai.dataclass.config",
+    "description": "Create a dataclass named RetryConfig with int field attempts and float field backoff_seconds.",
+    "pattern_focus": "dataclass_config",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass\nclass RetryConfig:\n    attempts: int\n    backoff_seconds: float",
+    "acceptable_answers": [
+      "@dataclass\nclass RetryConfig:\n    attempts: int\n    backoff_seconds: float"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "ai_tooling_core_dataclass_tool_config",
+    "topic": "ai.dataclass.config",
+    "description": "Create a dataclass named ToolConfig with str field name and bool field enabled.",
+    "pattern_focus": "dataclass_config",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass\nclass ToolConfig:\n    name: str\n    enabled: bool",
+    "acceptable_answers": [
+      "@dataclass\nclass ToolConfig:\n    name: str\n    enabled: bool"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "ai_tooling_core_dataclass_eval_config",
+    "topic": "ai.dataclass.config",
+    "description": "Create a dataclass named EvalConfig with str field dataset_path and int field sample_size.",
+    "pattern_focus": "dataclass_config",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass\nclass EvalConfig:\n    dataset_path: str\n    sample_size: int",
+    "acceptable_answers": [
+      "@dataclass\nclass EvalConfig:\n    dataset_path: str\n    sample_size: int"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "ai_tooling_core_dataclass_prompt_config",
+    "topic": "ai.dataclass.config",
+    "description": "Create a dataclass named PromptConfig with str field system_prompt and float field temperature.",
+    "pattern_focus": "dataclass_config",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass\nclass PromptConfig:\n    system_prompt: str\n    temperature: float",
+    "acceptable_answers": [
+      "@dataclass\nclass PromptConfig:\n    system_prompt: str\n    temperature: float"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 4
+  },
+  {
+    "id": "ai_tooling_core_json_loads_request",
+    "topic": "ai.json.boundary",
+    "description": "Parse JSON string raw_request into variable payload.",
+    "pattern_focus": "json_boundary",
+    "starter_context": "import json",
+    "expected": "payload = json.loads(raw_request)",
+    "acceptable_answers": [
+      "payload = json.loads(raw_request)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_json_dumps_result",
+    "topic": "ai.json.boundary",
+    "description": "Serialize dict result into JSON string body.",
+    "pattern_focus": "json_boundary",
+    "starter_context": "import json",
+    "expected": "body = json.dumps(result)",
+    "acceptable_answers": [
+      "body = json.dumps(result)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_json_get_query_default",
+    "topic": "ai.json.boundary",
+    "description": "Read query from payload with default empty string and assign it to query.",
+    "pattern_focus": "json_boundary",
+    "starter_context": "payload is a dict-like object.",
+    "expected": "query = payload.get(\"query\", \"\")",
+    "acceptable_answers": [
+      "query = payload.get(\"query\", \"\")"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_json_get_top_k_default",
+    "topic": "ai.json.boundary",
+    "description": "Read top_k from payload with default 5 and assign it to top_k.",
+    "pattern_focus": "json_boundary",
+    "starter_context": "payload is a dict-like object.",
+    "expected": "top_k = payload.get(\"top_k\", 5)",
+    "acceptable_answers": [
+      "top_k = payload.get(\"top_k\", 5)"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_result_ok_payload",
+    "topic": "ai.result.shape",
+    "description": "Create dict result with ok set to True and content set to content.",
+    "pattern_focus": "result_shape",
+    "starter_context": "content already exists.",
+    "expected": "result = {\"ok\": True, \"content\": content}",
+    "acceptable_answers": [
+      "result = {\"ok\": True, \"content\": content}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_result_error_payload",
+    "topic": "ai.result.shape",
+    "description": "Create dict result with ok set to False and error set to error.",
+    "pattern_focus": "result_shape",
+    "starter_context": "error already exists.",
+    "expected": "result = {\"ok\": False, \"error\": error}",
+    "acceptable_answers": [
+      "result = {\"ok\": False, \"error\": error}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_chunk_dict",
+    "topic": "ai.rag.chunk_shape",
+    "description": "Create dict chunk with id set to chunk_id and text set to text.",
+    "pattern_focus": "rag_chunk_shape",
+    "starter_context": "chunk_id and text already exist.",
+    "expected": "chunk = {\"id\": chunk_id, \"text\": text}",
+    "acceptable_answers": [
+      "chunk = {\"id\": chunk_id, \"text\": text}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_scored_chunk_dict",
+    "topic": "ai.rag.retrieved_chunk",
+    "description": "Create dict chunk with text set to text and score set to score.",
+    "pattern_focus": "rag_chunk_shape",
+    "starter_context": "text and score already exist.",
+    "expected": "chunk = {\"text\": text, \"score\": score}",
+    "acceptable_answers": [
+      "chunk = {\"text\": text, \"score\": score}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_input_dict",
+    "topic": "ai.tools.payload_shape",
+    "description": "Create dict tool_input with query set to query and top_k set to top_k.",
+    "pattern_focus": "tool_payload_shape",
+    "starter_context": "query and top_k already exist.",
+    "expected": "tool_input = {\"query\": query, \"top_k\": top_k}",
+    "acceptable_answers": [
+      "tool_input = {\"query\": query, \"top_k\": top_k}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_output_dict",
+    "topic": "ai.tools.payload_shape",
+    "description": "Create dict tool_output with name set to name and result set to result.",
+    "pattern_focus": "tool_payload_shape",
+    "starter_context": "name and result already exist.",
+    "expected": "tool_output = {\"name\": name, \"result\": result}",
+    "acceptable_answers": [
+      "tool_output = {\"name\": name, \"result\": result}"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_any_raw_response",
+    "topic": "ai.typing.any",
+    "description": "Annotate variable raw_response as Any.",
+    "pattern_focus": "any_boundary",
+    "starter_context": "from typing import Any",
+    "expected": "raw_response: Any",
+    "acceptable_answers": [
+      "raw_response: Any"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_callable_token_count",
+    "topic": "ai.typing.callable",
+    "description": "Annotate variable count_tokens as a Callable that takes str and returns int.",
+    "pattern_focus": "callable_annotation",
+    "starter_context": "from typing import Callable",
+    "expected": "count_tokens: Callable[[str], int]",
+    "acceptable_answers": [
+      "count_tokens: Callable[[str], int]"
+    ],
+    "times_required": 3,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_protocol_llm_client",
+    "topic": "ai.protocol.llm_client",
+    "description": "Create a Protocol named LLMClient with method generate(self, prompt: str) -> str.",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol",
+    "expected": "class LLMClient(Protocol):\n    def generate(self, prompt: str) -> str: ...",
+    "acceptable_answers": [
+      "class LLMClient(Protocol):\n    def generate(self, prompt: str) -> str: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_protocol_embedding_client",
+    "topic": "ai.protocol.embedding_client",
+    "description": "Create a Protocol named EmbeddingClient with method embed(self, text: str) -> list[float].",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol",
+    "expected": "class EmbeddingClient(Protocol):\n    def embed(self, text: str) -> list[float]: ...",
+    "acceptable_answers": [
+      "class EmbeddingClient(Protocol):\n    def embed(self, text: str) -> list[float]: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_protocol_retriever",
+    "topic": "ai.protocol.retriever",
+    "description": "Create a Protocol named Retriever with method retrieve(self, query: str, top_k: int) -> list[RetrievedChunk].",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol\n\nclass RetrievedChunk(TypedDict):\n    text: str\n    score: float",
+    "expected": "class Retriever(Protocol):\n    def retrieve(self, query: str, top_k: int) -> list[RetrievedChunk]: ...",
+    "acceptable_answers": [
+      "class Retriever(Protocol):\n    def retrieve(self, query: str, top_k: int) -> list[RetrievedChunk]: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_protocol_reranker",
+    "topic": "ai.protocol.reranker",
+    "description": "Create a Protocol named Reranker with method rerank(self, query: str, chunks: list[RetrievedChunk]) -> list[RetrievedChunk].",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol\n\nclass RetrievedChunk(TypedDict):\n    text: str\n    score: float",
+    "expected": "class Reranker(Protocol):\n    def rerank(self, query: str, chunks: list[RetrievedChunk]) -> list[RetrievedChunk]: ...",
+    "acceptable_answers": [
+      "class Reranker(Protocol):\n    def rerank(self, query: str, chunks: list[RetrievedChunk]) -> list[RetrievedChunk]: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_protocol_tool",
+    "topic": "ai.protocol.tool",
+    "description": "Create a Protocol named Tool with method run(self, arguments: dict[str, object]) -> dict[str, object].",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol",
+    "expected": "class Tool(Protocol):\n    def run(self, arguments: dict[str, object]) -> dict[str, object]: ...",
+    "acceptable_answers": [
+      "class Tool(Protocol):\n    def run(self, arguments: dict[str, object]) -> dict[str, object]: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_protocol_metric",
+    "topic": "ai.evaluation.metric_contract",
+    "description": "Create a Protocol named Metric with method score(self, prediction: str, reference: str) -> float.",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol",
+    "expected": "class Metric(Protocol):\n    def score(self, prediction: str, reference: str) -> float: ...",
+    "acceptable_answers": [
+      "class Metric(Protocol):\n    def score(self, prediction: str, reference: str) -> float: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_protocol_json_parser",
+    "topic": "ai.protocol.parser",
+    "description": "Create a Protocol named JsonParser with method parse(self, text: str) -> dict[str, object].",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol",
+    "expected": "class JsonParser(Protocol):\n    def parse(self, text: str) -> dict[str, object]: ...",
+    "acceptable_answers": [
+      "class JsonParser(Protocol):\n    def parse(self, text: str) -> dict[str, object]: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_protocol_prompt_builder",
+    "topic": "ai.protocol.prompt_builder",
+    "description": "Create a Protocol named PromptBuilder with method build(self, query: str, context: str) -> str.",
+    "pattern_focus": "protocol_contract",
+    "starter_context": "from typing import Protocol",
+    "expected": "class PromptBuilder(Protocol):\n    def build(self, query: str, context: str) -> str: ...",
+    "acceptable_answers": [
+      "class PromptBuilder(Protocol):\n    def build(self, query: str, context: str) -> str: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_rag_sort_by_score",
+    "topic": "ai.rag.score_sorting",
+    "description": "Sort chunks by each chunk's \"score\" descending and assign back to chunks.",
+    "pattern_focus": "rag_sorting",
+    "starter_context": "chunks is a list of dicts with a \"score\" key.",
+    "expected": "chunks = sorted(chunks, key=lambda chunk: chunk[\"score\"], reverse=True)",
+    "acceptable_answers": [
+      "chunks = sorted(chunks, key=lambda chunk: chunk[\"score\"], reverse=True)"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_top_k_slice",
+    "topic": "ai.rag.score_sorting",
+    "description": "Keep only the first top_k chunks and assign back to chunks.",
+    "pattern_focus": "rag_slicing",
+    "starter_context": "chunks and top_k already exist.",
+    "expected": "chunks = chunks[:top_k]",
+    "acceptable_answers": [
+      "chunks = chunks[:top_k]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_context_join",
+    "topic": "ai.rag.context_joining",
+    "description": "Join chunk text values with blank lines into context.",
+    "pattern_focus": "rag_context_join",
+    "starter_context": "chunks is a list of dicts with a \"text\" key.",
+    "expected": "context = \"\\n\\n\".join(chunk[\"text\"] for chunk in chunks)",
+    "acceptable_answers": [
+      "context = \"\\n\\n\".join(chunk[\"text\"] for chunk in chunks)"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_metadata_filter",
+    "topic": "ai.rag.metadata_filter",
+    "description": "Keep chunks whose metadata source equals source and assign the filtered list to chunks.",
+    "pattern_focus": "rag_filtering",
+    "starter_context": "chunks is a list of dicts with a \"metadata\" dict.",
+    "expected": "chunks = [chunk for chunk in chunks if chunk[\"metadata\"].get(\"source\") == source]",
+    "acceptable_answers": [
+      "chunks = [chunk for chunk in chunks if chunk[\"metadata\"].get(\"source\") == source]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_min_score_filter",
+    "topic": "ai.rag.score_sorting",
+    "description": "Keep chunks whose score is at least min_score and assign the filtered list to chunks.",
+    "pattern_focus": "rag_filtering",
+    "starter_context": "chunks is a list of dicts with a \"score\" key.",
+    "expected": "chunks = [chunk for chunk in chunks if chunk[\"score\"] >= min_score]",
+    "acceptable_answers": [
+      "chunks = [chunk for chunk in chunks if chunk[\"score\"] >= min_score]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_chunk_texts",
+    "topic": "ai.rag.context_joining",
+    "description": "Build texts as a list of each chunk's \"text\" value.",
+    "pattern_focus": "rag_projection",
+    "starter_context": "chunks is a list of dicts with a \"text\" key.",
+    "expected": "texts = [chunk[\"text\"] for chunk in chunks]",
+    "acceptable_answers": [
+      "texts = [chunk[\"text\"] for chunk in chunks]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_context_limit",
+    "topic": "ai.rag.context_joining",
+    "description": "Truncate context to max_chars characters and assign it back to context.",
+    "pattern_focus": "rag_context_limit",
+    "starter_context": "context and max_chars already exist.",
+    "expected": "context = context[:max_chars]",
+    "acceptable_answers": [
+      "context = context[:max_chars]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_retrieved_chunk_shape",
+    "topic": "ai.rag.retrieved_chunk",
+    "description": "Create result dict with text set to chunk[\"text\"], score set to score, and metadata set to chunk[\"metadata\"].",
+    "pattern_focus": "rag_chunk_shape",
+    "starter_context": "chunk and score already exist.",
+    "expected": "result = {\"text\": chunk[\"text\"], \"score\": score, \"metadata\": chunk[\"metadata\"]}",
+    "acceptable_answers": [
+      "result = {\"text\": chunk[\"text\"], \"score\": score, \"metadata\": chunk[\"metadata\"]}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_rag_query_payload",
+    "topic": "ai.rag.query_shape",
+    "description": "Create payload dict with query set to query and filters set to filters.",
+    "pattern_focus": "rag_query_shape",
+    "starter_context": "query and filters already exist.",
+    "expected": "payload = {\"query\": query, \"filters\": filters}",
+    "acceptable_answers": [
+      "payload = {\"query\": query, \"filters\": filters}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_success_return",
+    "topic": "ai.tools.structured_result",
+    "description": "Return a success payload with ok True and content set to content.",
+    "pattern_focus": "tool_result_return",
+    "starter_context": "Inside a function. content already exists.",
+    "expected": "return {\"ok\": True, \"content\": content}",
+    "acceptable_answers": [
+      "return {\"ok\": True, \"content\": content}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_error_return",
+    "topic": "ai.tools.error_result",
+    "description": "Return an error payload with ok False and error set to str(exc).",
+    "pattern_focus": "tool_result_return",
+    "starter_context": "Inside an except block. exc already exists.",
+    "expected": "return {\"ok\": False, \"error\": str(exc)}",
+    "acceptable_answers": [
+      "return {\"ok\": False, \"error\": str(exc)}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_call_shape",
+    "topic": "ai.tools.payload_shape",
+    "description": "Create call dict with name set to tool_name and arguments set to arguments.",
+    "pattern_focus": "tool_payload_shape",
+    "starter_context": "tool_name and arguments already exist.",
+    "expected": "call = {\"name\": tool_name, \"arguments\": arguments}",
+    "acceptable_answers": [
+      "call = {\"name\": tool_name, \"arguments\": arguments}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_extract_arguments",
+    "topic": "ai.tools.payload_shape",
+    "description": "Read arguments from call with default empty dict and assign to arguments.",
+    "pattern_focus": "tool_payload_shape",
+    "starter_context": "call is a dict-like tool call.",
+    "expected": "arguments = call.get(\"arguments\", {})",
+    "acceptable_answers": [
+      "arguments = call.get(\"arguments\", {})"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_extract_name",
+    "topic": "ai.tools.payload_shape",
+    "description": "Read name from call with default empty string and assign to name.",
+    "pattern_focus": "tool_payload_shape",
+    "starter_context": "call is a dict-like tool call.",
+    "expected": "name = call.get(\"name\", \"\")",
+    "acceptable_answers": [
+      "name = call.get(\"name\", \"\")"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_unknown_error",
+    "topic": "ai.tools.error_result",
+    "description": "Create result dict for an unknown tool name with ok False and error message using name.",
+    "pattern_focus": "tool_error_shape",
+    "starter_context": "name already exists.",
+    "expected": "result = {\"ok\": False, \"error\": f\"unknown tool: {name}\"}",
+    "acceptable_answers": [
+      "result = {\"ok\": False, \"error\": f\"unknown tool: {name}\"}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_tool_required_missing",
+    "topic": "ai.tools.error_result",
+    "description": "Build missing as required field names that are not present in arguments.",
+    "pattern_focus": "tool_validation",
+    "starter_context": "required is a list of field names. arguments is a dict.",
+    "expected": "missing = [name for name in required if name not in arguments]",
+    "acceptable_answers": [
+      "missing = [name for name in required if name not in arguments]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_async_gather_results",
+    "topic": "ai.async.gather",
+    "description": "Await asyncio.gather on calls and assign the list-like result to results.",
+    "pattern_focus": "async_gather",
+    "starter_context": "import asyncio\n\nInside an async function. calls already exists.",
+    "expected": "results = await asyncio.gather(*calls)",
+    "acceptable_answers": [
+      "results = await asyncio.gather(*calls)"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_async_await_client_generate",
+    "topic": "ai.async.gather",
+    "description": "Await client.generate(prompt) and assign it to text.",
+    "pattern_focus": "async_await_call",
+    "starter_context": "Inside an async function. client and prompt already exist.",
+    "expected": "text = await client.generate(prompt)",
+    "acceptable_answers": [
+      "text = await client.generate(prompt)"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_async_collect_embeddings",
+    "topic": "ai.async.gather",
+    "description": "Await asyncio.gather for embedder.embed(text) over texts and assign to embeddings.",
+    "pattern_focus": "async_gather",
+    "starter_context": "import asyncio\n\nInside an async function. embedder and texts already exist.",
+    "expected": "embeddings = await asyncio.gather(*(embedder.embed(text) for text in texts))",
+    "acceptable_answers": [
+      "embeddings = await asyncio.gather(*(embedder.embed(text) for text in texts))"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_retry_loop_header",
+    "topic": "ai.retry.skeleton",
+    "description": "Write a for loop header that iterates attempts times with variable attempt.",
+    "pattern_focus": "retry_loop",
+    "starter_context": "attempts already exists.",
+    "expected": "for attempt in range(attempts):\n    pass",
+    "acceptable_answers": [
+      "for attempt in range(attempts):\n    pass"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_retry_last_attempt_check",
+    "topic": "ai.retry.skeleton",
+    "description": "Create bool last_attempt that is True when attempt is the final attempt.",
+    "pattern_focus": "retry_loop",
+    "starter_context": "attempt and attempts already exist.",
+    "expected": "last_attempt = attempt == attempts - 1",
+    "acceptable_answers": [
+      "last_attempt = attempt == attempts - 1"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_retry_raise_on_last",
+    "topic": "ai.retry.skeleton",
+    "description": "Raise exc when last_attempt is true.",
+    "pattern_focus": "retry_loop",
+    "starter_context": "Inside an except block. last_attempt and exc already exist.",
+    "expected": "if last_attempt:\n    raise exc",
+    "acceptable_answers": [
+      "if last_attempt:\n    raise exc"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_eval_record_dict",
+    "topic": "ai.evaluation.record_shape",
+    "description": "Create record dict with question, prediction, and reference fields from variables with the same names.",
+    "pattern_focus": "evaluation_shape",
+    "starter_context": "question, prediction, and reference already exist.",
+    "expected": "record = {\"question\": question, \"prediction\": prediction, \"reference\": reference}",
+    "acceptable_answers": [
+      "record = {\"question\": question, \"prediction\": prediction, \"reference\": reference}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_eval_metric_result",
+    "topic": "ai.evaluation.metric_contract",
+    "description": "Create result dict with metric set to metric_name and score set to score.",
+    "pattern_focus": "evaluation_shape",
+    "starter_context": "metric_name and score already exist.",
+    "expected": "result = {\"metric\": metric_name, \"score\": score}",
+    "acceptable_answers": [
+      "result = {\"metric\": metric_name, \"score\": score}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_eval_average_score",
+    "topic": "ai.evaluation.metric_contract",
+    "description": "Compute average score from records where each record has a \"score\" key.",
+    "pattern_focus": "evaluation_metric",
+    "starter_context": "records is a non-empty list of dicts with a \"score\" key.",
+    "expected": "average = sum(record[\"score\"] for record in records) / len(records)",
+    "acceptable_answers": [
+      "average = sum(record[\"score\"] for record in records) / len(records)"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_eval_pass_rate",
+    "topic": "ai.evaluation.metric_contract",
+    "description": "Compute pass_rate as passed divided by total.",
+    "pattern_focus": "evaluation_metric",
+    "starter_context": "passed and total already exist.",
+    "expected": "pass_rate = passed / total",
+    "acceptable_answers": [
+      "pass_rate = passed / total"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_eval_latency_record",
+    "topic": "ai.evaluation.record_shape",
+    "description": "Create record dict with id set to case_id and latency_ms set to latency_ms.",
+    "pattern_focus": "evaluation_shape",
+    "starter_context": "case_id and latency_ms already exist.",
+    "expected": "record = {\"id\": case_id, \"latency_ms\": latency_ms}",
+    "acceptable_answers": [
+      "record = {\"id\": case_id, \"latency_ms\": latency_ms}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_eval_failure_record",
+    "topic": "ai.evaluation.record_shape",
+    "description": "Create record dict with id set to case_id, ok False, and error set to error.",
+    "pattern_focus": "evaluation_shape",
+    "starter_context": "case_id and error already exist.",
+    "expected": "record = {\"id\": case_id, \"ok\": False, \"error\": error}",
+    "acceptable_answers": [
+      "record = {\"id\": case_id, \"ok\": False, \"error\": error}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_eval_filter_failures",
+    "topic": "ai.evaluation.record_shape",
+    "description": "Build failures as records whose ok value is false.",
+    "pattern_focus": "evaluation_filter",
+    "starter_context": "records is a list of dicts with an \"ok\" key.",
+    "expected": "failures = [record for record in records if not record[\"ok\"]]",
+    "acceptable_answers": [
+      "failures = [record for record in records if not record[\"ok\"]]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_json_assert_dict",
+    "topic": "ai.json.boundary",
+    "description": "Raise TypeError with message \"payload must be a dict\" when payload is not a dict.",
+    "pattern_focus": "json_boundary_validation",
+    "starter_context": "payload already exists.",
+    "expected": "if not isinstance(payload, dict):\n    raise TypeError(\"payload must be a dict\")",
+    "acceptable_answers": [
+      "if not isinstance(payload, dict):\n    raise TypeError(\"payload must be a dict\")"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_json_required_query",
+    "topic": "ai.json.boundary",
+    "description": "Read query from payload by required key \"query\" and assign it to query.",
+    "pattern_focus": "json_boundary_validation",
+    "starter_context": "payload is a dict.",
+    "expected": "query = payload[\"query\"]",
+    "acceptable_answers": [
+      "query = payload[\"query\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_pydantic_search_input",
+    "topic": "ai.pydantic.model",
+    "description": "Create a pydantic-style model named SearchInput with fields query: str and top_k: int = Field(default=5, ge=1).",
+    "pattern_focus": "pydantic_model",
+    "starter_context": "from pydantic import BaseModel, Field",
+    "expected": "class SearchInput(BaseModel):\n    query: str\n    top_k: int = Field(default=5, ge=1)",
+    "acceptable_answers": [
+      "class SearchInput(BaseModel):\n    query: str\n    top_k: int = Field(default=5, ge=1)"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_pydantic_tool_output",
+    "topic": "ai.pydantic.model",
+    "description": "Create a pydantic-style model named ToolOutput with fields ok: bool and content: str | None = None.",
+    "pattern_focus": "pydantic_model",
+    "starter_context": "from pydantic import BaseModel",
+    "expected": "class ToolOutput(BaseModel):\n    ok: bool\n    content: str | None = None",
+    "acceptable_answers": [
+      "class ToolOutput(BaseModel):\n    ok: bool\n    content: str | None = None"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "ai_tooling_core_mixed_prompt_messages_list",
+    "topic": "ai.prompt.message_shape",
+    "description": "Create messages list with one system message using system_prompt and one user message using query.",
+    "pattern_focus": "mixed_message_shape",
+    "starter_context": "system_prompt and query already exist.",
+    "expected": "messages = [{\"role\": \"system\", \"content\": system_prompt}, {\"role\": \"user\", \"content\": query}]",
+    "acceptable_answers": [
+      "messages = [{\"role\": \"system\", \"content\": system_prompt}, {\"role\": \"user\", \"content\": query}]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_mixed_model_payload",
+    "topic": "ai.tools.payload_shape",
+    "description": "Create payload dict with model set to model and messages set to messages.",
+    "pattern_focus": "mixed_payload_shape",
+    "starter_context": "model and messages already exist.",
+    "expected": "payload = {\"model\": model, \"messages\": messages}",
+    "acceptable_answers": [
+      "payload = {\"model\": model, \"messages\": messages}"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_mixed_response_text",
+    "topic": "ai.result.shape",
+    "description": "Read text from response[\"choices\"][0][\"message\"][\"content\"] and assign it to text.",
+    "pattern_focus": "mixed_response_parse",
+    "starter_context": "response is a dict-like model response.",
+    "expected": "text = response[\"choices\"][0][\"message\"][\"content\"]",
+    "acceptable_answers": [
+      "text = response[\"choices\"][0][\"message\"][\"content\"]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_mixed_allowed_tool_names",
+    "topic": "ai.security.whitelist",
+    "description": "Build allowed as names from tool_names that are present in allowlist.",
+    "pattern_focus": "whitelist_filter",
+    "starter_context": "tool_names and allowlist already exist.",
+    "expected": "allowed = [name for name in tool_names if name in allowlist]",
+    "acceptable_answers": [
+      "allowed = [name for name in tool_names if name in allowlist]"
+    ],
+    "times_required": 3,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_async_timeout_generate",
+    "topic": "ai.async.timeout",
+    "description": "Use asyncio.timeout(seconds) around awaiting client.generate(prompt) into result.",
+    "pattern_focus": "async_timeout",
+    "starter_context": "import asyncio\n\nInside an async function. seconds, client, and prompt already exist.",
+    "expected": "async with asyncio.timeout(seconds):\n    result = await client.generate(prompt)",
+    "acceptable_answers": [
+      "async with asyncio.timeout(seconds):\n    result = await client.generate(prompt)"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_tools_registry_filter",
+    "topic": "ai.tools.registry",
+    "description": "Build allowed_tools dict from tools items where name is in allowlist.",
+    "pattern_focus": "registry_whitelist",
+    "starter_context": "tools is a dict. allowlist is a collection of allowed names.",
+    "expected": "allowed_tools = {name: tool for name, tool in tools.items() if name in allowlist}",
+    "acceptable_answers": [
+      "allowed_tools = {name: tool for name, tool in tools.items() if name in allowlist}"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_agent_tool_dispatch",
+    "topic": "ai.agent.tool_dispatch",
+    "description": "Call the selected tool by name with arguments and assign the result to result.",
+    "pattern_focus": "tool_dispatch",
+    "starter_context": "tools is a dict of callables. name and arguments already exist.",
+    "expected": "result = tools[name](**arguments)",
+    "acceptable_answers": [
+      "result = tools[name](**arguments)"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_agent_safe_tool_lookup",
+    "topic": "ai.agent.tool_dispatch",
+    "description": "Get tool from tools by name and assign it to tool.",
+    "pattern_focus": "tool_dispatch",
+    "starter_context": "tools is a dict. name already exists.",
+    "expected": "tool = tools.get(name)",
+    "acceptable_answers": [
+      "tool = tools.get(name)"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_security_reject_unlisted_tool",
+    "topic": "ai.security.whitelist",
+    "description": "Raise ValueError with message \"tool not allowed\" when name is not in allowlist.",
+    "pattern_focus": "security_whitelist",
+    "starter_context": "name and allowlist already exist.",
+    "expected": "if name not in allowlist:\n    raise ValueError(\"tool not allowed\")",
+    "acceptable_answers": [
+      "if name not in allowlist:\n    raise ValueError(\"tool not allowed\")"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_pipeline_contract",
+    "topic": "ai.rag.pipeline_contract",
+    "description": "Create a Protocol named RagPipeline with method answer(self, query: str) -> dict[str, object].",
+    "pattern_focus": "pipeline_contract",
+    "starter_context": "from typing import Protocol",
+    "expected": "class RagPipeline(Protocol):\n    def answer(self, query: str) -> dict[str, object]: ...",
+    "acceptable_answers": [
+      "class RagPipeline(Protocol):\n    def answer(self, query: str) -> dict[str, object]: ..."
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_metric_contract_callable",
+    "topic": "ai.evaluation.metric_contract",
+    "description": "Annotate metric_fn as a Callable that takes prediction and reference strings and returns float.",
+    "pattern_focus": "metric_contract",
+    "starter_context": "from typing import Callable",
+    "expected": "metric_fn: Callable[[str, str], float]",
+    "acceptable_answers": [
+      "metric_fn: Callable[[str, str], float]"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_async_timeout_error_result",
+    "topic": "ai.async.timeout",
+    "description": "Return timeout error payload with ok False and error \"timeout\".",
+    "pattern_focus": "async_error_result",
+    "starter_context": "Inside an except asyncio.TimeoutError block.",
+    "expected": "return {\"ok\": False, \"error\": \"timeout\"}",
+    "acceptable_answers": [
+      "return {\"ok\": False, \"error\": \"timeout\"}"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "ai_tooling_core_registry_missing_guard",
+    "topic": "ai.tools.registry",
+    "description": "Return unknown-tool error payload when tool is None.",
+    "pattern_focus": "registry_guard",
+    "starter_context": "Inside a function. tool already exists.",
+    "expected": "if tool is None:\n    return {\"ok\": False, \"error\": \"unknown tool\"}",
+    "acceptable_answers": [
+      "if tool is None:\n    return {\"ok\": False, \"error\": \"unknown tool\"}"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 2
+  },
+  {
+    "id": "ai_tooling_core_pipeline_result_shape",
+    "topic": "ai.rag.pipeline_contract",
+    "description": "Create response dict with answer set to answer and sources set to sources.",
+    "pattern_focus": "pipeline_result_shape",
+    "starter_context": "answer and sources already exist.",
+    "expected": "response = {\"answer\": answer, \"sources\": sources}",
+    "acceptable_answers": [
+      "response = {\"answer\": answer, \"sources\": sources}"
+    ],
+    "times_required": 3,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  }
+]

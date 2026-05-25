@@ -53,3 +53,5 @@ Pull requests should describe the behavior change, list the commands run for ver
 Keep changes small and learning-oriented. Explain key design decisions, preserve simple JSON storage, and avoid adding dependencies unless explicitly requested.
 
 Keep `docs/AI.md` current. Whenever you change code behavior, commands, drill selection, prompt display, data layout, project structure, or important development guidance, update `docs/AI.md` in the same change so future GPT/project discussions have accurate context.
+
+Keep the `Available Packs And Sets` section of `README.md` current. Whenever you add, generate, rename, or remove a static pack in `data/drills/` or a custom set in `data/sets/`, update that README catalog in the same change.

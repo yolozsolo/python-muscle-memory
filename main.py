@@ -16,6 +16,8 @@ GENERATED_DIR = DATA_DIR / "generated"
 PROGRESS_PATH = BASE_DIR / "data" / "progress.json"
 DEFAULT_PACK = "python_basic"
 MAX_PATTERN_STREAK = 2
+WEAK_CORRECT_REQUIRED = 3
+OPT_IN_CUSTOM_SETS = {"fastapi-basics"}
 REQUIRED_DRILL_FIELDS = [
     "id",
     "topic",
@@ -200,6 +202,8 @@ def get_progress_record(progress, drill_id, pack=DEFAULT_PACK):
     record = progress.setdefault(key, {})
     record.setdefault("completed_count", 0)
     record.setdefault("wrong_attempts", 0)
+    record.setdefault("recall_wrong_attempts", 0)
+    record.setdefault("weak_correct_attempts", 0)
     record.setdefault("last_wrong", "")
     return record
 
@@ -220,6 +224,14 @@ def wrong_attempts(progress, drill):
     )
 
 
+def recall_wrong_attempts(progress, drill):
+    return int(
+        get_progress_record(progress, drill["id"], drill["_pack"])[
+            "recall_wrong_attempts"
+        ]
+    )
+
+
 def record_correct(progress, drill):
     record = get_progress_record(progress, drill["id"], drill["_pack"])
     record["completed_count"] += 1
@@ -231,11 +243,33 @@ def record_wrong(progress, drill, answer):
     record["last_wrong"] = answer.strip()
 
 
+def record_recall_wrong(progress, drill, answer):
+    record_wrong(progress, drill, answer)
+    record = get_progress_record(progress, drill["id"], drill["_pack"])
+    record["recall_wrong_attempts"] += 1
+    record["weak_correct_attempts"] = 0
+
+
+def record_weak_correct(progress, drill):
+    record = get_progress_record(progress, drill["id"], drill["_pack"])
+    record["weak_correct_attempts"] += 1
+
+    if record["weak_correct_attempts"] >= WEAK_CORRECT_REQUIRED:
+        record["recall_wrong_attempts"] = 0
+        record["weak_correct_attempts"] = 0
+
+
+def record_weak_wrong(progress, drill, answer):
+    record_wrong(progress, drill, answer)
+    record = get_progress_record(progress, drill["id"], drill["_pack"])
+    record["weak_correct_attempts"] = 0
+
+
 def is_completed(progress, drill):
     return completed_count(progress, drill) >= drill["times_required"]
 
 
-def check_answer(answer, acceptable_answers, lines_allowed):
+def check_answer(answer, expected, acceptable_answers, lines_allowed):
     stripped = answer.strip()
 
     if len(stripped.splitlines()) > lines_allowed:
@@ -246,7 +280,8 @@ def check_answer(answer, acceptable_answers, lines_allowed):
     except SyntaxError:
         return "syntax_error"
 
-    acceptable = {item.strip() for item in acceptable_answers}
+    acceptable = {expected.strip()}
+    acceptable.update(item.strip() for item in acceptable_answers)
     if stripped not in acceptable:
         return "not_exact"
 
@@ -375,18 +410,18 @@ def choose_weak_drill(drills, progress):
     weak_drills = [
         drill
         for drill in drills
-        if wrong_attempts(progress, drill) > 0
+        if recall_wrong_attempts(progress, drill) > 0
     ]
     if not weak_drills:
         return None
 
     highest_wrong = max(
-        wrong_attempts(progress, drill) for drill in weak_drills
+        recall_wrong_attempts(progress, drill) for drill in weak_drills
     )
     most_wrong = [
         drill
         for drill in weak_drills
-        if wrong_attempts(progress, drill) == highest_wrong
+        if recall_wrong_attempts(progress, drill) == highest_wrong
     ]
     return random.choice(most_wrong)
 
@@ -500,6 +535,7 @@ def run_practice_session(drill, progress, show_answer):
 
         result = check_answer(
             answer,
+            drill["expected"],
             drill["acceptable_answers"],
             drill["lines_allowed"],
         )
@@ -525,6 +561,11 @@ def run_single_attempt_session(drill, progress, show_answer):
 
     print_context(drill, show_answer)
     print(f"Wrong attempts: {record['wrong_attempts']}")
+    print(f"Recall wrong attempts: {record['recall_wrong_attempts']}")
+    print(
+        f"Weak correct attempts: "
+        f"{record['weak_correct_attempts']} / {WEAK_CORRECT_REQUIRED}"
+    )
     if record["last_wrong"]:
         print("Last wrong:")
         print(record["last_wrong"])
@@ -536,18 +577,20 @@ def run_single_attempt_session(drill, progress, show_answer):
 
     result = check_answer(
         answer,
+        drill["expected"],
         drill["acceptable_answers"],
         drill["lines_allowed"],
     )
 
     print_result(result)
     if result != "correct":
-        record_wrong(progress, drill, answer)
+        record_weak_wrong(progress, drill, answer)
         save_progress(progress)
         return True
 
     if record["completed_count"] < drill["times_required"]:
         record["completed_count"] += 1
+    record_weak_correct(progress, drill)
     save_progress(progress)
     return True
 
@@ -623,13 +666,14 @@ def run_recall(packs=None):
 
         result = check_answer(
             answer,
+            drill["expected"],
             drill["acceptable_answers"],
             drill["lines_allowed"],
         )
 
         print_result(result)
         if result != "correct":
-            record_wrong(progress, drill, answer)
+            record_recall_wrong(progress, drill, answer)
             save_progress(progress)
 
         print("Expected:")
@@ -647,16 +691,25 @@ def run_list(packs=None):
             f"{drill['_pack']} | {drill['id']} | {drill['topic']} | "
             f"{drill['difficulty']} | {count}/{required} | "
             f"wrong: {wrong_attempts(progress, drill)} | "
+            f"recall wrong: {recall_wrong_attempts(progress, drill)} | "
             f"lines: {drill['lines_allowed']}"
         )
 
 
 def default_drill_collections():
-    return [DEFAULT_PACK] + available_custom_sets()
+    standard_sets = [
+        name for name in available_custom_sets()
+        if name not in OPT_IN_CUSTOM_SETS
+    ]
+    return [DEFAULT_PACK] + standard_sets
 
 
 def all_practice_collections():
-    return available_builtin_packs() + available_custom_sets()
+    standard_sets = [
+        name for name in available_custom_sets()
+        if name not in OPT_IN_CUSTOM_SETS
+    ]
+    return available_builtin_packs() + standard_sets
 
 
 def resolve_set(name):
