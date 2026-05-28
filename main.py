@@ -10,9 +10,12 @@ DATA_DIR = BASE_DIR / "data"
 OLD_DRILLS_PATH = DATA_DIR / "drills.json"
 DRILLS_DIR = DATA_DIR / "drills"
 CUSTOM_SETS_DIR = DATA_DIR / "sets"
+GENERATED_DIR = DATA_DIR / "generated"
 PROGRESS_PATH = BASE_DIR / "data" / "progress.json"
 DEFAULT_PACK = "python_basic"
 MAX_PATTERN_STREAK = 2
+WEAK_CORRECT_REQUIRED = 3
+VALID_DIFFICULTIES = {"beginner", "intermediate", "advanced"}
 REQUIRED_DRILL_FIELDS = [
     "id",
     "topic",
@@ -29,6 +32,10 @@ EXIT_SESSION = "__EXIT_SESSION__"
 
 
 class DrillLoadError(Exception):
+    pass
+
+
+class DrillValidationError(Exception):
     pass
 
 
@@ -126,6 +133,175 @@ def validate_drills(drills, collection_name, path):
         seen_ids.add(drill_id)
 
 
+def validation_context(path, drill_id=None):
+    if drill_id:
+        return f"{path} | {drill_id}"
+    return str(path)
+
+
+def add_validation_error(errors, path, drill_id, problem):
+    errors.append(f"{validation_context(path, drill_id)} | {problem}")
+
+
+def parse_python_for_validation(errors, path, drill_id, field, value):
+    try:
+        ast.parse(value)
+    except SyntaxError as error:
+        add_validation_error(
+            errors,
+            path,
+            drill_id,
+            f"{field} is not valid Python: line {error.lineno}, "
+            f"column {error.offset}",
+        )
+
+
+def expected_non_empty_line_count(expected):
+    return len([line for line in expected.splitlines() if line.strip()])
+
+
+def validate_drill_record(drill, path, index, errors):
+    drill_id = drill.get("id") if isinstance(drill, dict) else None
+    if not isinstance(drill, dict):
+        add_validation_error(errors, path, None, f"item {index} is not an object")
+        return
+
+    missing = [field for field in REQUIRED_DRILL_FIELDS if field not in drill]
+    if missing:
+        add_validation_error(
+            errors,
+            path,
+            drill_id,
+            f"missing required fields: {', '.join(missing)}",
+        )
+        return
+
+    expected = drill["expected"]
+    acceptable_answers = drill["acceptable_answers"]
+    lines_allowed = drill["lines_allowed"]
+    times_required = drill["times_required"]
+    difficulty = drill["difficulty"]
+
+    if not isinstance(expected, str):
+        add_validation_error(errors, path, drill_id, "expected must be a string")
+    else:
+        parse_python_for_validation(errors, path, drill_id, "expected", expected)
+
+    if not isinstance(acceptable_answers, list):
+        add_validation_error(
+            errors, path, drill_id, "acceptable_answers must be a list"
+        )
+    else:
+        for answer_index, answer in enumerate(acceptable_answers, start=1):
+            if not isinstance(answer, str):
+                add_validation_error(
+                    errors,
+                    path,
+                    drill_id,
+                    f"acceptable_answers item {answer_index} must be a string",
+                )
+                continue
+            parse_python_for_validation(
+                errors,
+                path,
+                drill_id,
+                f"acceptable_answers item {answer_index}",
+                answer,
+            )
+
+        if isinstance(expected, str):
+            acceptable = {
+                answer.strip()
+                for answer in acceptable_answers
+                if isinstance(answer, str)
+            }
+            if expected.strip() not in acceptable:
+                add_validation_error(
+                    errors,
+                    path,
+                    drill_id,
+                    "expected is not included in acceptable_answers",
+                )
+
+    if not isinstance(lines_allowed, int):
+        add_validation_error(errors, path, drill_id, "lines_allowed must be an int")
+    elif lines_allowed < expected_non_empty_line_count(str(expected)):
+        add_validation_error(
+            errors,
+            path,
+            drill_id,
+            "lines_allowed is less than expected non-empty line count",
+        )
+
+    if not isinstance(times_required, int):
+        add_validation_error(errors, path, drill_id, "times_required must be an int")
+    elif times_required < 1:
+        add_validation_error(errors, path, drill_id, "times_required must be >= 1")
+
+    if difficulty not in VALID_DIFFICULTIES:
+        add_validation_error(
+            errors,
+            path,
+            drill_id,
+            "difficulty must be one of: beginner, intermediate, advanced",
+        )
+
+
+def validate_drill_file(path):
+    errors = []
+    try:
+        drills = load_json(path, [])
+    except DrillLoadError as error:
+        return [str(error)]
+
+    if not isinstance(drills, list):
+        return [f"{path} | top-level JSON value must be a list"]
+
+    seen_ids = set()
+    for index, drill in enumerate(drills, start=1):
+        validate_drill_record(drill, path, index, errors)
+        if not isinstance(drill, dict) or "id" not in drill:
+            continue
+        drill_id = drill["id"]
+        if drill_id in seen_ids:
+            add_validation_error(
+                errors,
+                path,
+                drill_id,
+                "duplicate id within this collection",
+            )
+        seen_ids.add(drill_id)
+
+    return errors
+
+
+def validation_paths():
+    paths = []
+    if DRILLS_DIR.exists():
+        paths.extend(sorted(DRILLS_DIR.glob("*.json")))
+    if CUSTOM_SETS_DIR.exists():
+        paths.extend(sorted(CUSTOM_SETS_DIR.glob("*.json")))
+    if GENERATED_DIR.exists():
+        paths.extend(sorted(GENERATED_DIR.glob("*.json")))
+    if OLD_DRILLS_PATH.exists():
+        paths.append(OLD_DRILLS_PATH)
+    return paths
+
+
+def run_validate():
+    errors = []
+    for path in validation_paths():
+        errors.extend(validate_drill_file(path))
+
+    if errors:
+        print("Drill data validation failed:")
+        for error in errors:
+            print(f"- {error}")
+        raise DrillValidationError
+
+    print(f"Validated {len(validation_paths())} drill data files.")
+
+
 def load_pack(pack):
     if pack not in available_builtin_packs():
         available = ", ".join(available_builtin_packs()) or "none"
@@ -196,6 +372,10 @@ def get_progress_record(progress, drill_id, pack=DEFAULT_PACK):
     record.setdefault("completed_count", 0)
     record.setdefault("wrong_attempts", 0)
     record.setdefault("recall_wrong_attempts", 0)
+    if "weak_correct_streak" not in record:
+        record["weak_correct_streak"] = int(
+            record.get("weak_correct_attempts", 0)
+        )
     record.setdefault("last_wrong", "")
     return record
 
@@ -239,6 +419,21 @@ def record_recall_wrong(progress, drill, answer):
     record_wrong(progress, drill, answer)
     record = get_progress_record(progress, drill["id"], drill["_pack"])
     record["recall_wrong_attempts"] += 1
+    record["weak_correct_streak"] = 0
+
+
+def record_weak_correct(progress, drill):
+    record = get_progress_record(progress, drill["id"], drill["_pack"])
+    record["weak_correct_streak"] += 1
+    if record["weak_correct_streak"] >= WEAK_CORRECT_REQUIRED:
+        record["recall_wrong_attempts"] = 0
+        record["weak_correct_streak"] = 0
+
+
+def record_weak_wrong(progress, drill, answer):
+    record_wrong(progress, drill, answer)
+    record = get_progress_record(progress, drill["id"], drill["_pack"])
+    record["weak_correct_streak"] = 0
 
 
 def is_completed(progress, drill):
@@ -536,6 +731,10 @@ def run_single_attempt_session(drill, progress, show_answer):
     print_context(drill, show_answer)
     print(f"Wrong attempts: {record['wrong_attempts']}")
     print(f"Recall wrong attempts: {record['recall_wrong_attempts']}")
+    print(
+        f"Weak correct streak: "
+        f"{record['weak_correct_streak']} / {WEAK_CORRECT_REQUIRED}"
+    )
     if record["last_wrong"]:
         print("Last wrong:")
         print(record["last_wrong"])
@@ -553,12 +752,13 @@ def run_single_attempt_session(drill, progress, show_answer):
 
     print_result(result)
     if result != "correct":
-        record_wrong(progress, drill, answer)
+        record_weak_wrong(progress, drill, answer)
         save_progress(progress)
         return True
 
     if record["completed_count"] < drill["times_required"]:
         record["completed_count"] += 1
+    record_weak_correct(progress, drill)
     save_progress(progress)
     return True
 
@@ -752,7 +952,7 @@ def parse_args():
     )
     drill_parser.add_argument(
         "--level",
-        choices=["beginner", "intermediate", "advanced"],
+        choices=sorted(VALID_DIFFICULTIES),
         help="only choose drills with this difficulty",
     )
     drill_parser.add_argument(
@@ -769,7 +969,7 @@ def parse_args():
     )
     weak_parser.add_argument(
         "--level",
-        choices=["beginner", "intermediate", "advanced"],
+        choices=sorted(VALID_DIFFICULTIES),
         help="only choose weak drills with this difficulty",
     )
     weak_parser.add_argument(
@@ -783,6 +983,8 @@ def parse_args():
 
     list_parser = subparsers.add_parser("list")
     add_pack_arguments(list_parser)
+
+    subparsers.add_parser("validate")
     return parser.parse_args()
 
 
@@ -817,6 +1019,10 @@ def main():
             run_recall(packs=packs)
         elif args.command == "list":
             run_list(packs=resolve_focused_collections(args))
+        elif args.command == "validate":
+            run_validate()
+    except DrillValidationError:
+        raise SystemExit(1)
     except DrillLoadError as error:
         print(f"Error: {error}")
         raise SystemExit(1)

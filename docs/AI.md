@@ -43,6 +43,7 @@ uv run python main.py recall --set fastapi-basics
 uv run python main.py recall --all-packs
 uv run python main.py list
 uv run python main.py list --all-packs
+uv run python main.py validate
 ```
 
 Check syntax before finishing code changes:
@@ -67,13 +68,14 @@ uv run python -m py_compile main.py
 - `recall` chooses from completed drills and prints the source pack or set for each prompt. `recall --pack ...`, `recall --set ...`, and `recall --all-packs` bypass the collection menu.
 - `recall` uses shuffled pack and drill queues so one pack or a few tasks do not dominate a session while other completed options exist.
 - `list` prints pack, ID, topic, difficulty, progress, general wrong attempts, recall wrong attempts, and line count.
+- `validate` checks all static packs, custom sets, generated drill files if present, and the legacy drill file if present. It reports all validation errors with file path and drill ID context, then exits non-zero on failure.
 - Custom set names are discovered from `data/sets/*.json` and are not hardcoded.
 - Missing, malformed, or internally duplicated custom sets should fail with a clear error.
 - Drill tasks are loaded from static pack and set JSON files only. There is no template-generation command or generated-drill loading path.
 
 ## Answer Checking And Prompts
 
-Answers are checked with exact string matching after `ast.parse()` confirms valid Python syntax. The `expected` answer is always accepted, and `acceptable_answers` can add extra exact alternatives. This means variable names and literal values matter.
+Answers are checked with exact string matching after `ast.parse()` confirms valid Python syntax. Drill validation requires the `expected` answer to be present in `acceptable_answers`; additional exact alternatives can be listed there too. This means variable names and literal values matter.
 
 To make exact matching fair, prompts print required identifiers and literals derived from the expected answer, for example:
 
@@ -105,7 +107,9 @@ The expanded 60-drill `python_basic`, `python_data_patterns`, and `pyspark_basic
 
 Custom set progress uses the same prefix style, for example `online-retail:parse_strict_datetime`.
 
-Progress records default missing fields at load/use time for compatibility. They include `completed_count`, generic `wrong_attempts`, recall-only `recall_wrong_attempts`, weak-mode `weak_correct_attempts`, and `last_wrong`. `weak` selection is based on `recall_wrong_attempts > 0`.
+Progress records default missing fields at load/use time for compatibility. They include `completed_count`, generic `wrong_attempts`, recall-only `recall_wrong_attempts`, weak-mode `weak_correct_streak`, and `last_wrong`. Old `weak_correct_attempts` data is read into `weak_correct_streak` when the new field is missing. `weak` selection is based on `recall_wrong_attempts > 0`.
+
+`data/progress.json` is ignored local state. Do not commit personal progress data or make tests depend on it.
 
 To create another custom set, add a JSON list of drill records to `data/sets/<name>.json`, then run it with:
 

@@ -16,6 +16,7 @@ uv run python main.py drill --hide
 uv run python main.py recall
 uv run python main.py weak
 uv run python main.py list
+uv run python main.py validate
 ```
 
 Check syntax before finishing changes:
@@ -24,7 +25,13 @@ Check syntax before finishing changes:
 uv run python -m py_compile main.py
 ```
 
-Validate drill data manually when editing drill JSON by running `list` and trying one filtered drill, for example:
+Validate drill data when editing drill JSON:
+
+```bash
+uv run python main.py validate
+```
+
+You can still manually try one filtered drill, for example:
 
 ```bash
 uv run python main.py drill --topic python.list_comprehension
@@ -38,7 +45,7 @@ Keep code readable over clever. Preserve the existing flow: load JSON, choose a 
 
 ## Testing Guidelines
 
-There is no formal test suite yet. For small changes, run `py_compile` and at least one relevant CLI command. If tests are added later, use `pytest` only if it remains lightweight, with tests named `test_*.py` under a `tests/` directory.
+There is a minimal standard-library `unittest` suite under `tests/`. For small changes, run `py_compile`, `validate`, and relevant tests.
 
 Avoid tests that depend on a user’s real progress state. Prefer temporary progress data or pure helper-function tests.
 

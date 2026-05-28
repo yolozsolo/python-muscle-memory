@@ -127,7 +127,13 @@ uv run python main.py list
 uv run python main.py list --all-packs
 ```
 
-Progress is stored in `data/progress.json`. Drill packs live in `data/drills/`.
+Validate drill data:
+
+```bash
+uv run python main.py validate
+```
+
+Progress is stored locally in ignored `data/progress.json`. Drill packs live in `data/drills/`.
 
 Custom sets live in `data/sets/`. A set name maps directly to a JSON file stem, so `--set online-retail` loads `data/sets/online-retail.json`. Plain `drill`, `recall`, and `weak` show the collection menu; their selection flags remain useful for direct and scripted sessions.
 
@@ -158,7 +164,9 @@ Revised exercises in the expanded 60-drill packs use fresh identifiers, so
 completion of an earlier prompt is not incorrectly applied to updated
 practice material. Existing progress data is not deleted.
 
-Progress tracks both general wrong attempts and recall-specific wrong attempts. `weak` uses only recall-specific misses, so mistakes during `drill` do not make a drill weak. After three correct attempts in weak mode, the recall miss is cleared and the drill drops out of weak mode.
+Progress tracks both general wrong attempts and recall-specific wrong attempts. `weak` uses only recall-specific misses, so mistakes during `drill` do not make a drill weak. A recall miss resets that drill's `weak_correct_streak`; after three correct weak-mode attempts, the recall miss is cleared, the streak resets, and the drill drops out of weak mode.
+
+`validate` checks every drill JSON file for schema shape, duplicate IDs, parseable expected and acceptable answers, difficulty values, repetition counts, line limits, and whether `expected` is included in `acceptable_answers`.
 
 The interactive commands `drill`, `recall`, and `weak` accept `:done` at the collection menu to quit, and continue selecting drills until you type `:done` during a session.
 
