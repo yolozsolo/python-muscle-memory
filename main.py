@@ -1,6 +1,5 @@
 import ast
 import argparse
-import itertools
 import json
 import random
 from pathlib import Path
@@ -11,13 +10,9 @@ DATA_DIR = BASE_DIR / "data"
 OLD_DRILLS_PATH = DATA_DIR / "drills.json"
 DRILLS_DIR = DATA_DIR / "drills"
 CUSTOM_SETS_DIR = DATA_DIR / "sets"
-TEMPLATES_DIR = DATA_DIR / "templates"
-GENERATED_DIR = DATA_DIR / "generated"
 PROGRESS_PATH = BASE_DIR / "data" / "progress.json"
 DEFAULT_PACK = "python_basic"
 MAX_PATTERN_STREAK = 2
-WEAK_CORRECT_REQUIRED = 3
-OPT_IN_CUSTOM_SETS = {"fastapi-basics"}
 REQUIRED_DRILL_FIELDS = [
     "id",
     "topic",
@@ -144,13 +139,11 @@ def load_pack(pack):
     else:
         static_drills = load_json(static_path, [])
 
-    generated_path = GENERATED_DIR / f"{pack}_generated.json"
-    generated_drills = load_json(generated_path, [])
-    validate_drills(static_drills + generated_drills, pack, static_path)
+    validate_drills(static_drills, pack, static_path)
 
     drills = []
     seen_ids = set()
-    for drill in static_drills + generated_drills:
+    for drill in static_drills:
         if drill["id"] in seen_ids:
             continue
         seen_ids.add(drill["id"])
@@ -203,7 +196,6 @@ def get_progress_record(progress, drill_id, pack=DEFAULT_PACK):
     record.setdefault("completed_count", 0)
     record.setdefault("wrong_attempts", 0)
     record.setdefault("recall_wrong_attempts", 0)
-    record.setdefault("weak_correct_attempts", 0)
     record.setdefault("last_wrong", "")
     return record
 
@@ -247,29 +239,13 @@ def record_recall_wrong(progress, drill, answer):
     record_wrong(progress, drill, answer)
     record = get_progress_record(progress, drill["id"], drill["_pack"])
     record["recall_wrong_attempts"] += 1
-    record["weak_correct_attempts"] = 0
-
-
-def record_weak_correct(progress, drill):
-    record = get_progress_record(progress, drill["id"], drill["_pack"])
-    record["weak_correct_attempts"] += 1
-
-    if record["weak_correct_attempts"] >= WEAK_CORRECT_REQUIRED:
-        record["recall_wrong_attempts"] = 0
-        record["weak_correct_attempts"] = 0
-
-
-def record_weak_wrong(progress, drill, answer):
-    record_wrong(progress, drill, answer)
-    record = get_progress_record(progress, drill["id"], drill["_pack"])
-    record["weak_correct_attempts"] = 0
 
 
 def is_completed(progress, drill):
     return completed_count(progress, drill) >= drill["times_required"]
 
 
-def check_answer(answer, expected, acceptable_answers, lines_allowed):
+def check_answer(answer, acceptable_answers, lines_allowed):
     stripped = answer.strip()
 
     if len(stripped.splitlines()) > lines_allowed:
@@ -280,8 +256,7 @@ def check_answer(answer, expected, acceptable_answers, lines_allowed):
     except SyntaxError:
         return "syntax_error"
 
-    acceptable = {expected.strip()}
-    acceptable.update(item.strip() for item in acceptable_answers)
+    acceptable = {item.strip() for item in acceptable_answers}
     if stripped not in acceptable:
         return "not_exact"
 
@@ -535,7 +510,6 @@ def run_practice_session(drill, progress, show_answer):
 
         result = check_answer(
             answer,
-            drill["expected"],
             drill["acceptable_answers"],
             drill["lines_allowed"],
         )
@@ -562,10 +536,6 @@ def run_single_attempt_session(drill, progress, show_answer):
     print_context(drill, show_answer)
     print(f"Wrong attempts: {record['wrong_attempts']}")
     print(f"Recall wrong attempts: {record['recall_wrong_attempts']}")
-    print(
-        f"Weak correct attempts: "
-        f"{record['weak_correct_attempts']} / {WEAK_CORRECT_REQUIRED}"
-    )
     if record["last_wrong"]:
         print("Last wrong:")
         print(record["last_wrong"])
@@ -577,20 +547,18 @@ def run_single_attempt_session(drill, progress, show_answer):
 
     result = check_answer(
         answer,
-        drill["expected"],
         drill["acceptable_answers"],
         drill["lines_allowed"],
     )
 
     print_result(result)
     if result != "correct":
-        record_weak_wrong(progress, drill, answer)
+        record_wrong(progress, drill, answer)
         save_progress(progress)
         return True
 
     if record["completed_count"] < drill["times_required"]:
         record["completed_count"] += 1
-    record_weak_correct(progress, drill)
     save_progress(progress)
     return True
 
@@ -654,7 +622,6 @@ def run_recall(packs=None):
             print("No completed drills yet. Use drill first.")
             return
 
-        print(f"Pack: {drill['_pack']}")
         print(f"Description: {drill['description']}")
         if drill["starter_context"]:
             print("Starter context:")
@@ -667,7 +634,6 @@ def run_recall(packs=None):
 
         result = check_answer(
             answer,
-            drill["expected"],
             drill["acceptable_answers"],
             drill["lines_allowed"],
         )
@@ -697,20 +663,8 @@ def run_list(packs=None):
         )
 
 
-def default_drill_collections():
-    standard_sets = [
-        name for name in available_custom_sets()
-        if name not in OPT_IN_CUSTOM_SETS
-    ]
-    return [DEFAULT_PACK] + standard_sets
-
-
 def all_practice_collections():
-    standard_sets = [
-        name for name in available_custom_sets()
-        if name not in OPT_IN_CUSTOM_SETS
-    ]
-    return available_builtin_packs() + standard_sets
+    return available_builtin_packs() + available_custom_sets()
 
 
 def resolve_set(name):
@@ -723,22 +677,38 @@ def resolve_set(name):
     return [name]
 
 
-def resolve_drill_collections(args):
+def choose_collections_from_menu():
+    validate_no_name_conflicts()
+    options = []
+    for pack in available_builtin_packs():
+        options.append((f"Pack: {pack}", [pack]))
+    for custom_set in available_custom_sets():
+        options.append((f"Set: {custom_set}", [custom_set]))
+    options.append(("All packs and sets", all_practice_collections()))
+
+    print("Choose a pack or set:")
+    for index, (label, _) in enumerate(options, start=1):
+        print(f"{index}. {label}")
+
+    while True:
+        answer = input("Number, or :done to exit: ").strip()
+        if answer == ":done":
+            return None
+        if answer.isdigit():
+            index = int(answer)
+            if 1 <= index <= len(options):
+                return options[index - 1][1]
+        print(f"Enter a number from 1 to {len(options)}, or :done.")
+
+
+def resolve_interactive_collections(args):
     if getattr(args, "set", None):
         return resolve_set(args.set)
     if getattr(args, "all_packs", False):
         return all_practice_collections()
     if getattr(args, "pack", None):
         return [args.pack]
-    return default_drill_collections()
-
-
-def resolve_recall_collections(args):
-    if getattr(args, "set", None):
-        return resolve_set(args.set)
-    if getattr(args, "pack", None):
-        return [args.pack]
-    return all_practice_collections()
+    return choose_collections_from_menu()
 
 
 def resolve_focused_collections(args):
@@ -768,77 +738,6 @@ def add_pack_arguments(parser):
     )
 
 
-def load_templates(pack):
-    path = TEMPLATES_DIR / f"{pack}_templates.json"
-    templates = load_json(path, [])
-    if isinstance(templates, dict):
-        return templates.get("templates", [])
-    return templates
-
-
-def render_template(text, values):
-    return text.format(**values)
-
-
-def generate_from_template(template):
-    names = list(template["variables"])
-    choices = [template["variables"][name] for name in names]
-
-    for index, combination in enumerate(itertools.product(*choices), start=1):
-        values = dict(zip(names, combination))
-        expected = render_template(template["expected_template"], values)
-        try:
-            ast.parse(expected)
-        except SyntaxError:
-            continue
-
-        yield {
-            "id": f"{template['template_id']}_{index}",
-            "topic": template["topic"],
-            "description": render_template(
-                template["description_template"], values
-            ),
-            "pattern_focus": template["pattern_focus"],
-            "starter_context": render_template(
-                template.get("starter_context_template", ""), values
-            ),
-            "expected": expected,
-            "acceptable_answers": [expected],
-            "times_required": template["times_required"],
-            "difficulty": template["difficulty"],
-            "lines_allowed": template["lines_allowed"],
-        }
-
-
-def run_generate(pack, limit=None, seed=None):
-    templates = load_templates(pack)
-    if not templates:
-        print(f"No templates found for pack: {pack}")
-        return
-
-    generated = []
-    seen_expected = set()
-    for template in templates:
-        generated.extend(generate_from_template(template))
-
-    unique = []
-    for drill in generated:
-        if drill["expected"] in seen_expected:
-            continue
-        seen_expected.add(drill["expected"])
-        unique.append(drill)
-
-    if seed is not None:
-        random.Random(seed).shuffle(unique)
-
-    if limit is not None:
-        unique = unique[:limit]
-
-    output_path = GENERATED_DIR / f"{pack}_generated.json"
-    save_json(output_path, unique)
-    print(f"Generated {len(unique)} drills in {output_path}")
-
-
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Drill Python syntax patterns through repetition."
@@ -853,7 +752,7 @@ def parse_args():
     )
     drill_parser.add_argument(
         "--level",
-        choices=["beginner", "intermediate"],
+        choices=["beginner", "intermediate", "advanced"],
         help="only choose drills with this difficulty",
     )
     drill_parser.add_argument(
@@ -870,7 +769,7 @@ def parse_args():
     )
     weak_parser.add_argument(
         "--level",
-        choices=["beginner", "intermediate"],
+        choices=["beginner", "intermediate", "advanced"],
         help="only choose weak drills with this difficulty",
     )
     weak_parser.add_argument(
@@ -884,24 +783,6 @@ def parse_args():
 
     list_parser = subparsers.add_parser("list")
     add_pack_arguments(list_parser)
-
-    generate_parser = subparsers.add_parser("generate")
-    generate_parser.add_argument(
-        "--pack",
-        choices=available_builtin_packs(),
-        required=True,
-        help="generate drills for this pack",
-    )
-    generate_parser.add_argument(
-        "--limit",
-        type=int,
-        help="maximum number of generated drills to write",
-    )
-    generate_parser.add_argument(
-        "--seed",
-        type=int,
-        help="shuffle generated drills deterministically with this seed",
-    )
     return parser.parse_args()
 
 
@@ -910,25 +791,32 @@ def main():
 
     try:
         if args.command == "drill":
+            packs = resolve_interactive_collections(args)
+            if packs is None:
+                return
             run_drill(
                 show_answer=not args.hide,
                 level=args.level,
                 topic=args.topic,
-                packs=resolve_drill_collections(args),
+                packs=packs,
             )
         elif args.command == "weak":
+            packs = resolve_interactive_collections(args)
+            if packs is None:
+                return
             run_weak(
                 show_answer=not args.hide,
                 level=args.level,
                 topic=args.topic,
-                packs=resolve_focused_collections(args),
+                packs=packs,
             )
         elif args.command == "recall":
-            run_recall(packs=resolve_recall_collections(args))
+            packs = resolve_interactive_collections(args)
+            if packs is None:
+                return
+            run_recall(packs=packs)
         elif args.command == "list":
             run_list(packs=resolve_focused_collections(args))
-        elif args.command == "generate":
-            run_generate(pack=args.pack, limit=args.limit, seed=args.seed)
     except DrillLoadError as error:
         print(f"Error: {error}")
         raise SystemExit(1)
