@@ -1,86 +1,842 @@
 [
   {
-    "id": "select_columns",
+    "id": "practical_select_columns",
     "topic": "pyspark.select",
-    "description": "Select key and value columns from df.",
+    "description": "Select order id and amount columns.",
     "pattern_focus": "df.select(column, column)",
     "starter_context": "",
-    "expected": "result = df.select(key, value)",
+    "expected": "result = df.select(\"order_id\", \"amount\")",
     "acceptable_answers": [
-      "result = df.select(key, value)"
+      "result = df.select(\"order_id\", \"amount\")"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "filter_rows",
+    "id": "practical_filter_rows",
     "topic": "pyspark.filter",
-    "description": "Filter df to rows where condition is true.",
+    "description": "Keep rows whose amount is positive.",
     "pattern_focus": "df.filter(condition)",
-    "starter_context": "",
-    "expected": "result = df.filter(condition)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.filter(F.col(\"amount\") > 0)",
     "acceptable_answers": [
-      "result = df.filter(condition)"
+      "result = df.filter(F.col(\"amount\") > 0)"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "with_column",
-    "topic": "pyspark.withColumn",
-    "description": "Create value column by applying func to col(value).",
-    "pattern_focus": "df.withColumn(name, expression)",
-    "starter_context": "from pyspark.sql.functions import col",
-    "expected": "result = df.withColumn(\"value\", func(col(\"value\")))",
-    "acceptable_answers": [
-      "result = df.withColumn(\"value\", func(col(\"value\")))"
-    ],
-    "times_required": 5,
-    "difficulty": "intermediate",
-    "lines_allowed": 1
-  },
-  {
-    "id": "groupby_agg",
-    "topic": "pyspark.groupBy",
-    "description": "Group df by key and aggregate value with func.",
-    "pattern_focus": "df.groupBy(column).agg(expression)",
-    "starter_context": "",
-    "expected": "result = df.groupBy(key).agg(func(value))",
-    "acceptable_answers": [
-      "result = df.groupBy(key).agg(func(value))"
-    ],
-    "times_required": 5,
-    "difficulty": "intermediate",
-    "lines_allowed": 1
-  },
-  {
-    "id": "join_on_key",
+    "id": "practical_join_on_key",
     "topic": "pyspark.join",
-    "description": "Join left and right on key.",
+    "description": "Inner join orders and customers on customer_id.",
     "pattern_focus": "left.join(right, on=key, how=how)",
     "starter_context": "",
-    "expected": "result = left.join(right, on=key, how=how)",
+    "expected": "result = orders.join(customers, on=\"customer_id\", how=\"inner\")",
     "acceptable_answers": [
-      "result = left.join(right, on=key, how=how)"
+      "result = orders.join(customers, on=\"customer_id\", how=\"inner\")"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "when_otherwise",
-    "topic": "pyspark.when",
-    "description": "Build a conditional column expression with when and otherwise.",
-    "pattern_focus": "when(condition, value).otherwise(default)",
-    "starter_context": "from pyspark.sql.functions import when",
-    "expected": "result = when(condition, value).otherwise(default)",
+    "id": "alias_column",
+    "topic": "pyspark.select",
+    "description": "Select order id as id.",
+    "pattern_focus": "column.alias(name)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.select(F.col(\"order_id\").alias(\"id\"))",
     "acceptable_answers": [
-      "result = when(condition, value).otherwise(default)"
+      "result = df.select(F.col(\"order_id\").alias(\"id\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "distinct_values",
+    "topic": "pyspark.distinct",
+    "description": "Return distinct country rows.",
+    "pattern_focus": "select.distinct",
+    "starter_context": "",
+    "expected": "result = df.select(\"country\").distinct()",
+    "acceptable_answers": [
+      "result = df.select(\"country\").distinct()"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "drop_duplicate_keys",
+    "topic": "pyspark.dropDuplicates",
+    "description": "Remove duplicate order ids.",
+    "pattern_focus": "df.dropDuplicates(columns)",
+    "starter_context": "",
+    "expected": "result = df.dropDuplicates([\"order_id\"])",
+    "acceptable_answers": [
+      "result = df.dropDuplicates([\"order_id\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "sort_descending",
+    "topic": "pyspark.orderBy",
+    "description": "Order records by amount descending.",
+    "pattern_focus": "df.orderBy(column.desc())",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.orderBy(F.col(\"amount\").desc())",
+    "acceptable_answers": [
+      "result = df.orderBy(F.col(\"amount\").desc())"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "limit_preview",
+    "topic": "pyspark.limit",
+    "description": "Take a DataFrame preview of ten records.",
+    "pattern_focus": "df.limit(number)",
+    "starter_context": "",
+    "expected": "result = df.limit(10)",
+    "acceptable_answers": [
+      "result = df.limit(10)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "drop_column",
+    "topic": "pyspark.drop",
+    "description": "Remove the raw payload column.",
+    "pattern_focus": "df.drop(column)",
+    "starter_context": "",
+    "expected": "result = df.drop(\"raw_payload\")",
+    "acceptable_answers": [
+      "result = df.drop(\"raw_payload\")"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "rename_column",
+    "topic": "pyspark.withColumnRenamed",
+    "description": "Rename customerId to customer_id.",
+    "pattern_focus": "df.withColumnRenamed(old, new)",
+    "starter_context": "",
+    "expected": "result = df.withColumnRenamed(\"customerId\", \"customer_id\")",
+    "acceptable_answers": [
+      "result = df.withColumnRenamed(\"customerId\", \"customer_id\")"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "fill_null_value",
+    "topic": "pyspark.na",
+    "description": "Fill missing country values with unknown.",
+    "pattern_focus": "df.fillna(mapping)",
+    "starter_context": "",
+    "expected": "result = df.fillna({\"country\": \"unknown\"})",
+    "acceptable_answers": [
+      "result = df.fillna({\"country\": \"unknown\"})"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "drop_null_required",
+    "topic": "pyspark.na",
+    "description": "Drop records missing an order id.",
+    "pattern_focus": "df.dropna(subset=...)",
+    "starter_context": "",
+    "expected": "result = df.dropna(subset=[\"order_id\"])",
+    "acceptable_answers": [
+      "result = df.dropna(subset=[\"order_id\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "cast_column",
+    "topic": "pyspark.cast",
+    "description": "Cast amount to a double column.",
+    "pattern_focus": "column.cast(type)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.select(F.col(\"amount\").cast(\"double\").alias(\"amount\"))",
+    "acceptable_answers": [
+      "result = df.select(F.col(\"amount\").cast(\"double\").alias(\"amount\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "literal_column",
+    "topic": "pyspark.lit",
+    "description": "Add a constant source value of api.",
+    "pattern_focus": "F.lit(value)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"source\", F.lit(\"api\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"source\", F.lit(\"api\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "read_parquet",
+    "topic": "pyspark.read",
+    "description": "Read orders from a Parquet path.",
+    "pattern_focus": "spark.read.parquet(path)",
+    "starter_context": "",
+    "expected": "result = spark.read.parquet(path)",
+    "acceptable_answers": [
+      "result = spark.read.parquet(path)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "read_csv_header",
+    "topic": "pyspark.read",
+    "description": "Read a CSV input with its header row.",
+    "pattern_focus": "spark.read.option(...).csv(path)",
+    "starter_context": "",
+    "expected": "result = spark.read.option(\"header\", True).csv(path)",
+    "acceptable_answers": [
+      "result = spark.read.option(\"header\", True).csv(path)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "write_parquet",
+    "topic": "pyspark.write",
+    "description": "Write result as overwrite-mode Parquet.",
+    "pattern_focus": "df.write.mode(...).parquet(path)",
+    "starter_context": "",
+    "expected": "df.write.mode(\"overwrite\").parquet(path)",
+    "acceptable_answers": [
+      "df.write.mode(\"overwrite\").parquet(path)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "count_rows",
+    "topic": "pyspark.action",
+    "description": "Count rows in a DataFrame.",
+    "pattern_focus": "df.count()",
+    "starter_context": "",
+    "expected": "result = df.count()",
+    "acceptable_answers": [
+      "result = df.count()"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "columns_property",
+    "topic": "pyspark.schema",
+    "description": "Get DataFrame column names.",
+    "pattern_focus": "df.columns",
+    "starter_context": "",
+    "expected": "result = df.columns",
+    "acceptable_answers": [
+      "result = df.columns"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "print_schema",
+    "topic": "pyspark.schema",
+    "description": "Print the DataFrame schema.",
+    "pattern_focus": "df.printSchema()",
+    "starter_context": "",
+    "expected": "df.printSchema()",
+    "acceptable_answers": [
+      "df.printSchema()"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_with_column",
+    "topic": "pyspark.withColumn",
+    "description": "Calculate net amount after discount.",
+    "pattern_focus": "df.withColumn(name, expression)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"net_amount\", F.col(\"amount\") - F.col(\"discount\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"net_amount\", F.col(\"amount\") - F.col(\"discount\"))"
     ],
     "times_required": 5,
     "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_groupby_agg",
+    "topic": "pyspark.groupBy",
+    "description": "Sum order amounts by customer id.",
+    "pattern_focus": "df.groupBy(column).agg(expression)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.groupBy(\"customer_id\").agg(F.sum(\"amount\").alias(\"total_amount\"))",
+    "acceptable_answers": [
+      "result = df.groupBy(\"customer_id\").agg(F.sum(\"amount\").alias(\"total_amount\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_when_otherwise",
+    "topic": "pyspark.when",
+    "description": "Label non-negative amounts as valid or invalid.",
+    "pattern_focus": "when(condition, value).otherwise(default)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"status\", F.when(F.col(\"amount\") >= 0, \"valid\").otherwise(\"invalid\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"status\", F.when(F.col(\"amount\") >= 0, \"valid\").otherwise(\"invalid\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "multiple_aggregates",
+    "topic": "pyspark.aggregation",
+    "description": "Calculate order count and total amount by country.",
+    "pattern_focus": "agg multiple expressions",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.groupBy(\"country\").agg(F.count(\"*\").alias(\"orders\"), F.sum(\"amount\").alias(\"total_amount\"))",
+    "acceptable_answers": [
+      "result = df.groupBy(\"country\").agg(F.count(\"*\").alias(\"orders\"), F.sum(\"amount\").alias(\"total_amount\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "parse_timestamp",
+    "topic": "pyspark.datetime",
+    "description": "Parse event_time text as a timestamp.",
+    "pattern_focus": "F.to_timestamp(column)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"event_time\", F.to_timestamp(\"event_time\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"event_time\", F.to_timestamp(\"event_time\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "extract_date",
+    "topic": "pyspark.datetime",
+    "description": "Create an event_date column from a timestamp.",
+    "pattern_focus": "F.to_date(column)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"event_date\", F.to_date(\"event_time\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"event_date\", F.to_date(\"event_time\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "truncate_month",
+    "topic": "pyspark.datetime",
+    "description": "Create a monthly bucket from event_time.",
+    "pattern_focus": "F.date_trunc(unit, column)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"month\", F.date_trunc(\"month\", \"event_time\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"month\", F.date_trunc(\"month\", \"event_time\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "normalize_string",
+    "topic": "pyspark.string",
+    "description": "Trim and lowercase an email column.",
+    "pattern_focus": "F.lower(F.trim(column))",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"email\", F.lower(F.trim(\"email\")))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"email\", F.lower(F.trim(\"email\")))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "split_array",
+    "topic": "pyspark.array",
+    "description": "Split comma-separated tags into an array.",
+    "pattern_focus": "F.split(column, delimiter)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"tags\", F.split(\"tags\", \",\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"tags\", F.split(\"tags\", \",\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "explode_array",
+    "topic": "pyspark.explode",
+    "description": "Produce one output row per tag.",
+    "pattern_focus": "F.explode(column)",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.select(\"order_id\", F.explode(\"tags\").alias(\"tag\"))",
+    "acceptable_answers": [
+      "result = df.select(\"order_id\", F.explode(\"tags\").alias(\"tag\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "left_join",
+    "topic": "pyspark.join",
+    "description": "Add customer columns while keeping every order.",
+    "pattern_focus": "left join",
+    "starter_context": "",
+    "expected": "result = orders.join(customers, on=\"customer_id\", how=\"left\")",
+    "acceptable_answers": [
+      "result = orders.join(customers, on=\"customer_id\", how=\"left\")"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "left_anti_join",
+    "topic": "pyspark.join",
+    "description": "Find orders without a matching customer.",
+    "pattern_focus": "left_anti join",
+    "starter_context": "",
+    "expected": "result = orders.join(customers, on=\"customer_id\", how=\"left_anti\")",
+    "acceptable_answers": [
+      "result = orders.join(customers, on=\"customer_id\", how=\"left_anti\")"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "union_by_name",
+    "topic": "pyspark.union",
+    "description": "Append current rows to prior rows aligned by column name.",
+    "pattern_focus": "unionByName",
+    "starter_context": "",
+    "expected": "result = current.unionByName(previous)",
+    "acceptable_answers": [
+      "result = current.unionByName(previous)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "union_missing_columns",
+    "topic": "pyspark.union",
+    "description": "Append evolving-schema rows by name allowing missing fields.",
+    "pattern_focus": "unionByName allowMissingColumns",
+    "starter_context": "",
+    "expected": "result = current.unionByName(previous, allowMissingColumns=True)",
+    "acceptable_answers": [
+      "result = current.unionByName(previous, allowMissingColumns=True)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "null_coalesce",
+    "topic": "pyspark.nulls",
+    "description": "Use email when present and phone otherwise.",
+    "pattern_focus": "F.coalesce",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"contact\", F.coalesce(\"email\", \"phone\"))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"contact\", F.coalesce(\"email\", \"phone\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "conditional_sum",
+    "topic": "pyspark.aggregation",
+    "description": "Sum only completed order amounts.",
+    "pattern_focus": "sum when otherwise",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.agg(F.sum(F.when(F.col(\"status\") == \"complete\", F.col(\"amount\")).otherwise(0)).alias(\"completed_total\"))",
+    "acceptable_answers": [
+      "result = df.agg(F.sum(F.when(F.col(\"status\") == \"complete\", F.col(\"amount\")).otherwise(0)).alias(\"completed_total\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "row_number_window",
+    "topic": "pyspark.window",
+    "description": "Number customer events newest-first.",
+    "pattern_focus": "row_number over window",
+    "starter_context": "from pyspark.sql import Window, functions as F",
+    "expected": "result = df.withColumn(\"row_number\", F.row_number().over(Window.partitionBy(\"customer_id\").orderBy(F.col(\"event_time\").desc())))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"row_number\", F.row_number().over(Window.partitionBy(\"customer_id\").orderBy(F.col(\"event_time\").desc())))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "drop_latest_duplicate",
+    "topic": "pyspark.window",
+    "description": "Keep the newest row per order id after row numbers exist.",
+    "pattern_focus": "filter row_number",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = ranked.filter(F.col(\"row_number\") == 1).drop(\"row_number\")",
+    "acceptable_answers": [
+      "result = ranked.filter(F.col(\"row_number\") == 1).drop(\"row_number\")"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "pivot_status_counts",
+    "topic": "pyspark.pivot",
+    "description": "Pivot status counts by country.",
+    "pattern_focus": "groupBy pivot count",
+    "starter_context": "",
+    "expected": "result = df.groupBy(\"country\").pivot(\"status\").count()",
+    "acceptable_answers": [
+      "result = df.groupBy(\"country\").pivot(\"status\").count()"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "replace_values",
+    "topic": "pyspark.replace",
+    "description": "Replace legacy status code ok with complete.",
+    "pattern_focus": "df.replace(mapping, subset)",
+    "starter_context": "",
+    "expected": "result = df.replace({\"ok\": \"complete\"}, subset=[\"status\"])",
+    "acceptable_answers": [
+      "result = df.replace({\"ok\": \"complete\"}, subset=[\"status\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "broadcast_dimension_join",
+    "topic": "pyspark.performance",
+    "description": "Join a large fact table to a small dimension using broadcast.",
+    "pattern_focus": "F.broadcast small dimension",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = facts.join(F.broadcast(dimensions), on=\"product_id\", how=\"left\")",
+    "acceptable_answers": [
+      "result = facts.join(F.broadcast(dimensions), on=\"product_id\", how=\"left\")"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "repartition_by_key",
+    "topic": "pyspark.partitioning",
+    "description": "Repartition rows by customer id before keyed output.",
+    "pattern_focus": "df.repartition(column)",
+    "starter_context": "",
+    "expected": "result = df.repartition(\"customer_id\")",
+    "acceptable_answers": [
+      "result = df.repartition(\"customer_id\")"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "coalesce_output_files",
+    "topic": "pyspark.partitioning",
+    "description": "Reduce output partitions without a full reshuffle.",
+    "pattern_focus": "df.coalesce(number)",
+    "starter_context": "",
+    "expected": "result = df.coalesce(8)",
+    "acceptable_answers": [
+      "result = df.coalesce(8)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "cache_reused_dataframe",
+    "topic": "pyspark.performance",
+    "description": "Cache a reused transformed DataFrame.",
+    "pattern_focus": "df.cache()",
+    "starter_context": "",
+    "expected": "reused = transformed.cache()",
+    "acceptable_answers": [
+      "reused = transformed.cache()"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "unpersist_dataframe",
+    "topic": "pyspark.performance",
+    "description": "Release a cached DataFrame once it is no longer reused.",
+    "pattern_focus": "df.unpersist()",
+    "starter_context": "",
+    "expected": "reused.unpersist()",
+    "acceptable_answers": [
+      "reused.unpersist()"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "formatted_execution_plan",
+    "topic": "pyspark.performance",
+    "description": "Print a formatted physical and logical query plan.",
+    "pattern_focus": "df.explain(mode=...)",
+    "starter_context": "",
+    "expected": "df.explain(mode=\"formatted\")",
+    "acceptable_answers": [
+      "df.explain(mode=\"formatted\")"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "write_partitioned_parquet",
+    "topic": "pyspark.write",
+    "description": "Write Parquet output partitioned by event date.",
+    "pattern_focus": "write.partitionBy",
+    "starter_context": "",
+    "expected": "df.write.mode(\"overwrite\").partitionBy(\"event_date\").parquet(path)",
+    "acceptable_answers": [
+      "df.write.mode(\"overwrite\").partitionBy(\"event_date\").parquet(path)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "read_partition_filter",
+    "topic": "pyspark.read",
+    "description": "Read partitioned data and immediately filter to one date.",
+    "pattern_focus": "filter partition column",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = spark.read.parquet(path).filter(F.col(\"event_date\") == target_date)",
+    "acceptable_answers": [
+      "result = spark.read.parquet(path).filter(F.col(\"event_date\") == target_date)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "latest_record_window",
+    "topic": "pyspark.window",
+    "description": "Keep the most recent row per entity.",
+    "pattern_focus": "row_number dedup window",
+    "starter_context": "from pyspark.sql import Window, functions as F",
+    "expected": "result = df.withColumn(\"rank\", F.row_number().over(Window.partitionBy(\"id\").orderBy(F.col(\"updated_at\").desc()))).filter(F.col(\"rank\") == 1).drop(\"rank\")",
+    "acceptable_answers": [
+      "result = df.withColumn(\"rank\", F.row_number().over(Window.partitionBy(\"id\").orderBy(F.col(\"updated_at\").desc()))).filter(F.col(\"rank\") == 1).drop(\"rank\")"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "lag_previous_value",
+    "topic": "pyspark.window",
+    "description": "Add each customer's previous amount by event order.",
+    "pattern_focus": "F.lag over window",
+    "starter_context": "from pyspark.sql import Window, functions as F",
+    "expected": "result = df.withColumn(\"previous_amount\", F.lag(\"amount\").over(Window.partitionBy(\"customer_id\").orderBy(\"event_time\")))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"previous_amount\", F.lag(\"amount\").over(Window.partitionBy(\"customer_id\").orderBy(\"event_time\")))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "running_total",
+    "topic": "pyspark.window",
+    "description": "Compute a running customer total through each event.",
+    "pattern_focus": "rowsBetween unboundedPreceding currentRow",
+    "starter_context": "from pyspark.sql import Window, functions as F",
+    "expected": "result = df.withColumn(\"running_total\", F.sum(\"amount\").over(Window.partitionBy(\"customer_id\").orderBy(\"event_time\").rowsBetween(Window.unboundedPreceding, Window.currentRow)))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"running_total\", F.sum(\"amount\").over(Window.partitionBy(\"customer_id\").orderBy(\"event_time\").rowsBetween(Window.unboundedPreceding, Window.currentRow)))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "rank_top_products",
+    "topic": "pyspark.window",
+    "description": "Rank products by revenue within category.",
+    "pattern_focus": "dense_rank window",
+    "starter_context": "from pyspark.sql import Window, functions as F",
+    "expected": "result = totals.withColumn(\"rank\", F.dense_rank().over(Window.partitionBy(\"category\").orderBy(F.col(\"revenue\").desc())))",
+    "acceptable_answers": [
+      "result = totals.withColumn(\"rank\", F.dense_rank().over(Window.partitionBy(\"category\").orderBy(F.col(\"revenue\").desc())))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "approx_distinct_users",
+    "topic": "pyspark.aggregation",
+    "description": "Estimate distinct user count for a large dataset.",
+    "pattern_focus": "approx_count_distinct",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.agg(F.approx_count_distinct(\"user_id\").alias(\"users\"))",
+    "acceptable_answers": [
+      "result = df.agg(F.approx_count_distinct(\"user_id\").alias(\"users\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "rollup_totals",
+    "topic": "pyspark.aggregation",
+    "description": "Produce country totals plus an overall total.",
+    "pattern_focus": "rollup aggregation",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.rollup(\"country\").agg(F.sum(\"amount\").alias(\"total_amount\"))",
+    "acceptable_answers": [
+      "result = df.rollup(\"country\").agg(F.sum(\"amount\").alias(\"total_amount\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "array_contains_filter",
+    "topic": "pyspark.array",
+    "description": "Keep records whose tags include priority.",
+    "pattern_focus": "F.array_contains",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.filter(F.array_contains(\"tags\", \"priority\"))",
+    "acceptable_answers": [
+      "result = df.filter(F.array_contains(\"tags\", \"priority\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "json_struct_parse",
+    "topic": "pyspark.json",
+    "description": "Parse a JSON payload column with a declared schema.",
+    "pattern_focus": "F.from_json schema",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.withColumn(\"payload\", F.from_json(\"payload\", schema))",
+    "acceptable_answers": [
+      "result = df.withColumn(\"payload\", F.from_json(\"payload\", schema))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "select_nested_fields",
+    "topic": "pyspark.struct",
+    "description": "Project fields from a parsed nested payload.",
+    "pattern_focus": "nested column selection",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.select(F.col(\"payload.id\").alias(\"id\"), F.col(\"payload.amount\").alias(\"amount\"))",
+    "acceptable_answers": [
+      "result = df.select(F.col(\"payload.id\").alias(\"id\"), F.col(\"payload.amount\").alias(\"amount\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "deduplicate_change_feed",
+    "topic": "pyspark.incremental",
+    "description": "Keep latest changed row per key using ingestion sequence.",
+    "pattern_focus": "window order sequence",
+    "starter_context": "from pyspark.sql import Window, functions as F",
+    "expected": "result = changes.withColumn(\"rank\", F.row_number().over(Window.partitionBy(\"id\").orderBy(F.col(\"sequence\").desc()))).filter(F.col(\"rank\") == 1).drop(\"rank\")",
+    "acceptable_answers": [
+      "result = changes.withColumn(\"rank\", F.row_number().over(Window.partitionBy(\"id\").orderBy(F.col(\"sequence\").desc()))).filter(F.col(\"rank\") == 1).drop(\"rank\")"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "skew_key_counts",
+    "topic": "pyspark.quality",
+    "description": "Inspect the largest key groups before a costly join.",
+    "pattern_focus": "group count order limit",
+    "starter_context": "from pyspark.sql import functions as F",
+    "expected": "result = df.groupBy(\"join_key\").count().orderBy(F.col(\"count\").desc()).limit(20)",
+    "acceptable_answers": [
+      "result = df.groupBy(\"join_key\").count().orderBy(F.col(\"count\").desc()).limit(20)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "read_csv_with_schema",
+    "topic": "pyspark.read",
+    "description": "Read CSV input with an explicit schema instead of inferred types.",
+    "pattern_focus": "reader.schema(schema)",
+    "starter_context": "",
+    "expected": "result = spark.read.schema(schema).option(\"header\", True).csv(path)",
+    "acceptable_answers": [
+      "result = spark.read.schema(schema).option(\"header\", True).csv(path)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
     "lines_allowed": 1
   }
 ]

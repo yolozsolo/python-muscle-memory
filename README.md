@@ -2,7 +2,7 @@
 
 A tiny standard-library CLI for drilling transferable syntax patterns through repetition.
 
-By default, `drill` uses the `python_basic` pack plus standard custom sets in `data/sets/`. Pandas, PySpark, and broader data-pattern built-in packs are included when you request them with `--pack` or `--all-packs`. By default, `recall` chooses from completed drills across built-in packs and standard custom sets. Opt-in custom sets such as `fastapi-basics` appear only when requested with `--set`.
+When run without collection flags, `drill`, `recall`, and `weak` prompt you to choose a built-in pack, a custom set, or all collections. Use `--pack`, `--set`, or `--all-packs` to choose directly without the menu.
 
 ## Requirements
 
@@ -15,22 +15,22 @@ Built-in packs, selected with `--pack`:
 
 | Pack | Focus |
 | --- | --- |
-| `python_basic` | Core Python syntax patterns and default practice pack |
-| `python_data_patterns` | Common data-cleaning and transformation patterns |
+| `python_basic` | Core Python application patterns; 60 drills, 20 per level |
+| `python_data_patterns` | Practical standard-library data cleaning and transformation; 60 drills, 20 per level |
 | `pandas_basic` | Basic pandas expressions |
-| `pyspark_basic` | Basic PySpark expressions |
+| `pyspark_basic` | PySpark DataFrame and performance patterns; 60 drills, 20 per level |
 | `ai_tooling_core` | Python shapes for AI tooling, RAG, tools, and structured LLM applications |
 
 Custom sets, selected with `--set`:
 
 | Set | Focus | Availability |
 | --- | --- | --- |
-| `online-retail` | Online retail data practice | Included in standard custom-set practice |
-| `fastapi-basics` | FastAPI and Pydantic syntax practice | Opt-in only |
+| `online-retail` | Online retail data practice | Included when selected directly or with `--all-packs` |
+| `fastapi-basics` | FastAPI and Pydantic syntax practice | Included when selected directly or with `--all-packs` |
 
 ## Usage
 
-Start a basic Python drill:
+Start a drill and choose a collection from the numbered menu:
 
 ```bash
 uv run python main.py drill
@@ -58,14 +58,14 @@ uv run python main.py drill --set online-retail
 uv run python main.py recall --set online-retail
 ```
 
-Use the opt-in FastAPI basics set:
+Use the FastAPI basics set directly:
 
 ```bash
 uv run python main.py drill --set fastapi-basics
 uv run python main.py recall --set fastapi-basics
 ```
 
-Include every built-in pack and standard custom set intentionally:
+Include every built-in pack and custom set intentionally:
 
 ```bash
 uv run python main.py drill --all-packs
@@ -75,7 +75,14 @@ Drill by difficulty:
 
 ```bash
 uv run python main.py drill --pack python_basic --level beginner
+uv run python main.py drill --pack python_data_patterns --level intermediate
+uv run python main.py drill --pack pyspark_basic --level advanced
 ```
+
+The `python_basic`, `python_data_patterns`, and `pyspark_basic` packs each
+contain 20 `beginner`, 20 `intermediate`, and 20 `advanced` drills. Their
+content favors commonly used application, ETL, and Spark DataFrame workflows
+over specialized edge-case techniques.
 
 Drill by topic:
 
@@ -93,6 +100,8 @@ Practice weak drills from a specific pack:
 
 ```bash
 uv run python main.py weak --pack pandas_basic
+uv run python main.py weak --set online-retail
+uv run python main.py weak --all-packs
 ```
 
 Hide the expected answer in weak mode:
@@ -106,6 +115,7 @@ Practice a completed drill from memory:
 ```bash
 uv run python main.py recall
 uv run python main.py recall --pack pyspark_basic
+uv run python main.py recall --all-packs
 ```
 
 Recall prompts show the source pack or set before each drill description.
@@ -117,15 +127,9 @@ uv run python main.py list
 uv run python main.py list --all-packs
 ```
 
-Generate drills from templates:
+Progress is stored in `data/progress.json`. Drill packs live in `data/drills/`.
 
-```bash
-uv run python main.py generate --pack python_basic --limit 100 --seed 42
-```
-
-Progress is stored in `data/progress.json`. Drill packs live in `data/drills/`, templates in `data/templates/`, and generated drills in `data/generated/`.
-
-Custom sets live in `data/sets/`. A set name maps directly to a JSON file stem, so `--set online-retail` loads `data/sets/online-retail.json`. The `fastapi-basics` set is opt-in, so it is excluded from default practice and `--all-packs`.
+Custom sets live in `data/sets/`. A set name maps directly to a JSON file stem, so `--set online-retail` loads `data/sets/online-retail.json`. Plain `drill`, `recall`, and `weak` show the collection menu; their selection flags remain useful for direct and scripted sessions.
 
 Custom set files reuse the normal drill schema:
 
@@ -150,8 +154,12 @@ Prompts automatically show required identifiers and literals from `expected`, so
 
 Progress keys include the pack name, for example `python_basic:list_comprehension_transform`. Old un-prefixed progress keys are still read for the default `python_basic` pack.
 
+Revised exercises in the expanded 60-drill packs use fresh identifiers, so
+completion of an earlier prompt is not incorrectly applied to updated
+practice material. Existing progress data is not deleted.
+
 Progress tracks both general wrong attempts and recall-specific wrong attempts. `weak` uses only recall-specific misses, so mistakes during `drill` do not make a drill weak. After three correct attempts in weak mode, the recall miss is cleared and the drill drops out of weak mode.
 
-The interactive commands `drill`, `recall`, and `weak` continue selecting drills until you type `:done`.
+The interactive commands `drill`, `recall`, and `weak` accept `:done` at the collection menu to quit, and continue selecting drills until you type `:done` during a session.
 
 For multiline drills, type your answer and then enter a line containing only `:done`.

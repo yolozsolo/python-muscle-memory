@@ -1,6 +1,6 @@
 [
   {
-    "id": "assignment_generic",
+    "id": "practical_assignment_generic",
     "topic": "python.assignment",
     "description": "Assign value to result.",
     "pattern_focus": "name = value",
@@ -14,241 +14,829 @@
     "lines_allowed": 1
   },
   {
-    "id": "f_string_value",
+    "id": "practical_f_string_value",
     "topic": "python.f_string",
-    "description": "Create an f-string that includes value after a label.",
-    "pattern_focus": "f\"label {value}\"",
+    "description": "Format name and score into a readable label.",
+    "pattern_focus": "f-string interpolation",
     "starter_context": "",
-    "expected": "result = f\"value: {value}\"",
+    "expected": "result = f\"{name}: {score}\"",
     "acceptable_answers": [
-      "result = f\"value: {value}\""
+      "result = f\"{name}: {score}\""
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "list_comprehension_transform",
+    "id": "practical_list_comprehension_transform",
     "topic": "python.list_comprehension",
-    "description": "Build result by applying func to each item in items.",
+    "description": "Double every number in values.",
     "pattern_focus": "[expression for item in iterable]",
     "starter_context": "",
-    "expected": "result = [func(item) for item in items]",
+    "expected": "result = [value * 2 for value in values]",
     "acceptable_answers": [
-      "result = [func(item) for item in items]"
+      "result = [value * 2 for value in values]"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "dict_comprehension_key_value",
+    "id": "practical_list_comprehension_filter",
+    "topic": "python.list_comprehension",
+    "description": "Keep only active records.",
+    "pattern_focus": "[item for item in iterable if condition]",
+    "starter_context": "",
+    "expected": "result = [record for record in records if record[\"active\"]]",
+    "acceptable_answers": [
+      "result = [record for record in records if record[\"active\"]]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_dict_comprehension_key_value",
     "topic": "python.dict_comprehension",
-    "description": "Build result by mapping each item to func(item).",
+    "description": "Index users by their id.",
     "pattern_focus": "{key: value for item in iterable}",
     "starter_context": "",
-    "expected": "result = {item: func(item) for item in items}",
+    "expected": "result = {user[\"id\"]: user for user in users}",
     "acceptable_answers": [
-      "result = {item: func(item) for item in items}"
+      "result = {user[\"id\"]: user for user in users}"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "set_comprehension_unique_values",
+    "id": "practical_set_comprehension_unique_values",
     "topic": "python.set_comprehension",
-    "description": "Build result as the unique func(item) values from items.",
+    "description": "Collect normalized tags without duplicates.",
     "pattern_focus": "{expression for item in iterable}",
     "starter_context": "",
-    "expected": "result = {func(item) for item in items}",
+    "expected": "result = {tag.lower() for tag in tags}",
     "acceptable_answers": [
-      "result = {func(item) for item in items}"
+      "result = {tag.lower() for tag in tags}"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "sum_generator_expression",
+    "id": "practical_sum_generator_expression",
     "topic": "python.generator_expression",
-    "description": "Sum func(item) for every item in items.",
+    "description": "Calculate the total amount from orders.",
     "pattern_focus": "sum(expression for item in iterable)",
     "starter_context": "",
-    "expected": "result = sum(func(item) for item in items)",
+    "expected": "result = sum(order[\"amount\"] for order in orders)",
     "acceptable_answers": [
-      "result = sum(func(item) for item in items)"
+      "result = sum(order[\"amount\"] for order in orders)"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "any_condition",
+    "id": "practical_any_condition",
     "topic": "python.any",
-    "description": "Check whether any item matches condition.",
+    "description": "Check whether any job has failed.",
     "pattern_focus": "any(condition for item in iterable)",
     "starter_context": "",
-    "expected": "result = any(condition(item) for item in items)",
+    "expected": "result = any(job[\"status\"] == \"failed\" for job in jobs)",
     "acceptable_answers": [
-      "result = any(condition(item) for item in items)"
+      "result = any(job[\"status\"] == \"failed\" for job in jobs)"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "all_condition",
+    "id": "practical_all_condition",
     "topic": "python.all",
-    "description": "Check whether every item matches condition.",
+    "description": "Check whether all records have an id.",
     "pattern_focus": "all(condition for item in iterable)",
     "starter_context": "",
-    "expected": "result = all(condition(item) for item in items)",
+    "expected": "result = all(\"id\" in record for record in records)",
     "acceptable_answers": [
-      "result = all(condition(item) for item in items)"
+      "result = all(\"id\" in record for record in records)"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "sorted_with_key",
+    "id": "practical_sorted_with_key",
     "topic": "python.sorted",
-    "description": "Sort items using func as the key function.",
+    "description": "Sort users by name.",
     "pattern_focus": "sorted(iterable, key=function)",
     "starter_context": "",
-    "expected": "result = sorted(items, key=func)",
+    "expected": "result = sorted(users, key=lambda user: user[\"name\"])",
     "acceptable_answers": [
-      "result = sorted(items, key=func)"
+      "result = sorted(users, key=lambda user: user[\"name\"])"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "enumerate_items",
-    "topic": "python.enumerate",
-    "description": "Convert enumerate(items) into a list assigned to result.",
-    "pattern_focus": "list(enumerate(iterable))",
-    "starter_context": "",
-    "expected": "result = list(enumerate(items))",
-    "acceptable_answers": [
-      "result = list(enumerate(items))"
-    ],
-    "times_required": 5,
-    "difficulty": "beginner",
-    "lines_allowed": 1
-  },
-  {
-    "id": "zip_keys_values",
+    "id": "practical_zip_keys_values",
     "topic": "python.zip",
-    "description": "Zip keys and values into a list assigned to result.",
-    "pattern_focus": "list(zip(iterable, iterable))",
+    "description": "Create a dictionary by pairing columns with values.",
+    "pattern_focus": "dict(zip(keys, values))",
     "starter_context": "",
-    "expected": "result = list(zip(keys, values))",
+    "expected": "result = dict(zip(columns, values))",
     "acceptable_answers": [
-      "result = list(zip(keys, values))"
+      "result = dict(zip(columns, values))"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "dictionary_get_default",
+    "id": "practical_dictionary_get_default",
     "topic": "python.dict_get",
-    "description": "Get key from data with default as the fallback.",
+    "description": "Read the retries setting with zero as a default.",
     "pattern_focus": "dictionary.get(key, default)",
     "starter_context": "",
-    "expected": "result = data.get(key, default)",
+    "expected": "result = config.get(\"retries\", 0)",
     "acceptable_answers": [
-      "result = data.get(key, default)"
+      "result = config.get(\"retries\", 0)"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "ternary_expression",
+    "id": "practical_ternary_expression",
     "topic": "python.ternary",
-    "description": "Choose value if condition is true, otherwise default.",
+    "description": "Label an order as large when total is at least 100.",
     "pattern_focus": "value_if_true if condition else value_if_false",
     "starter_context": "",
-    "expected": "result = value if condition else default",
+    "expected": "result = \"large\" if total >= 100 else \"standard\"",
     "acceptable_answers": [
-      "result = value if condition else default"
+      "result = \"large\" if total >= 100 else \"standard\""
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "keyword_arguments_generic",
-    "topic": "python.function_call",
-    "description": "Call func with keyword arguments name and active.",
-    "pattern_focus": "function(keyword=value, keyword=value)",
+    "id": "practical_dictionary_from_pairs",
+    "topic": "python.dict",
+    "description": "Create a dictionary from pairs.",
+    "pattern_focus": "dict(iterable)",
     "starter_context": "",
-    "expected": "result = func(name=name, active=active)",
+    "expected": "result = dict(pairs)",
     "acceptable_answers": [
-      "result = func(name=name, active=active)"
+      "result = dict(pairs)"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "try_except_value_error",
-    "topic": "python.try_except",
-    "description": "Try to parse text with func and use default when ValueError is raised.",
-    "pattern_focus": "try/except ValueError",
+    "id": "practical_membership_check",
+    "topic": "python.membership",
+    "description": "Check whether the requested role is allowed.",
+    "pattern_focus": "value in collection",
     "starter_context": "",
-    "expected": "try:\n    result = func(text)\nexcept ValueError:\n    result = default",
+    "expected": "result = role in allowed_roles",
     "acceptable_answers": [
-      "try:\n    result = func(text)\nexcept ValueError:\n    result = default"
+      "result = role in allowed_roles"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_split_text_words",
+    "topic": "python.string",
+    "description": "Split a line of text on whitespace.",
+    "pattern_focus": "string.split()",
+    "starter_context": "",
+    "expected": "result = line.split()",
+    "acceptable_answers": [
+      "result = line.split()"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_join_words_with_comma",
+    "topic": "python.string",
+    "description": "Join column names for display.",
+    "pattern_focus": "separator.join(iterable)",
+    "starter_context": "",
+    "expected": "result = \", \".join(columns)",
+    "acceptable_answers": [
+      "result = \", \".join(columns)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_normalize_text",
+    "topic": "python.string",
+    "description": "Trim and lowercase an email address.",
+    "pattern_focus": "string.strip().lower()",
+    "starter_context": "",
+    "expected": "result = email.strip().lower()",
+    "acceptable_answers": [
+      "result = email.strip().lower()"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_unpack_pair",
+    "topic": "python.unpacking",
+    "description": "Unpack a key-value pair.",
+    "pattern_focus": "name, name = iterable",
+    "starter_context": "",
+    "expected": "key, value = pair",
+    "acceptable_answers": [
+      "key, value = pair"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_list_extend_values",
+    "topic": "python.list",
+    "description": "Append all new items to an existing list.",
+    "pattern_focus": "list.extend(iterable)",
+    "starter_context": "",
+    "expected": "items.extend(new_items)",
+    "acceptable_answers": [
+      "items.extend(new_items)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_enumerate_items",
+    "topic": "python.enumerate",
+    "description": "Create numbered rows starting at zero.",
+    "pattern_focus": "enumerate(iterable)",
+    "starter_context": "",
+    "expected": "result = list(enumerate(rows))",
+    "acceptable_answers": [
+      "result = list(enumerate(rows))"
     ],
     "times_required": 5,
     "difficulty": "intermediate",
-    "lines_allowed": 4
+    "lines_allowed": 1
   },
   {
-    "id": "function_definition_return",
+    "id": "practical_enumerate_with_start",
+    "topic": "python.enumerate",
+    "description": "Create row numbers starting at one.",
+    "pattern_focus": "enumerate(iterable, start=number)",
+    "starter_context": "",
+    "expected": "result = list(enumerate(rows, start=1))",
+    "acceptable_answers": [
+      "result = list(enumerate(rows, start=1))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_slice_first_three",
+    "topic": "python.slicing",
+    "description": "Take the first three results.",
+    "pattern_focus": "sequence[:stop]",
+    "starter_context": "",
+    "expected": "result = results[:3]",
+    "acceptable_answers": [
+      "result = results[:3]"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_slice_reversed",
+    "topic": "python.slicing",
+    "description": "Reverse recent events without changing the source list.",
+    "pattern_focus": "sequence[::-1]",
+    "starter_context": "",
+    "expected": "result = events[::-1]",
+    "acceptable_answers": [
+      "result = events[::-1]"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_sorted_descending",
+    "topic": "python.sorted",
+    "description": "Sort scores from largest to smallest.",
+    "pattern_focus": "sorted(iterable, reverse=True)",
+    "starter_context": "",
+    "expected": "result = sorted(scores, reverse=True)",
+    "acceptable_answers": [
+      "result = sorted(scores, reverse=True)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_dictionary_keys_list",
+    "topic": "python.dict",
+    "description": "Collect the keys from a mapping.",
+    "pattern_focus": "list(dictionary)",
+    "starter_context": "",
+    "expected": "result = list(config)",
+    "acceptable_answers": [
+      "result = list(config)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_dictionary_update_value",
+    "topic": "python.dict",
+    "description": "Update a record with an active status.",
+    "pattern_focus": "dictionary.update(mapping)",
+    "starter_context": "",
+    "expected": "record.update({\"status\": \"active\"})",
+    "acceptable_answers": [
+      "record.update({\"status\": \"active\"})"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_keyword_arguments_generic",
+    "topic": "python.function_call",
+    "description": "Call send_email with named recipient and subject arguments.",
+    "pattern_focus": "function(keyword=value)",
+    "starter_context": "",
+    "expected": "result = send_email(to=recipient, subject=subject)",
+    "acceptable_answers": [
+      "result = send_email(to=recipient, subject=subject)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_function_definition_return",
     "topic": "python.function_definition",
-    "description": "Define func with one parameter item and return item.",
+    "description": "Define full_name to join first and last names.",
     "pattern_focus": "def function(argument): return value",
     "starter_context": "",
-    "expected": "def func(item):\n    return item",
+    "expected": "def full_name(first, last):\n    return f\"{first} {last}\"",
     "acceptable_answers": [
-      "def func(item):\n    return item"
+      "def full_name(first, last):\n    return f\"{first} {last}\""
     ],
     "times_required": 5,
     "difficulty": "intermediate",
     "lines_allowed": 2
   },
   {
-    "id": "for_loop_build_list",
+    "id": "practical_function_default_argument",
+    "topic": "python.function_definition",
+    "description": "Define fetch_page with a default limit of 100.",
+    "pattern_focus": "default parameter",
+    "starter_context": "",
+    "expected": "def fetch_page(offset, limit=100):\n    return rows[offset:offset + limit]",
+    "acceptable_answers": [
+      "def fetch_page(offset, limit=100):\n    return rows[offset:offset + limit]"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "practical_try_except_value_error",
+    "topic": "python.try_except",
+    "description": "Parse text as an integer and use zero for invalid text.",
+    "pattern_focus": "try/except ValueError",
+    "starter_context": "",
+    "expected": "try:\n    result = int(text)\nexcept ValueError:\n    result = 0",
+    "acceptable_answers": [
+      "try:\n    result = int(text)\nexcept ValueError:\n    result = 0"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "practical_try_parse_integer",
+    "topic": "python.try_except",
+    "description": "Return None when an optional integer cannot be parsed.",
+    "pattern_focus": "try/except ValueError",
+    "starter_context": "",
+    "expected": "try:\n    value = int(text)\nexcept ValueError:\n    value = None",
+    "acceptable_answers": [
+      "try:\n    value = int(text)\nexcept ValueError:\n    value = None"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 4
+  },
+  {
+    "id": "practical_for_loop_build_list",
     "topic": "python.for_loop",
-    "description": "Build result by appending func(item) for each item in items.",
+    "description": "Build cleaned values by stripping every raw value.",
     "pattern_focus": "initialize list, loop, append",
     "starter_context": "",
-    "expected": "result = []\nfor item in items:\n    result.append(func(item))",
+    "expected": "cleaned = []\nfor value in values:\n    cleaned.append(value.strip())",
     "acceptable_answers": [
-      "result = []\nfor item in items:\n    result.append(func(item))"
+      "cleaned = []\nfor value in values:\n    cleaned.append(value.strip())"
     ],
     "times_required": 5,
     "difficulty": "intermediate",
     "lines_allowed": 3
   },
   {
-    "id": "group_records_by_key",
-    "topic": "python.grouping",
-    "description": "Group records into result by each record's key value.",
-    "pattern_focus": "setdefault for grouping",
+    "id": "practical_loop_over_mapping_items",
+    "topic": "python.dict_iteration",
+    "description": "Print each configuration key and value.",
+    "pattern_focus": "dictionary.items()",
     "starter_context": "",
-    "expected": "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)",
+    "expected": "for key, value in config.items():\n    print(key, value)",
     "acceptable_answers": [
-      "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)"
+      "for key, value in config.items():\n    print(key, value)"
     ],
     "times_required": 5,
     "difficulty": "intermediate",
+    "lines_allowed": 2
+  },
+  {
+    "id": "practical_count_items_by_value",
+    "topic": "python.counting",
+    "description": "Count occurrences of each status.",
+    "pattern_focus": "dictionary counting with get",
+    "starter_context": "",
+    "expected": "counts = {}\nfor status in statuses:\n    counts[status] = counts.get(status, 0) + 1",
+    "acceptable_answers": [
+      "counts = {}\nfor status in statuses:\n    counts[status] = counts.get(status, 0) + 1"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "practical_loop_skip_invalid",
+    "topic": "python.loop_control",
+    "description": "Collect valid records while skipping invalid ones.",
+    "pattern_focus": "continue inside loop",
+    "starter_context": "",
+    "expected": "valid = []\nfor record in records:\n    if not is_valid(record):\n        continue\n    valid.append(record)",
+    "acceptable_answers": [
+      "valid = []\nfor record in records:\n    if not is_valid(record):\n        continue\n    valid.append(record)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 5
+  },
+  {
+    "id": "practical_find_first_match",
+    "topic": "python.next",
+    "description": "Find the first active user, or None.",
+    "pattern_focus": "next(generator, default)",
+    "starter_context": "",
+    "expected": "result = next((user for user in users if user[\"active\"]), None)",
+    "acceptable_answers": [
+      "result = next((user for user in users if user[\"active\"]), None)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_group_records_by_key",
+    "topic": "python.grouping",
+    "description": "Group rows by customer id using setdefault.",
+    "pattern_focus": "setdefault for grouping",
+    "starter_context": "",
+    "expected": "grouped = {}\nfor row in rows:\n    grouped.setdefault(row[\"customer_id\"], []).append(row)",
+    "acceptable_answers": [
+      "grouped = {}\nfor row in rows:\n    grouped.setdefault(row[\"customer_id\"], []).append(row)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "json_loads_object",
+    "topic": "python.json",
+    "description": "Decode a JSON payload string into a Python value.",
+    "pattern_focus": "json.loads(text)",
+    "starter_context": "import json",
+    "expected": "result = json.loads(payload)",
+    "acceptable_answers": [
+      "result = json.loads(payload)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "pathlib_read_text",
+    "topic": "python.pathlib",
+    "description": "Read a UTF-8 configuration file.",
+    "pattern_focus": "Path.read_text(encoding=...)",
+    "starter_context": "from pathlib import Path",
+    "expected": "result = path.read_text(encoding=\"utf-8\")",
+    "acceptable_answers": [
+      "result = path.read_text(encoding=\"utf-8\")"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "merge_mappings",
+    "topic": "python.dict",
+    "description": "Merge defaults with user overrides, preferring overrides.",
+    "pattern_focus": "dictionary union",
+    "starter_context": "",
+    "expected": "result = defaults | overrides",
+    "acceptable_answers": [
+      "result = defaults | overrides"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "unique_preserve_order",
+    "topic": "python.deduplicate",
+    "description": "Remove duplicates while preserving first-seen order.",
+    "pattern_focus": "dict.fromkeys(iterable)",
+    "starter_context": "",
+    "expected": "result = list(dict.fromkeys(values))",
+    "acceptable_answers": [
+      "result = list(dict.fromkeys(values))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "max_record_by_score",
+    "topic": "python.selection",
+    "description": "Choose the row with the highest score.",
+    "pattern_focus": "max(iterable, key=function)",
+    "starter_context": "",
+    "expected": "result = max(rows, key=lambda row: row[\"score\"])",
+    "acceptable_answers": [
+      "result = max(rows, key=lambda row: row[\"score\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "zip_strict_columns",
+    "topic": "python.zip",
+    "description": "Pair columns and values while failing on unequal lengths.",
+    "pattern_focus": "zip(..., strict=True)",
+    "starter_context": "",
+    "expected": "result = dict(zip(columns, values, strict=True))",
+    "acceptable_answers": [
+      "result = dict(zip(columns, values, strict=True))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "defaultdict_grouping",
+    "topic": "python.collections",
+    "description": "Group events by user id using defaultdict.",
+    "pattern_focus": "defaultdict(list)",
+    "starter_context": "from collections import defaultdict",
+    "expected": "grouped = defaultdict(list)\nfor event in events:\n    grouped[event[\"user_id\"]].append(event)",
+    "acceptable_answers": [
+      "grouped = defaultdict(list)\nfor event in events:\n    grouped[event[\"user_id\"]].append(event)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 3
+  },
+  {
+    "id": "counter_top_status",
+    "topic": "python.collections",
+    "description": "Find the most common status value.",
+    "pattern_focus": "Counter.most_common",
+    "starter_context": "from collections import Counter",
+    "expected": "result = Counter(statuses).most_common(1)[0]",
+    "acceptable_answers": [
+      "result = Counter(statuses).most_common(1)[0]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "generator_batches",
+    "topic": "python.generator",
+    "description": "Define a generator yielding fixed-size list slices.",
+    "pattern_focus": "yield in range steps",
+    "starter_context": "",
+    "expected": "def batches(items, size):\n    for start in range(0, len(items), size):\n        yield items[start:start + size]",
+    "acceptable_answers": [
+      "def batches(items, size):\n    for start in range(0, len(items), size):\n        yield items[start:start + size]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 3
+  },
+  {
+    "id": "flatten_nested_values",
+    "topic": "python.list_comprehension",
+    "description": "Flatten a list of batches into one list.",
+    "pattern_focus": "nested list comprehension",
+    "starter_context": "",
+    "expected": "result = [item for batch in batches for item in batch]",
+    "acceptable_answers": [
+      "result = [item for batch in batches for item in batch]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "datetime_parse_iso",
+    "topic": "python.datetime",
+    "description": "Parse an ISO formatted timestamp.",
+    "pattern_focus": "datetime.fromisoformat(text)",
+    "starter_context": "from datetime import datetime",
+    "expected": "result = datetime.fromisoformat(timestamp)",
+    "acceptable_answers": [
+      "result = datetime.fromisoformat(timestamp)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "datetime_utc_now",
+    "topic": "python.datetime",
+    "description": "Create a timezone-aware current UTC timestamp.",
+    "pattern_focus": "datetime.now(timezone.utc)",
+    "starter_context": "from datetime import datetime, timezone",
+    "expected": "result = datetime.now(timezone.utc)",
+    "acceptable_answers": [
+      "result = datetime.now(timezone.utc)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "pathlib_json_files",
+    "topic": "python.pathlib",
+    "description": "List JSON files below an input directory.",
+    "pattern_focus": "Path.glob(pattern)",
+    "starter_context": "from pathlib import Path",
+    "expected": "result = list(input_dir.glob(\"*.json\"))",
+    "acceptable_answers": [
+      "result = list(input_dir.glob(\"*.json\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "json_dump_file",
+    "topic": "python.json",
+    "description": "Write data as indented JSON to an open output file.",
+    "pattern_focus": "json.dump(value, file, indent=...)",
+    "starter_context": "import json",
+    "expected": "json.dump(data, output_file, indent=2)",
+    "acceptable_answers": [
+      "json.dump(data, output_file, indent=2)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "csv_dict_reader",
+    "topic": "python.csv",
+    "description": "Create a dictionary-based CSV reader for an open file.",
+    "pattern_focus": "csv.DictReader(file)",
+    "starter_context": "import csv",
+    "expected": "reader = csv.DictReader(input_file)",
+    "acceptable_answers": [
+      "reader = csv.DictReader(input_file)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "dataclass_record",
+    "topic": "python.dataclasses",
+    "description": "Define an immutable Job record containing id and status.",
+    "pattern_focus": "@dataclass(frozen=True)",
+    "starter_context": "from dataclasses import dataclass",
+    "expected": "@dataclass(frozen=True)\nclass Job:\n    id: str\n    status: str",
+    "acceptable_answers": [
+      "@dataclass(frozen=True)\nclass Job:\n    id: str\n    status: str"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
     "lines_allowed": 4
+  },
+  {
+    "id": "typed_optional_lookup",
+    "topic": "python.typing",
+    "description": "Define a typed function returning a user name or None.",
+    "pattern_focus": "return type union",
+    "starter_context": "",
+    "expected": "def user_name(user: dict[str, str]) -> str | None:\n    return user.get(\"name\")",
+    "acceptable_answers": [
+      "def user_name(user: dict[str, str]) -> str | None:\n    return user.get(\"name\")"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 2
+  },
+  {
+    "id": "context_open_json",
+    "topic": "python.context_manager",
+    "description": "Read JSON from a UTF-8 file using a context manager.",
+    "pattern_focus": "with open(...)",
+    "starter_context": "import json\nfrom pathlib import Path",
+    "expected": "with path.open(\"r\", encoding=\"utf-8\") as file:\n    result = json.load(file)",
+    "acceptable_answers": [
+      "with path.open(\"r\", encoding=\"utf-8\") as file:\n    result = json.load(file)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 2
+  },
+  {
+    "id": "sorted_multiple_keys",
+    "topic": "python.sorted",
+    "description": "Sort rows by date ascending and amount descending.",
+    "pattern_focus": "tuple sort key",
+    "starter_context": "",
+    "expected": "result = sorted(rows, key=lambda row: (row[\"date\"], -row[\"amount\"]))",
+    "acceptable_answers": [
+      "result = sorted(rows, key=lambda row: (row[\"date\"], -row[\"amount\"]))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "regex_named_capture",
+    "topic": "python.regex",
+    "description": "Extract an order id from text using a named capture group.",
+    "pattern_focus": "re.search named group",
+    "starter_context": "import re",
+    "expected": "result = re.search(r\"order=(?P<id>\\d+)\", text).group(\"id\")",
+    "acceptable_answers": [
+      "result = re.search(r\"order=(?P<id>\\d+)\", text).group(\"id\")"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "logging_with_context",
+    "topic": "python.logging",
+    "description": "Log a failed job id using lazy logger formatting.",
+    "pattern_focus": "logger.error(format, value)",
+    "starter_context": "",
+    "expected": "logger.error(\"Job %s failed\", job_id)",
+    "acceptable_answers": [
+      "logger.error(\"Job %s failed\", job_id)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "argparse_required_input",
+    "topic": "python.argparse",
+    "description": "Add a required input-file option to an argument parser.",
+    "pattern_focus": "parser.add_argument",
+    "starter_context": "",
+    "expected": "parser.add_argument(\"--input-file\", required=True)",
+    "acceptable_answers": [
+      "parser.add_argument(\"--input-file\", required=True)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
   }
 ]

@@ -1,72 +1,842 @@
 [
   {
-    "id": "normalize_string_strip_lower",
+    "id": "practical_normalize_string_strip_lower",
     "topic": "python.data_normalization",
-    "description": "Normalize text by stripping whitespace and converting to lowercase.",
+    "description": "Normalize an email string for comparison.",
     "pattern_focus": "value.strip().lower()",
     "starter_context": "",
-    "expected": "result = text.strip().lower()",
+    "expected": "normalized = email.strip().lower()",
     "acceptable_answers": [
-      "result = text.strip().lower()"
+      "normalized = email.strip().lower()"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "filter_invalid_records",
+    "id": "practical_filter_invalid_records",
     "topic": "python.record_filtering",
-    "description": "Keep records where condition(record) is true.",
-    "pattern_focus": "[record for record in records if condition(record)]",
+    "description": "Keep only records marked valid.",
+    "pattern_focus": "[record for record in records if condition]",
     "starter_context": "",
-    "expected": "result = [record for record in records if condition(record)]",
+    "expected": "valid = [record for record in records if record[\"is_valid\"]]",
     "acceptable_answers": [
-      "result = [record for record in records if condition(record)]"
+      "valid = [record for record in records if record[\"is_valid\"]]"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "extract_field_from_records",
+    "id": "practical_extract_field_from_records",
     "topic": "python.record_extraction",
-    "description": "Extract key from every record into result.",
+    "description": "Extract amount values from orders.",
     "pattern_focus": "[record[key] for record in records]",
     "starter_context": "",
-    "expected": "result = [record[key] for record in records]",
+    "expected": "amounts = [order[\"amount\"] for order in orders]",
     "acceptable_answers": [
-      "result = [record[key] for record in records]"
+      "amounts = [order[\"amount\"] for order in orders]"
     ],
     "times_required": 5,
     "difficulty": "beginner",
     "lines_allowed": 1
   },
   {
-    "id": "group_records_by_key",
+    "id": "select_nonempty_values",
+    "topic": "python.data_cleaning",
+    "description": "Remove blank strings after trimming whitespace.",
+    "pattern_focus": "filter with strip",
+    "starter_context": "",
+    "expected": "cleaned = [value for value in values if value.strip()]",
+    "acceptable_answers": [
+      "cleaned = [value for value in values if value.strip()]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "default_missing_field",
+    "topic": "python.record_cleaning",
+    "description": "Read an optional country field with an unknown default.",
+    "pattern_focus": "dict.get default",
+    "starter_context": "",
+    "expected": "country = record.get(\"country\", \"unknown\")",
+    "acceptable_answers": [
+      "country = record.get(\"country\", \"unknown\")"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "rename_field_value",
+    "topic": "python.record_mapping",
+    "description": "Build a compact output record from a source row.",
+    "pattern_focus": "dictionary projection",
+    "starter_context": "",
+    "expected": "output = {\"id\": row[\"customer_id\"], \"total\": row[\"amount\"]}",
+    "acceptable_answers": [
+      "output = {\"id\": row[\"customer_id\"], \"total\": row[\"amount\"]}"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "sum_amounts",
+    "topic": "python.aggregation",
+    "description": "Sum transaction amounts.",
+    "pattern_focus": "sum generator",
+    "starter_context": "",
+    "expected": "total = sum(row[\"amount\"] for row in rows)",
+    "acceptable_answers": [
+      "total = sum(row[\"amount\"] for row in rows)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "count_matching_rows",
+    "topic": "python.aggregation",
+    "description": "Count completed orders.",
+    "pattern_focus": "sum booleans",
+    "starter_context": "",
+    "expected": "count = sum(row[\"status\"] == \"complete\" for row in rows)",
+    "acceptable_answers": [
+      "count = sum(row[\"status\"] == \"complete\" for row in rows)"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "distinct_categories",
+    "topic": "python.deduplicate",
+    "description": "Get the distinct categories used by records.",
+    "pattern_focus": "set comprehension",
+    "starter_context": "",
+    "expected": "categories = {row[\"category\"] for row in rows}",
+    "acceptable_answers": [
+      "categories = {row[\"category\"] for row in rows}"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "sort_by_timestamp",
+    "topic": "python.sorting",
+    "description": "Sort events by their timestamp field.",
+    "pattern_focus": "sorted key",
+    "starter_context": "",
+    "expected": "ordered = sorted(events, key=lambda event: event[\"timestamp\"])",
+    "acceptable_answers": [
+      "ordered = sorted(events, key=lambda event: event[\"timestamp\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "parse_integer_field",
+    "topic": "python.parsing",
+    "description": "Convert a quantity string into an integer.",
+    "pattern_focus": "int(text)",
+    "starter_context": "",
+    "expected": "quantity = int(row[\"quantity\"])",
+    "acceptable_answers": [
+      "quantity = int(row[\"quantity\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "parse_decimal_field",
+    "topic": "python.parsing",
+    "description": "Convert a price string to Decimal for currency calculations.",
+    "pattern_focus": "Decimal(text)",
+    "starter_context": "from decimal import Decimal",
+    "expected": "price = Decimal(row[\"price\"])",
+    "acceptable_answers": [
+      "price = Decimal(row[\"price\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "parse_iso_date",
+    "topic": "python.parsing",
+    "description": "Parse an ISO date field into a date value.",
+    "pattern_focus": "date.fromisoformat(text)",
+    "starter_context": "from datetime import date",
+    "expected": "day = date.fromisoformat(row[\"date\"])",
+    "acceptable_answers": [
+      "day = date.fromisoformat(row[\"date\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "split_delimited_tags",
+    "topic": "python.parsing",
+    "description": "Split a comma-delimited tag field.",
+    "pattern_focus": "string.split(separator)",
+    "starter_context": "",
+    "expected": "tags = row[\"tags\"].split(\",\")",
+    "acceptable_answers": [
+      "tags = row[\"tags\"].split(\",\")"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "strip_record_values",
+    "topic": "python.data_cleaning",
+    "description": "Trim all string values in a record.",
+    "pattern_focus": "dict comprehension transform",
+    "starter_context": "",
+    "expected": "cleaned = {key: value.strip() for key, value in record.items()}",
+    "acceptable_answers": [
+      "cleaned = {key: value.strip() for key, value in record.items()}"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "boolean_from_text",
+    "topic": "python.parsing",
+    "description": "Convert a lowercase active flag into a boolean.",
+    "pattern_focus": "text equality",
+    "starter_context": "",
+    "expected": "active = row[\"active\"].lower() == \"true\"",
+    "acceptable_answers": [
+      "active = row[\"active\"].lower() == \"true\""
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "lookup_reference_name",
+    "topic": "python.enrichment",
+    "description": "Look up a product name from an id-indexed dictionary.",
+    "pattern_focus": "mapping lookup",
+    "starter_context": "",
+    "expected": "name = products[row[\"product_id\"]][\"name\"]",
+    "acceptable_answers": [
+      "name = products[row[\"product_id\"]][\"name\"]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "build_id_index",
+    "topic": "python.indexing",
+    "description": "Build an id-index for customer records.",
+    "pattern_focus": "dict comprehension by id",
+    "starter_context": "",
+    "expected": "by_id = {row[\"id\"]: row for row in customers}",
+    "acceptable_answers": [
+      "by_id = {row[\"id\"]: row for row in customers}"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "limit_preview_rows",
+    "topic": "python.sampling",
+    "description": "Take at most the first ten rows for a preview.",
+    "pattern_focus": "sequence slice",
+    "starter_context": "",
+    "expected": "preview = rows[:10]",
+    "acceptable_answers": [
+      "preview = rows[:10]"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "check_required_key",
+    "topic": "python.validation",
+    "description": "Check whether a record contains its required id.",
+    "pattern_focus": "membership in dict",
+    "starter_context": "",
+    "expected": "valid = \"id\" in record",
+    "acceptable_answers": [
+      "valid = \"id\" in record"
+    ],
+    "times_required": 5,
+    "difficulty": "beginner",
+    "lines_allowed": 1
+  },
+  {
+    "id": "practical_group_records_by_key",
     "topic": "python.dict_grouping",
-    "description": "Group records into result by each record's key value.",
+    "description": "Group orders by customer id.",
     "pattern_focus": "setdefault for grouping",
     "starter_context": "",
-    "expected": "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)",
+    "expected": "grouped = {}\nfor order in orders:\n    grouped.setdefault(order[\"customer_id\"], []).append(order)",
     "acceptable_answers": [
-      "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result.setdefault(key, []).append(record)"
+      "grouped = {}\nfor order in orders:\n    grouped.setdefault(order[\"customer_id\"], []).append(order)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "practical_deduplicate_latest_by_key",
+    "topic": "python.deduplicate",
+    "description": "Keep the latest record encountered for each id.",
+    "pattern_focus": "dictionary overwrite by key",
+    "starter_context": "",
+    "expected": "latest = {}\nfor row in rows:\n    latest[row[\"id\"]] = row",
+    "acceptable_answers": [
+      "latest = {}\nfor row in rows:\n    latest[row[\"id\"]] = row"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "aggregate_totals_by_customer",
+    "topic": "python.aggregation",
+    "description": "Aggregate order amounts by customer id.",
+    "pattern_focus": "dictionary accumulation",
+    "starter_context": "",
+    "expected": "totals = {}\nfor order in orders:\n    key = order[\"customer_id\"]\n    totals[key] = totals.get(key, 0) + order[\"amount\"]",
+    "acceptable_answers": [
+      "totals = {}\nfor order in orders:\n    key = order[\"customer_id\"]\n    totals[key] = totals.get(key, 0) + order[\"amount\"]"
     ],
     "times_required": 5,
     "difficulty": "intermediate",
     "lines_allowed": 4
   },
   {
-    "id": "deduplicate_latest_by_key",
-    "topic": "python.deduplicate",
-    "description": "Keep the latest record for each key in result.",
-    "pattern_focus": "dictionary overwrite by key",
-    "starter_context": "records are already ordered from oldest to latest",
-    "expected": "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result[key] = record",
+    "id": "count_by_status_counter",
+    "topic": "python.aggregation",
+    "description": "Count statuses with Counter.",
+    "pattern_focus": "Counter iterable",
+    "starter_context": "from collections import Counter",
+    "expected": "counts = Counter(row[\"status\"] for row in rows)",
     "acceptable_answers": [
-      "result = {}\nfor record in records:\n    key = record[\"key\"]\n    result[key] = record"
+      "counts = Counter(row[\"status\"] for row in rows)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "group_with_defaultdict",
+    "topic": "python.dict_grouping",
+    "description": "Group rows by region using defaultdict.",
+    "pattern_focus": "defaultdict list",
+    "starter_context": "from collections import defaultdict",
+    "expected": "by_region = defaultdict(list)\nfor row in rows:\n    by_region[row[\"region\"]].append(row)",
+    "acceptable_answers": [
+      "by_region = defaultdict(list)\nfor row in rows:\n    by_region[row[\"region\"]].append(row)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 3
+  },
+  {
+    "id": "left_enrich_from_lookup",
+    "topic": "python.enrichment",
+    "description": "Add a product label from a lookup while retaining every order.",
+    "pattern_focus": "dict.get fallback",
+    "starter_context": "",
+    "expected": "enriched = [{**order, \"product\": products.get(order[\"product_id\"])} for order in orders]",
+    "acceptable_answers": [
+      "enriched = [{**order, \"product\": products.get(order[\"product_id\"])} for order in orders]"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "reject_missing_required_fields",
+    "topic": "python.validation",
+    "description": "Keep rows with non-null id and amount fields.",
+    "pattern_focus": "all required values",
+    "starter_context": "",
+    "expected": "valid = [row for row in rows if all(row.get(field) is not None for field in (\"id\", \"amount\"))]",
+    "acceptable_answers": [
+      "valid = [row for row in rows if all(row.get(field) is not None for field in (\"id\", \"amount\"))]"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "coalesce_optional_values",
+    "topic": "python.data_cleaning",
+    "description": "Choose email first, falling back to phone.",
+    "pattern_focus": "or coalescing",
+    "starter_context": "",
+    "expected": "contact = row.get(\"email\") or row.get(\"phone\")",
+    "acceptable_answers": [
+      "contact = row.get(\"email\") or row.get(\"phone\")"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "parse_timestamp_timezone",
+    "topic": "python.parsing",
+    "description": "Parse an ISO timestamp that may include an offset.",
+    "pattern_focus": "datetime.fromisoformat",
+    "starter_context": "from datetime import datetime",
+    "expected": "timestamp = datetime.fromisoformat(row[\"timestamp\"])",
+    "acceptable_answers": [
+      "timestamp = datetime.fromisoformat(row[\"timestamp\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "convert_timezone_utc",
+    "topic": "python.timezone",
+    "description": "Normalize an aware timestamp to UTC.",
+    "pattern_focus": "datetime.astimezone",
+    "starter_context": "from datetime import timezone",
+    "expected": "normalized = timestamp.astimezone(timezone.utc)",
+    "acceptable_answers": [
+      "normalized = timestamp.astimezone(timezone.utc)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "safe_parse_amount",
+    "topic": "python.validation",
+    "description": "Parse an amount and mark invalid decimal input as None.",
+    "pattern_focus": "try Decimal except",
+    "starter_context": "from decimal import Decimal, InvalidOperation",
+    "expected": "try:\n    amount = Decimal(text)\nexcept InvalidOperation:\n    amount = None",
+    "acceptable_answers": [
+      "try:\n    amount = Decimal(text)\nexcept InvalidOperation:\n    amount = None"
     ],
     "times_required": 5,
     "difficulty": "intermediate",
     "lines_allowed": 4
+  },
+  {
+    "id": "json_lines_decode",
+    "topic": "python.io",
+    "description": "Decode JSON Lines strings into records.",
+    "pattern_focus": "json.loads per line",
+    "starter_context": "import json",
+    "expected": "records = [json.loads(line) for line in lines]",
+    "acceptable_answers": [
+      "records = [json.loads(line) for line in lines]"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "csv_dictreader_rows",
+    "topic": "python.io",
+    "description": "Read CSV rows as dictionaries from an open file.",
+    "pattern_focus": "csv.DictReader",
+    "starter_context": "import csv",
+    "expected": "rows = list(csv.DictReader(input_file))",
+    "acceptable_answers": [
+      "rows = list(csv.DictReader(input_file))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "write_json_output",
+    "topic": "python.io",
+    "description": "Write normalized records as formatted JSON.",
+    "pattern_focus": "json.dump",
+    "starter_context": "import json",
+    "expected": "json.dump(records, output_file, indent=2)",
+    "acceptable_answers": [
+      "json.dump(records, output_file, indent=2)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "write_csv_header",
+    "topic": "python.io",
+    "description": "Create a CSV DictWriter with selected columns.",
+    "pattern_focus": "csv.DictWriter",
+    "starter_context": "import csv",
+    "expected": "writer = csv.DictWriter(output_file, fieldnames=[\"id\", \"amount\"])",
+    "acceptable_answers": [
+      "writer = csv.DictWriter(output_file, fieldnames=[\"id\", \"amount\"])"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "sort_latest_first",
+    "topic": "python.sorting",
+    "description": "Sort events newest-first.",
+    "pattern_focus": "sorted reverse",
+    "starter_context": "",
+    "expected": "ordered = sorted(events, key=lambda event: event[\"timestamp\"], reverse=True)",
+    "acceptable_answers": [
+      "ordered = sorted(events, key=lambda event: event[\"timestamp\"], reverse=True)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "top_customers",
+    "topic": "python.aggregation",
+    "description": "Get the three customer totals with highest values.",
+    "pattern_focus": "sorted mapping items",
+    "starter_context": "",
+    "expected": "top = sorted(totals.items(), key=lambda item: item[1], reverse=True)[:3]",
+    "acceptable_answers": [
+      "top = sorted(totals.items(), key=lambda item: item[1], reverse=True)[:3]"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "average_amount",
+    "topic": "python.aggregation",
+    "description": "Calculate an average amount after totals are collected.",
+    "pattern_focus": "sum divided by len",
+    "starter_context": "",
+    "expected": "average = sum(amounts) / len(amounts)",
+    "acceptable_answers": [
+      "average = sum(amounts) / len(amounts)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "deduplicate_preserve_first",
+    "topic": "python.deduplicate",
+    "description": "Remove duplicate ids while preserving first-seen order.",
+    "pattern_focus": "seen set filter",
+    "starter_context": "",
+    "expected": "unique = []\nseen = set()\nfor row in rows:\n    if row[\"id\"] not in seen:\n        seen.add(row[\"id\"])\n        unique.append(row)",
+    "acceptable_answers": [
+      "unique = []\nseen = set()\nfor row in rows:\n    if row[\"id\"] not in seen:\n        seen.add(row[\"id\"])\n        unique.append(row)"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 6
+  },
+  {
+    "id": "pathlib_find_inputs",
+    "topic": "python.io",
+    "description": "Find CSV input files in a landing directory.",
+    "pattern_focus": "Path.glob",
+    "starter_context": "from pathlib import Path",
+    "expected": "files = sorted(landing_dir.glob(\"*.csv\"))",
+    "acceptable_answers": [
+      "files = sorted(landing_dir.glob(\"*.csv\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "intermediate",
+    "lines_allowed": 1
+  },
+  {
+    "id": "partition_good_bad_rows",
+    "topic": "python.validation",
+    "description": "Separate rows into valid and invalid outputs using a validator.",
+    "pattern_focus": "partition loop",
+    "starter_context": "",
+    "expected": "valid = []\ninvalid = []\nfor row in rows:\n    (valid if is_valid(row) else invalid).append(row)",
+    "acceptable_answers": [
+      "valid = []\ninvalid = []\nfor row in rows:\n    (valid if is_valid(row) else invalid).append(row)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 4
+  },
+  {
+    "id": "validation_errors_by_field",
+    "topic": "python.validation",
+    "description": "Collect rows missing each required field.",
+    "pattern_focus": "defaultdict validation",
+    "starter_context": "from collections import defaultdict",
+    "expected": "errors = defaultdict(list)\nfor row in rows:\n    for field in required_fields:\n        if row.get(field) is None:\n            errors[field].append(row)",
+    "acceptable_answers": [
+      "errors = defaultdict(list)\nfor row in rows:\n    for field in required_fields:\n        if row.get(field) is None:\n            errors[field].append(row)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 5
+  },
+  {
+    "id": "latest_by_timestamp",
+    "topic": "python.deduplicate",
+    "description": "Keep the latest timestamped event for each id.",
+    "pattern_focus": "compare latest timestamp",
+    "starter_context": "",
+    "expected": "latest = {}\nfor event in events:\n    key = event[\"id\"]\n    if key not in latest or event[\"timestamp\"] > latest[key][\"timestamp\"]:\n        latest[key] = event",
+    "acceptable_answers": [
+      "latest = {}\nfor event in events:\n    key = event[\"id\"]\n    if key not in latest or event[\"timestamp\"] > latest[key][\"timestamp\"]:\n        latest[key] = event"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 5
+  },
+  {
+    "id": "upsert_by_primary_key",
+    "topic": "python.incremental",
+    "description": "Apply updates over existing records by primary key.",
+    "pattern_focus": "mapping update",
+    "starter_context": "",
+    "expected": "merged = {row[\"id\"]: row for row in existing}\nmerged.update({row[\"id\"]: row for row in updates})\nresult = list(merged.values())",
+    "acceptable_answers": [
+      "merged = {row[\"id\"]: row for row in existing}\nmerged.update({row[\"id\"]: row for row in updates})\nresult = list(merged.values())"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 3
+  },
+  {
+    "id": "incremental_watermark_filter",
+    "topic": "python.incremental",
+    "description": "Keep records newer than a processed watermark.",
+    "pattern_focus": "timestamp comparison filter",
+    "starter_context": "",
+    "expected": "new_rows = [row for row in rows if row[\"updated_at\"] > watermark]",
+    "acceptable_answers": [
+      "new_rows = [row for row in rows if row[\"updated_at\"] > watermark]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "join_two_datasets",
+    "topic": "python.enrichment",
+    "description": "Enrich orders from a customer index while retaining unmatched orders.",
+    "pattern_focus": "left lookup merge",
+    "starter_context": "",
+    "expected": "result = [{**order, \"customer\": customers.get(order[\"customer_id\"])} for order in orders]",
+    "acceptable_answers": [
+      "result = [{**order, \"customer\": customers.get(order[\"customer_id\"])} for order in orders]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "anti_join_missing_keys",
+    "topic": "python.validation",
+    "description": "Find orders whose customer id is absent from reference data.",
+    "pattern_focus": "key not in mapping",
+    "starter_context": "",
+    "expected": "missing = [order for order in orders if order[\"customer_id\"] not in customers]",
+    "acceptable_answers": [
+      "missing = [order for order in orders if order[\"customer_id\"] not in customers]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "nested_group_aggregation",
+    "topic": "python.aggregation",
+    "description": "Aggregate amounts by region and status.",
+    "pattern_focus": "tuple aggregation key",
+    "starter_context": "",
+    "expected": "totals = {}\nfor row in rows:\n    key = (row[\"region\"], row[\"status\"])\n    totals[key] = totals.get(key, 0) + row[\"amount\"]",
+    "acceptable_answers": [
+      "totals = {}\nfor row in rows:\n    key = (row[\"region\"], row[\"status\"])\n    totals[key] = totals.get(key, 0) + row[\"amount\"]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 4
+  },
+  {
+    "id": "decimal_quantize_currency",
+    "topic": "python.currency",
+    "description": "Round a Decimal amount to cents.",
+    "pattern_focus": "Decimal.quantize",
+    "starter_context": "from decimal import Decimal",
+    "expected": "rounded = amount.quantize(Decimal(\"0.01\"))",
+    "acceptable_answers": [
+      "rounded = amount.quantize(Decimal(\"0.01\"))"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "date_bucket_month",
+    "topic": "python.time_series",
+    "description": "Create the first date of a timestamp's month.",
+    "pattern_focus": "date replace",
+    "starter_context": "",
+    "expected": "month = timestamp.date().replace(day=1)",
+    "acceptable_answers": [
+      "month = timestamp.date().replace(day=1)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "rolling_window_pairs",
+    "topic": "python.time_series",
+    "description": "Pair adjacent observations for change calculations.",
+    "pattern_focus": "zip adjacent slices",
+    "starter_context": "",
+    "expected": "pairs = zip(values, values[1:])",
+    "acceptable_answers": [
+      "pairs = zip(values, values[1:])"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "json_lines_encode",
+    "topic": "python.io",
+    "description": "Serialize records as newline-delimited JSON text.",
+    "pattern_focus": "json.dumps join",
+    "starter_context": "import json",
+    "expected": "output = \"\\n\".join(json.dumps(row) for row in records)",
+    "acceptable_answers": [
+      "output = \"\\n\".join(json.dumps(row) for row in records)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "csv_write_records",
+    "topic": "python.io",
+    "description": "Write all records through an existing DictWriter.",
+    "pattern_focus": "writer.writerows",
+    "starter_context": "",
+    "expected": "writer.writerows(records)",
+    "acceptable_answers": [
+      "writer.writerows(records)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "schema_project_fields",
+    "topic": "python.schema",
+    "description": "Project rows to an explicit output field order.",
+    "pattern_focus": "schema projection",
+    "starter_context": "",
+    "expected": "projected = [{field: row.get(field) for field in fields} for row in rows]",
+    "acceptable_answers": [
+      "projected = [{field: row.get(field) for field in fields} for row in rows]"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "coerce_field_types",
+    "topic": "python.schema",
+    "description": "Build a typed order record from input strings.",
+    "pattern_focus": "explicit conversions",
+    "starter_context": "from decimal import Decimal",
+    "expected": "typed = {\"id\": int(row[\"id\"]), \"amount\": Decimal(row[\"amount\"]), \"active\": row[\"active\"] == \"true\"}",
+    "acceptable_answers": [
+      "typed = {\"id\": int(row[\"id\"]), \"amount\": Decimal(row[\"amount\"]), \"active\": row[\"active\"] == \"true\"}"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "quality_null_rate",
+    "topic": "python.quality",
+    "description": "Calculate the null rate for an email field.",
+    "pattern_focus": "missing count ratio",
+    "starter_context": "",
+    "expected": "null_rate = sum(row.get(\"email\") is None for row in rows) / len(rows)",
+    "acceptable_answers": [
+      "null_rate = sum(row.get(\"email\") is None for row in rows) / len(rows)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "quality_duplicate_keys",
+    "topic": "python.quality",
+    "description": "Identify ids appearing more than once.",
+    "pattern_focus": "Counter duplicates",
+    "starter_context": "from collections import Counter",
+    "expected": "duplicates = {key for key, count in Counter(row[\"id\"] for row in rows).items() if count > 1}",
+    "acceptable_answers": [
+      "duplicates = {key for key, count in Counter(row[\"id\"] for row in rows).items() if count > 1}"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "hash_record_key",
+    "topic": "python.incremental",
+    "description": "Create a deterministic SHA-256 key from a canonical text key.",
+    "pattern_focus": "hashlib sha256",
+    "starter_context": "import hashlib",
+    "expected": "key = hashlib.sha256(canonical.encode(\"utf-8\")).hexdigest()",
+    "acceptable_answers": [
+      "key = hashlib.sha256(canonical.encode(\"utf-8\")).hexdigest()"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
+  },
+  {
+    "id": "gzip_json_read",
+    "topic": "python.io",
+    "description": "Read JSON records from a gzip-compressed UTF-8 file.",
+    "pattern_focus": "gzip.open context",
+    "starter_context": "import gzip\nimport json",
+    "expected": "with gzip.open(path, \"rt\", encoding=\"utf-8\") as file:\n    records = json.load(file)",
+    "acceptable_answers": [
+      "with gzip.open(path, \"rt\", encoding=\"utf-8\") as file:\n    records = json.load(file)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 2
+  },
+  {
+    "id": "atomic_output_path",
+    "topic": "python.io",
+    "description": "Move a finished temporary output file into place atomically.",
+    "pattern_focus": "Path.replace",
+    "starter_context": "from pathlib import Path",
+    "expected": "temporary_path.replace(final_path)",
+    "acceptable_answers": [
+      "temporary_path.replace(final_path)"
+    ],
+    "times_required": 5,
+    "difficulty": "advanced",
+    "lines_allowed": 1
   }
 ]
